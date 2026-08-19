@@ -1,0 +1,308 @@
+/* ── EGDS global resets ─────────────────────────────────────────────────────── */
+html, body {
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+  scrollbar-width: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: contain;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Buttons and inputs don't inherit font in all browsers — force it */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+body {
+  font-family: "Centra No2", "DM Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  min-width: 320px;
+  font-synthesis: none;
+}
+
+/* ── EGDS sizing tokens ──────────────────────────────────────────────────────── */
+:root {
+  --sizing-0x: 0px;
+  --sizing-0x-half: 2px;
+  --sizing-0x-quarter: 1px;
+  --sizing-1x: 4px;
+  --sizing-1x-half: 6px;
+  --sizing-2x: 8px;
+  --sizing-3x: 12px;
+  --sizing-3x-half: 14px;
+  --sizing-4x: 16px;
+  --sizing-4x-half: 18px;
+  --sizing-5x: 20px;
+  --sizing-6x: 24px;
+  --sizing-7x: 28px;
+  --sizing-8x: 32px;
+  --sizing-9x: 36px;
+  --sizing-10x: 40px;
+  --sizing-11x: 44px;
+  --sizing-12x: 48px;
+  --sizing-14x: 56px;
+  --sizing-15x: 60px;
+  --sizing-16x: 64px;
+  --sizing-17x: 68px;
+  --sizing-18x: 72px;
+  --sizing-38x: 152px;
+  --sizing-48x: 192px;
+  --sizing-70x: 280px;
+  --sizing-72x: 288px;
+  --sizing-120x: 480px;
+  --sizing-130x: 520px;
+  --sizing-180x: 720px;
+
+  --global-rail-width: calc(var(--sizing-16x) + var(--sizing-2x));
+  --safe-area-top: env(safe-area-inset-top, 0px);
+}
+
+/* ── EGDS corner radius tokens ──────────────────────────────────────────────── */
+:root {
+  --corner-radius-0x: 0px;
+  --corner-radius-0x-half: 2px;
+  --corner-radius-1x: 4px;
+  --corner-radius-2x: 8px;
+  --corner-radius-3x: 12px;
+  --corner-radius-4x: 16px;
+  --corner-radius-6x: 24px;
+  --corner-radius-10000x: 40000px;
+}
+
+/* ── EGDS spacing tokens ─────────────────────────────────────────────────────── */
+:root {
+  --spacing-0x: 0px;
+  --spacing-0x-half: 2px;
+  --spacing-1x: 4px;
+  --spacing-1x-half: 6px;
+  --spacing-2x: 8px;
+  --spacing-3x: 12px;
+  --spacing-4x: 16px;
+  --spacing-5x: 20px;
+  --spacing-6x: 24px;
+  --spacing-7x: 28px;
+  --spacing-8x: 32px;
+  --spacing-12x: 48px;
+  --spacing-14x: 56px;
+}
+
+/* ── EGDS opacity tokens ─────────────────────────────────────────────────────── */
+:root {
+  --opacity-0: 0;
+  --opacity-12: 0.12;
+  --opacity-24: 0.24;
+  --opacity-36: 0.36;
+  --opacity-56: 0.56;
+  --opacity-72: 0.72;
+  --opacity-92: 0.92;
+  --opacity-100: 1;
+}
+
+/* ── EGDS shadow theme ───────────────────────────────────────────────────────── */
+[data-shadow-theme="standard"] {
+  --shadow-high-elevation-blur: 36px;
+  --shadow-high-elevation-color: #0c0e1c1f;
+  --shadow-high-elevation-spread: 0px;
+  --shadow-high-elevation-offset-x: 0px;
+  --shadow-high-elevation-offset-y: 6px;
+  --shadow-medium-elevation-blur: 12px;
+  --shadow-medium-elevation-color: #0c0e1c14;
+  --shadow-medium-elevation-spread: 0px;
+  --shadow-medium-elevation-offset-x: 0px;
+  --shadow-medium-elevation-offset-y: 2px;
+  --shadow-low-elevation-blur: 0px;
+  --shadow-low-elevation-color: #0c0e1c;
+  --shadow-low-elevation-spread: 0px;
+  --shadow-low-elevation-offset-x: 0px;
+  --shadow-low-elevation-offset-y: 0px;
+}
+
+/* Apply standard theme globally */
+:root {
+  --shadow-high-elevation-blur: 36px;
+  --shadow-high-elevation-color: #0c0e1c1f;
+  --shadow-high-elevation-spread: 0px;
+  --shadow-high-elevation-offset-x: 0px;
+  --shadow-high-elevation-offset-y: 6px;
+  --shadow-medium-elevation-blur: 12px;
+  --shadow-medium-elevation-color: #0c0e1c14;
+  --shadow-medium-elevation-spread: 0px;
+  --shadow-medium-elevation-offset-x: 0px;
+  --shadow-medium-elevation-offset-y: 2px;
+}
+
+/* ── EGDS corner radius theme ───────────────────────────────────────────────── */
+[data-corner-radius-theme="standard"],
+:root {
+  --corner-radius-l: 8px;
+  --corner-radius-m: 4px;
+  --corner-radius-max: 40000px;
+  --corner-radius-none: 0px;
+  --corner-radius-s: 2px;
+  --corner-radius-xl: 16px;
+  --corner-radius-xxl: 24px;
+}
+
+/* ── EGDS spacing theme ──────────────────────────────────────────────────────── */
+[data-spacing-theme="standard"],
+:root {
+  --spacing-xs: 4px;
+  --spacing-s: 8px;
+  --spacing-m: 16px;
+  --spacing-l: 24px;
+  --spacing-xl: 32px;
+  --spacing-section-m: 32px;
+  --spacing-section-l: 48px;
+  --spacing-layout-horizontal-m: 32px;
+  --spacing-layout-horizontal-l: 48px;
+  --spacing-layout-vertical-m: 32px;
+  --spacing-layout-vertical-l: 48px;
+  --spacing-layout-minimum-page-margin-s: 24px;
+  --spacing-layout-minimum-page-margin-l: 48px;
+}
+
+/* ── EGDS color theme (light) ───────────────────────────────────────────────── */
+:root {
+  --color-primary: #1668e3;
+  --color-primary-container: #c8dff9;
+  --color-primary-container-variant: #fff9d9;
+  --color-primary-variant: #0e3672;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #0d4eaf;
+  --color-secondary: #1668e3;
+  --color-secondary-container: #c8dff9;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #0d4eaf;
+  --color-on-surface: #191e3b;
+  --color-on-surface-variant: #676a7d;
+  --color-outline: #818494;
+  --color-outline-focus: #1668e3;
+  --color-outline-variant: #dfe0e4;
+  --color-on-overlay: #ffffff;
+  --color-overlay: #191e3b;
+  --color-positive: #227950;
+  --color-positive-container: #beecc6;
+  --color-on-positive: #ffffff;
+  --color-on-positive-container: #105d4a;
+  --color-critical: #a7183c;
+  --color-critical-container: #fed5d8;
+  --color-on-critical: #ffffff;
+  --color-on-critical-container: #a7183c;
+  --color-scrim: #0c0e1c;
+  --color-scrim-opacity-high: #0c0e1c80;
+  --color-scrim-opacity-low: #0c0e1c52;
+  --color-scrim-opacity-none: #0c0e1c00;
+  --color-scrim-opacity-xx-low: #0c0e1c1c;
+  --color-inverse-surface: #0c0e1c;
+  --color-inverse-on-surface: #ffffff;
+  --color-favorite: #fa2929;
+}
+
+/* ── BEX brand tokens ────────────────────────────────────────────────────────── */
+:root {
+  /* Foreground */
+  --bex-fg-max: #191e3b;
+  --bex-fg-medium: #191e3bcc;
+  --bex-fg-min: #191e3b99;
+  --bex-text-min: #191e3b61;
+  --bex-fg-inverted-min: color-mix(in srgb, var(--color-on-overlay, #ffffff) 50%, transparent);
+  --bex-fg-on-brand: #0c0e1c;
+
+  /* Backgrounds */
+  --bex-bg-secondary: #f7f4f3;
+  --bex-bg-neutral: #f5f4f2;
+  --bex-bg-brand: #fddb32;
+  --bex-bg-light-brand: #fef7e1;
+  --bex-bg-light-green: #e4f0e6;
+  --bex-bg-light-blue: #d7edfb;
+  --bex-bg-light-red: #e5a4a4;
+
+  /* Strokes */
+  --bex-stroke-min: #24141417;
+  --bex-stroke-max: #191e3b;
+
+  /* Scrims */
+  --bex-scrim-min: #0c0e1c33;
+  --bex-scrim-max: #0c0e1c99;
+  --bex-scrim-fade: linear-gradient(180deg, rgba(0, 0, 0, .5), transparent);
+  --bex-scrim-modal: #0c0e1ce6;
+
+  /* Buttons */
+  --bex-btn-primary: #fddb32;
+  --bex-btn-secondary: #191e3b;
+  --bex-btn-tertiary: #f7f4f3;
+  --bex-btn-overlay: #655b6c;
+
+  /* Radii */
+  --bex-radius-m: 12px;
+  --bex-radius-section: calc(2 * var(--corner-radius-xxl, 24px));
+  --bex-radius-card: 32px;
+  --bex-radius-card-media: 24px;
+  --bex-radius-hero: 44px;
+  --bex-radius-xxxl: 32px;
+
+  /* Font */
+  --bex-font: "Centra No2", "DM Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+
+  /* Typography – display */
+  --bex-typography-display-s-font-size: 20px;
+  --bex-typography-display-s-font-weight: 700;
+  --bex-typography-display-s-line-height: 25px;
+  --bex-typography-display-s-tracking: -0.5px;
+
+  --bex-typography-display-m-font-size: 24px;
+  --bex-typography-display-m-font-weight: 700;
+  --bex-typography-display-m-line-height: 28.8px;
+  --bex-typography-display-m-tracking: -0.5px;
+
+  --bex-typography-display-l-font-size: 32px;
+  --bex-typography-display-l-font-weight: 700;
+  --bex-typography-display-l-line-height: 35.2px;
+  --bex-typography-display-l-tracking: -1px;
+
+  --bex-typography-display-xl-font-size: 40px;
+  --bex-typography-display-xl-font-weight: 700;
+  --bex-typography-display-xl-line-height: 44px;
+  --bex-typography-display-xl-tracking: -1.5px;
+}
+
+/* ── EGDS typography theme ───────────────────────────────────────────────────── */
+[data-typography-theme="standard"],
+:root {
+  --typography-body-l-font-name: Centra No2;
+  --typography-body-l-font-size: 16px;
+  --typography-body-l-font-weight: 400;
+  --typography-body-l-line-height: 20px;
+  --typography-body-l-tracking: 0px;
+  --typography-body-l-emphasized-font-weight: 500;
+  --typography-body-l-emphasized-line-height: 20px;
+
+  --typography-body-m-font-name: Centra No2;
+  --typography-body-m-font-size: 14px;
+  --typography-body-m-font-weight: 400;
+  --typography-body-m-line-height: 18px;
+  --typography-body-m-tracking: 0px;
+  --typography-body-m-emphasized-font-weight: 500;
+
+  --typography-body-s-font-name: Centra No2;
+  --typography-body-s-font-size: 12px;
+  --typography-body-s-font-weight: 400;
+  --typography-body-s-line-height: 16px;
+  --typography-body-s-tracking: 0px;
+}

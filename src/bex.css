@@ -1,0 +1,6035 @@
+/* ── BEX Mobile App Styles ───────────────────────────────────────────────────
+   Class names mirror the BEX reference app exactly.
+   Tokens from --bex-* and EGDS CSS custom properties defined in index.css.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── App shell ─────────────────────────────────────────────────────────────── */
+
+.bex-app {
+  width: 402px;
+  height: 874px;        /* fixed to Figma artboard — scrolls internally */
+  background: var(--bex-bg-secondary);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  font-family: var(--bex-font);
+  color: var(--bex-fg-max);
+}
+
+.bex-app::-webkit-scrollbar {
+  display: none;
+}
+
+.bex-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 874px;    /* fills the 874px clip area, longer content scrolls */
+}
+
+/* ── Status bar ─────────────────────────────────────────────────────────────── */
+
+/* Status bar — Figma: 62px total, pt-21 pb-19 px-24 */
+.bex-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 21px 24px 19px;
+  height: 62px;
+  box-sizing: border-box;
+}
+
+.bex-status-bar--dark {
+  color: #ffffff;
+}
+
+.bex-status-bar--light {
+  color: var(--bex-fg-max);
+}
+
+.bex-status-bar__time {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.bex-status-bar__cluster {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bex-status-bar__cluster--button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────────── */
+
+.bex-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+
+.bex-toolbar__logo {
+  height: 22px;
+  width: auto;
+}
+
+.bex-toolbar__logo-placeholder {
+  height: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.bex-toolbar__profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+}
+
+.bex-toolbar__profile--signedout {
+  flex-direction: row-reverse;
+}
+
+.bex-toolbar__signin-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.bex-toolbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* ── Hero ────────────────────────────────────────────────────────────────────── */
+
+.bex-hero {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.bex-style-hero-elevation {
+  /* Hero background gradient matching BEX brand */
+  background: linear-gradient(180deg, #0d2a6e 0%, #1453c4 55%, #2671e2 100%);
+}
+
+/* ── LOB nav ─────────────────────────────────────────────────────────────────── */
+
+.bex-hero__lobnav {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px 12px 0;
+  gap: 4px;
+}
+
+.bex-hero__lobitem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: rgba(255,255,255,0.7);
+  transition: color 0.15s ease;
+}
+
+.bex-hero__lobitem[aria-pressed="true"] {
+  color: #ffffff;
+}
+
+.bex-hero__lobtile {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background 0.15s ease;
+  position: relative;
+}
+
+.bex-hero__lobitem[aria-pressed="true"] .bex-hero__lobtile,
+.bex-hero__lobtile[data-active="true"] {
+  background: rgba(255,255,255,0.22);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.4);
+}
+
+.bex-hero__lobimg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+/* LOB tile emoji fallbacks (when images unavailable) */
+.bex-hero__lobtile-emoji {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.bex-hero__loblabel {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* ── Hero bottom / search area ────────────────────────────────────────────────── */
+
+.bex-hero__bottom {
+  padding: 16px 12px 20px;
+}
+
+.bex-hero__bottom--full {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Fields card ─────────────────────────────────────────────────────────────── */
+
+.bex-hero__fieldscard {
+  background: #ffffff;
+  border-radius: var(--bex-radius-card, 32px);
+  overflow: hidden;
+}
+
+.bex-style-card-elevation-sm {
+  box-shadow:
+    0 var(--shadow-medium-elevation-offset-y, 2px) var(--shadow-medium-elevation-blur, 12px)
+    var(--shadow-medium-elevation-spread, 0px)
+    var(--shadow-medium-elevation-color, #0c0e1c14);
+}
+
+.bex-hero__fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.bex-hero__field {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--bex-fg-max);
+  transition: background 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bex-hero__field:active {
+  background: var(--bex-bg-secondary);
+}
+
+.bex-hero__field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.bex-hero__field-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--bex-fg-min);
+  line-height: 16px;
+}
+
+.bex-hero__field-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--bex-fg-max);
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bex-hero__field-value--placeholder {
+  color: var(--bex-fg-min);
+  font-weight: 400;
+}
+
+/* ── EGDS divider ────────────────────────────────────────────────────────────── */
+
+.egds-divider {
+  border: none;
+  margin: 0;
+}
+
+.bex-hero__field-divider {
+  height: 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+  margin: 0 20px;
+}
+
+/* ── Bundle & Save accordion — Figma: bg #f5f4f2, p-16, gap-16 ────────────────── */
+
+.bex-hero__bundle {
+  background: #f5f4f2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+/* Toggle row — icon + label, with 4px inner side padding per Figma "Content" frame */
+.bex-hero__bundle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--bex-font);
+}
+
+.bex-hero__bundle-chevron {
+  color: #191e3b;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  transition: transform 0.22s ease;
+}
+
+/* Rotate chevron up when expanded */
+.bex-hero__bundle[data-expanded="true"] .bex-hero__bundle-chevron {
+  transform: rotate(180deg);
+}
+
+.bex-hero__bundle-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 17px;
+  flex: 1;
+}
+
+/* Bundle expanded input — white card, no border/outline, unclipped shadow */
+.bex-hero__bundle-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 16px;
+  background: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 14px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: var(--bex-font);
+  /* EGDS shadow__medium_elevation */
+  box-shadow:
+    0px 2px 4px rgba(16, 16, 16, 0.08),
+    0px 4px 8px rgba(16, 16, 16, 0.06),
+    0px 8px 16px rgba(16, 16, 16, 0.04);
+  box-sizing: border-box;
+}
+
+.bex-hero__bundle-input-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+}
+
+/* ── Search submit button ────────────────────────────────────────────────────── */
+
+.egds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--bex-font);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--corner-radius-max, 40000px);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  letter-spacing: -0.01em;
+}
+
+.egds-button:active {
+  transform: scale(0.97);
+}
+
+.egds-button[data-appearance="filled"] {
+  background: var(--bex-btn-primary, #fddb32);
+  color: var(--bex-fg-on-brand, #0c0e1c);
+  box-shadow: 0 2px 8px rgba(253, 219, 50, 0.35);
+}
+
+.egds-button[data-size="m"] {
+  height: 48px;
+  padding: 0 24px;
+}
+
+.bex-hero__submit {
+  width: 100%;
+  height: 52px;
+}
+
+.egds-button__start-visual-and-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.egds-button__label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ── Hero scroll row (collapsed state) ───────────────────────────────────────── */
+
+.bex-hero__scrollrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.bex-hero__scrollsearch {
+  flex: 1;
+  height: 44px;
+  border-radius: var(--corner-radius-max);
+  border: none;
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.8);
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  padding: 0 16px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.bex-hero__lobpill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 12px 0 8px;
+  border-radius: var(--corner-radius-max);
+  border: none;
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.9);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.bex-hero__lobpill-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* ── Typography utilities ────────────────────────────────────────────────────── */
+
+.bex-typography-display-m {
+  font-family: var(--bex-font);
+  font-size: var(--bex-typography-display-m-font-size, 24px);
+  font-weight: var(--bex-typography-display-m-font-weight, 700);
+  line-height: var(--bex-typography-display-m-line-height, 28.8px);
+  letter-spacing: var(--bex-typography-display-m-tracking, -0.5px);
+}
+
+.bex-typography-body-s-emphasized {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+/* ── Global nav — floating pill (Figma: Nav/Floating) ───────────────────────── */
+
+.bex-globalnav {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 100;
+  background: transparent;
+}
+
+/* ── LITE: EGDS anchored global nav — exact Figma spec ───────────────────── */
+.bex-globalnav--lite {
+  background: #ffffff;
+  box-shadow: 0px 6px 36px rgba(12, 14, 28, 0.12);
+}
+
+/* Top divider: 1px #DFE0E4 */
+.bex-globalnav--lite .bex-globalnav__bar {
+  border-top: 1px solid #dfe0e4;
+}
+
+/* Nav row */
+.bex-globalnav__bar {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0 8px;
+  gap: 0;
+  height: 56px;
+  background: #ffffff;
+}
+
+/* Each nav item — relative so indicator can anchor to top edge */
+.bex-globalnav__item--lite {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 56px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+/* Indicator slot — zero-height, just a positioning anchor */
+.bex-globalnav__lite-indicator-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* The 3px × 40px selected bar — hangs from the very top edge */
+.bex-globalnav__lite-indicator {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: #191e3b;
+}
+
+/* Icon + label — vertically centered in the full item height */
+.bex-globalnav__lite-iconlabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+/* ── PRO: dark glass floating pill — 362px (20px inset each side in 402px screen) */
+.bex-globalnav__pill {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+  padding: 6px;
+  border-radius: 40000px;
+  overflow: hidden;
+  background: rgba(18, 20, 36, 0.52);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.10),
+    0 8px 24px rgba(0, 0, 0, 0.28),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* Each tab: flex-col, centered, equal flex width — color driven by inline style */
+.bex-globalnav__item {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 0;
+  border-radius: 40000px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  z-index: 0;
+}
+
+/* Sliding bubble — base (shared) */
+.bex-globalnav__bubble {
+  position: absolute;
+  inset: 0;
+  border-radius: 40000px;
+  z-index: -1;
+}
+
+/* PRO bubble: white glass on dark pill */
+.bex-globalnav__bubble--pro {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0px 3px 8px rgba(0, 0, 0, 0.10),
+    0px 8px 10px rgba(0, 0, 0, 0.07),
+    0px 13px 9px rgba(0, 0, 0, 0.05);
+}
+
+/* Inbox red notification badge */
+.bex-globalnav__badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e8002a;
+  border: 1.5px solid #ffffff;
+  pointer-events: none;
+}
+
+.bex-globalnav__icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bex-globalnav__label {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+/* iPhone home indicator — 34px area, centered 144×5px bar at bottom 8px */
+.bex-globalnav__indicator {
+  height: 34px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+.bex-globalnav__indicator-bar {
+  width: 144px;
+  height: 5px;
+  border-radius: 100px;
+}
+
+.bex-globalnav--lite .bex-globalnav__indicator-bar {
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.bex-globalnav--pro .bex-globalnav__indicator-bar {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* ── Lite LOB-switch skeleton ────────────────────────────────────────────────── */
+
+@keyframes lite-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+/* Host wrapper — relative so the skeleton can overlay the hidden form exactly */
+.bex-lite-skeleton__host {
+  position: relative;
+}
+
+/* Skeleton overlays the form at its exact natural size — no hardcoded height */
+.bex-lite-skeleton__card {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  /* Cream base matching the bundle & save section (#f5f4f2), soft shimmer wave */
+  background: linear-gradient(
+    105deg,
+    #f5f4f2 0%,
+    #f5f4f2 30%,
+    #ede9e3 48%,
+    #f5f4f2 65%,
+    #f5f4f2 100%
+  );
+  background-size: 1200px 100%;
+  animation: lite-shimmer 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow:
+    0 2px 12px rgba(25, 30, 59, 0.07),
+    0 8px 24px rgba(25, 30, 59, 0.05);
+  pointer-events: none;
+}
+
+/* ── Feed ────────────────────────────────────────────────────────────────────── */
+
+/* evo-feed: flex column, no separate scroll — bex-app handles all page scrolling */
+.evo-feed {
+  flex: 1;
+  background: var(--bex-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Sections container — matches Figma "Sections" frame: px:20, gap:48 */
+.evo-feed__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 48px 20px 32px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Feed generic section wrapper ────────────────────────────────────────────── */
+
+.evo-feed-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.evo-feed-section--flush {
+  gap: 0;
+}
+
+.evo-feed-section__head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.evo-feed-section__footer {
+  width: 100%;
+}
+
+/* ── Hot Feed — personalized trip content (Figma node 5485:291162) ──────── */
+.hot-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 20px 32px;
+  background: var(--bex-bg-neutral);
+}
+
+/* Greeting — Figma: 24px bold centered / 16px regular centered */
+.hot-feed__greeting { text-align: center; }
+.hot-feed__greeting-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.48px;
+  line-height: 28px;
+  margin: 0 0 6px;
+}
+.hot-feed__greeting-sub {
+  font-size: 16px;
+  font-weight: 400;
+  color: #474b62;
+  letter-spacing: -0.24px;
+  line-height: 22px;
+  margin: 0;
+}
+
+/* Trip card — Figma: white, rounded-32, Small Card Elevation, p-8 */
+.hot-feed__trip-card {
+  background: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow:
+    0px  3px 16px rgba(0, 0, 0, 0.10),
+    0px  8px 20px rgba(0, 0, 0, 0.05),
+    0px 13px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* Image area — Figma: h-224, rounded-24 top */
+.hot-feed__trip-img-wrap {
+  position: relative;
+  height: 224px;
+  background: #c8a96e;
+  border-radius: 24px 24px 20px 20px;
+  overflow: hidden;
+}
+.hot-feed__trip-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hot-feed__trip-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.13) 100%);
+  z-index: 1;
+}
+.hot-feed__trip-overlay-text {
+  position: absolute;
+  top: 20px; left: 20px; right: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hot-feed__trip-city {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.64px;
+  line-height: 32px;
+}
+.hot-feed__trip-dates {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.24px;
+  line-height: 20px;
+}
+.hot-feed__trip-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #1a0e2a;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.16px;
+  line-height: 16px;
+  border-radius: 999px;
+  padding: 4px 8px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+/* View trip — Figma: bg rgba(0,0,0,0.56), h-32, bottom-12 right-12 */
+.hot-feed__view-trip-btn {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  min-width: 60px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0, 0, 0, 0.56);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.16px;
+  cursor: pointer;
+  font-family: var(--bex-font);
+}
+
+/* Trip list rows — Figma: p-16, gap-12 */
+.hot-feed__trip-list { background: #ffffff; }
+.hot-feed__trip-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+.hot-feed__trip-list-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+  margin: 0 16px;
+}
+.hot-feed__trip-row-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.hot-feed__trip-row-icon--flight { background: #f0f0f5; color: #474b62; }
+.hot-feed__trip-row-icon--placeholder { background: #f5f4f2; color: #474b62; }
+.hot-feed__trip-row-content { flex: 1; min-width: 0; }
+.hot-feed__trip-row-primary {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+}
+.hot-feed__trip-row-secondary {
+  font-size: 13px;
+  font-weight: 400;
+  color: #474b62;
+  line-height: 17px;
+  margin-top: 2px;
+}
+.hot-feed__trip-row-btn {
+  width: 32px; height: 32px;
+  border-radius: 999px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.hot-feed__trip-row-btn--grey  { background: #f5f4f2; color: #191e3b; }
+.hot-feed__trip-row-btn--yellow { background: #fddb32; color: #191e3b; }
+
+/* ── "Your style of stay" section ── */
+.hot-feed__section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hot-feed__section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.48px;
+  line-height: 28px;
+  margin: 0;
+  padding: 0 8px;
+}
+
+/* Horizontal scrolling hotel cards */
+.hot-feed__hotel-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.hot-feed__hotel-scroll::-webkit-scrollbar { display: none; }
+
+/* Hotel card — Figma: w-310, rounded-32, bg #f5f4f2 */
+.hot-hotel-card {
+  flex-shrink: 0;
+  width: 264px;
+  background: #f5f4f2;
+  border-radius: 32px;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+.hot-hotel-card__img-wrap {
+  position: relative;
+  aspect-ratio: 294/196;
+  margin: 8px 8px 0;
+  border-radius: 24px 24px 20px 20px;
+  overflow: hidden;
+  background: #e0dcd6;
+}
+.hot-hotel-card__img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hot-hotel-card__fav {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 36px; height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));
+}
+.hot-hotel-card__dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 24px;
+}
+.hot-hotel-card__dot {
+  width: 12px; height: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.hot-hotel-card__dot::after {
+  content: '';
+  display: block;
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.6);
+}
+.hot-hotel-card__dot--active::after {
+  width: 8px; height: 8px;
+  background: #ffffff;
+}
+.hot-hotel-card__dot--sm::after {
+  width: 4px; height: 4px;
+}
+.hot-hotel-card__body {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.hot-hotel-card__name-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.hot-hotel-card__name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a0e2a;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hot-hotel-card__rating {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 12px;
+  background: #227950;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.hot-hotel-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 4px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.hot-hotel-card__price {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a0e2a;
+  letter-spacing: -0.32px;
+}
+.hot-hotel-card__strike {
+  font-size: 14px;
+  font-weight: 400;
+  color: #726a7a;
+  text-decoration: line-through;
+  letter-spacing: -0.14px;
+}
+.hot-hotel-card__dot-sep {
+  font-size: 14px;
+  color: #726a7a;
+}
+.hot-hotel-card__nightly {
+  font-size: 14px;
+  font-weight: 400;
+  color: #726a7a;
+  letter-spacing: -0.14px;
+}
+.hot-hotel-card__legal {
+  font-size: 12px;
+  font-weight: 400;
+  color: #726a7a;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  margin: 0 0 16px;
+}
+.hot-hotel-card__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 12px;
+  background: #fddb32;
+  color: #1a0e2a;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 12px;
+}
+
+/* Explore more button — Figma: h-48, rounded-full, bg #f5f4f2 */
+.hot-feed__explore-btn {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: #f5f4f2;
+  color: #191e3b;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  mix-blend-mode: multiply;
+}
+
+/* ── Hot feed section header sub text ─────────────────────────────────────── */
+.hot-feed__section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hot-feed__section-sub {
+  font-size: 14px;
+  color: #74788c;
+  font-family: var(--bex-font);
+  margin: 0;
+  letter-spacing: -0.1px;
+}
+
+/* ── Recent Activity horizontal scroll ───────────────────────────────────── */
+.hot-feed__recent-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 4px 20px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hot-feed__recent-scroll::-webkit-scrollbar { display: none; }
+
+.hot-recent-card {
+  flex: 0 0 280px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0px 2px 8px rgba(16, 16, 16, 0.08);
+}
+.hot-recent-card__img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.hot-recent-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.hot-recent-card__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #191e3b;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--bex-font);
+}
+.hot-recent-card__sub {
+  font-size: 12px;
+  color: #74788c;
+  font-family: var(--bex-font);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hot-recent-card__price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1976d2;
+  font-family: var(--bex-font);
+  margin-top: 2px;
+}
+
+/* ── Merchandising banner card ───────────────────────────────────────────── */
+.hot-feed__merch-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 280px;
+  margin: 0 0 0 0;
+  box-shadow: 0px 4px 16px rgba(16, 16, 16, 0.12);
+}
+.hot-feed__merch-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hot-feed__merch-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%);
+}
+.hot-feed__merch-card__scrim--dark {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.75) 100%);
+}
+.hot-feed__merch-card__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  gap: 6px;
+}
+.hot-feed__merch-card__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: var(--bex-font);
+  margin: 0;
+}
+.hot-feed__merch-card__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+.hot-feed__merch-card__sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.4;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+.hot-feed__merch-card__logo-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 4px;
+}
+.hot-feed__merch-card__logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  font-family: var(--bex-font);
+}
+.hot-feed__merch-card__cta {
+  align-self: flex-start;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: none;
+  background: #ffc107;
+  color: #191e3b;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  margin-top: 4px;
+}
+.hot-feed__merch-card__cta--outline {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.8);
+  color: #ffffff;
+}
+
+/* ── Trending stays (16:9 card horizontal scroll) ────────────────────────── */
+.hot-feed__trend-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 4px 20px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hot-feed__trend-scroll::-webkit-scrollbar { display: none; }
+
+.hot-trend-card {
+  flex: 0 0 260px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 2px 10px rgba(16, 16, 16, 0.10);
+}
+.hot-trend-card__img-wrap {
+  position: relative;
+  height: 148px;
+}
+.hot-trend-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hot-trend-card__fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.25);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+.hot-trend-card__body {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hot-trend-card__top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.hot-trend-card__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #191e3b;
+  letter-spacing: -0.2px;
+  font-family: var(--bex-font);
+}
+.hot-trend-card__loc {
+  font-size: 12px;
+  color: #74788c;
+  font-family: var(--bex-font);
+}
+.hot-trend-card__rating-badge {
+  flex-shrink: 0;
+  background: #191e3b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-family: var(--bex-font);
+}
+.hot-trend-card__price-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hot-trend-card__price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #191e3b;
+  font-family: var(--bex-font);
+}
+.hot-trend-card__badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: #1976d2;
+  background: #e3f2fd;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-family: var(--bex-font);
+}
+
+/* ── OneKey collection card ──────────────────────────────────────────────── */
+.hot-feed__onekey-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 320px;
+  box-shadow: 0px 4px 16px rgba(16, 16, 16, 0.12);
+}
+.hot-feed__onekey-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hot-feed__onekey-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(25,30,59,0.80) 0%, rgba(25,110,210,0.55) 100%);
+}
+.hot-feed__onekey-card__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 24px;
+  text-align: center;
+  gap: 10px;
+}
+.hot-feed__onekey-card__icon-wrap {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  margin-bottom: 4px;
+}
+.hot-feed__onekey-card__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+.hot-feed__onekey-card__sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.5;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+.hot-feed__onekey-card__cta {
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.7);
+  background: transparent;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  margin-top: 4px;
+}
+
+/* ── Reason to Book (RTB) cards ──────────────────────────────────────────── */
+.hot-feed__rtb-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 4px 20px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hot-feed__rtb-scroll::-webkit-scrollbar { display: none; }
+
+.hot-feed__rtb-card {
+  flex: 0 0 240px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 2px 10px rgba(16,16,16,0.08);
+  display: flex;
+  flex-direction: column;
+}
+.hot-feed__rtb-card__img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.hot-feed__rtb-card__body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.hot-feed__rtb-card__feature {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1976d2;
+  font-family: var(--bex-font);
+}
+.hot-feed__rtb-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.3px;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+.hot-feed__rtb-card__sub {
+  font-size: 13px;
+  color: #74788c;
+  line-height: 1.4;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+.hot-feed__rtb-card__cta {
+  align-self: flex-start;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid #191e3b;
+  background: transparent;
+  color: #191e3b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  margin-top: auto;
+}
+
+/* Shared section typographic tokens — Figma: 24px Bold #191e3b tracking:-0.5 lh:1.2 */
+.evo-section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+/* Secondary text — Figma: 16px Book #474b62 tracking:-0.3 lh:1.2 */
+.evo-section-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: #474b62;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+/* "View all" pill — Figma: EGDS Button, 48px tall, full width, #f5f4f2 bg */
+.evo-viewall-btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 40000px;
+  border: none;
+  background: #f5f4f2;
+  color: #191e3b;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.25px;
+  font-family: var(--bex-font);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.evo-viewall-btn:hover {
+  background: #eae8e5;
+}
+
+/* Horizontal scroll row — snap-scrollable, hides scrollbar */
+.evo-hscroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  /* negative margin so cards bleed to the edges, compensated by padding */
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.evo-hscroll::-webkit-scrollbar { display: none; }
+
+/* Yellow circle arrow button (shared by destination + merch cards) */
+.evo-yellow-circle-btn {
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #fddb32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #191e3b;
+  cursor: pointer;
+}
+
+/* ── Hotel cards — Section 1 ─────────────────────────────────────────────────── */
+/* Figma: 344px wide, rounded 32px, #f5f4f2 bg, image 192px, price layout right-aligned */
+
+.evo-hotel-card {
+  flex-shrink: 0;
+  width: 344px;
+  border-radius: 32px;
+  background: #f5f4f2;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.evo-hotel-card__media {
+  position: relative;
+  height: 192px;
+  background: #c9cdd4;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.evo-hotel-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.evo-hotel-card__rating-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #148721;
+  border-radius: 16px;
+  padding: 4px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.25px;
+  line-height: 1.1;
+  font-family: var(--bex-font);
+}
+
+.evo-hotel-card__rating-badge--neutral {
+  background: #474b62;
+}
+
+.evo-hotel-card__save {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #191e3b;
+}
+
+.evo-hotel-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.evo-hotel-card__info-top {
+  padding: 16px 12px 0;
+}
+
+.evo-hotel-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.evo-hotel-card__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.evo-hotel-card__name {
+  font-size: 20px;
+  font-weight: 500;
+  color: #191e3b;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  font-family: var(--bex-font);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.evo-hotel-card__location {
+  font-size: 16px;
+  font-weight: 300;
+  color: #474b62;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  font-family: var(--bex-font);
+}
+
+.evo-hotel-card__info-bottom {
+  padding: 0 12px 12px;
+}
+
+.evo-hotel-card__pricing {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.evo-hotel-card__discount-badge {
+  background: #fddb32;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a0e2a;
+  line-height: 16px;
+  font-family: var(--bex-font);
+  white-space: nowrap;
+}
+
+.evo-hotel-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.evo-hotel-card__old-price {
+  font-size: 16px;
+  font-weight: 300;
+  color: #474b62;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  text-decoration: line-through;
+  font-family: var(--bex-font);
+}
+
+.evo-hotel-card__price {
+  font-size: 28px;
+  font-weight: 500;
+  color: #191e3b;
+  line-height: 32px;
+  letter-spacing: -0.28px;
+  font-family: var(--bex-font);
+}
+
+.evo-hotel-card__nights {
+  font-size: 14px;
+  font-weight: 300;
+  color: #474b62;
+  line-height: 18px;
+  letter-spacing: -0.14px;
+  text-align: right;
+  font-family: var(--bex-font);
+}
+
+/* ── Merch cards — Section 2 (Limited-time deals) ────────────────────────────── */
+/* Figma: 360×360px, rounded 32px, bg image + overlays, centered content */
+
+.evo-merch-card {
+  flex-shrink: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a2050;
+}
+
+.evo-merch-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.evo-merch-card__scrim-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.evo-merch-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px 32px;
+  height: 100%;
+  box-sizing: border-box;
+  width: 220px;
+  text-align: center;
+}
+
+.evo-merch-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+.evo-merch-card__body {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.25px;
+  margin: 0;
+  white-space: pre-line;
+  font-family: var(--bex-font);
+}
+
+.evo-merch-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.evo-merch-card__book-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.25px;
+  font-family: var(--bex-font);
+  flex: 1;
+  text-align: left;
+}
+
+.evo-merch-card__circle-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #191e3b;
+}
+
+/* ── Destination cards — Section 3 ───────────────────────────────────────────── */
+/* Figma: 340×500px, rounded 40px, full image, city name 40px yellow */
+
+.evo-dest-card {
+  flex-shrink: 0;
+  width: 340px;
+  height: 500px;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #1a3050;
+}
+
+.evo-dest-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.evo-dest-card__scrim-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.evo-dest-card__scrim-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.evo-dest-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.evo-dest-card__top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.evo-dest-card__city {
+  font-size: 40px;
+  font-weight: 700;
+  color: #fddb32;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+.evo-dest-card__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(26, 14, 42, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.1px;
+  line-height: 18px;
+  font-family: var(--bex-font);
+  width: fit-content;
+}
+
+.evo-dest-card__bottom {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+}
+
+.evo-dest-card__desc {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 20px;
+  letter-spacing: -0.15px;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+/* ── Pill buttons ────────────────────────────────────────────────────────────── */
+
+.fr-c-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--corner-radius-max);
+  border: none;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.1s ease;
+}
+
+.fr-c-pill:active { transform: scale(0.97); }
+
+.fr-c-pill--graylight {
+  background: var(--bex-bg-neutral);
+  color: var(--bex-fg-max);
+}
+
+.fr-c-pill--full {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.fr-c-pill--glass {
+  background: rgba(255,255,255,0.2);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+}
+
+.fr-c-pill--white {
+  background: #ffffff;
+  color: var(--bex-fg-max);
+}
+
+.fr-c-pill--gray {
+  background: rgba(0,0,0,0.12);
+  color: #ffffff;
+}
+
+/* ── Section/Full-bleed — "The Halfway There Sale" ───────────────────────────
+   Figma: node 7051:374836  402×320px  py:32 px:20  gap:24
+   Image bleeds 88px above its top edge (top:-88px in Figma)                  */
+
+/* Full-bleed section — slides margin-top: -44px under hero's 44px border-radius.
+   Hero card is z-index:2 so this section (z-index:1) shows through the corner cutouts.
+   320px visible height. Content: text 24px below the hero edge (pt-72), button at bottom. */
+.evo-section-bleed {
+  position: relative;
+  width: 402px;
+  height: 320px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 72px 20px 36px;         /* pt-72: 44px overlap + 28px breathing room above text */
+  box-sizing: border-box;
+  background: #006b74;              /* teal base — visible if image-frame not fully covering */
+  margin-top: -44px;               /* slides under hero's border-radius: 44px */
+  z-index: 1;
+}
+
+/* "Image" frame from Figma: x=0, y=-88, 402×728px.
+   isolation:isolate creates its own stacking context so overlay/palms stay
+   BEHIND the content div, which lives outside this frame. */
+/* ── The Halfway There Sale — animated ocean background ──────────────────────
+   5 independent wave layers + caustic shimmer + palm shadows, all looping
+   at different speeds to create a convincing GIF-like ocean motion.          */
+
+.evo-section-bleed__image-frame {
+  position: absolute;
+  top: -88px;
+  left: 0;
+  width: 402px;
+  height: 728px;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  /* Teal fallback while image loads */
+  background: #007a87;
+}
+
+/* ── Base image — static, centered ─────────────────────────────────────── */
+.hsb-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/hsb-bg.png') center center / cover no-repeat;
+  z-index: 1;
+}
+
+/* ── Palm shadow — static conic frond streaks from top-left ─────────────── */
+.hsb-shadow-a {
+  position: absolute;
+  inset: -20%;
+  background: conic-gradient(
+    from 112deg at 22% -10%,
+    rgba(0, 15, 24, 0.55)   0deg,
+    transparent              4deg,
+    transparent              9deg,
+    rgba(0, 12, 20, 0.42)   10.5deg,
+    transparent              14.5deg,
+    transparent              19deg,
+    rgba(0, 18, 28, 0.50)   20.5deg,
+    transparent              25deg,
+    transparent              30deg,
+    rgba(0, 10, 18, 0.34)   31.5deg,
+    transparent              36deg,
+    transparent              41deg,
+    rgba(0, 14, 22, 0.38)   42.5deg,
+    transparent              47deg,
+    transparent              53deg,
+    rgba(0, 8,  16, 0.22)   54.5deg,
+    transparent              59deg,
+    transparent              100%
+  );
+  transform-origin: 22% 0%;
+  z-index: 2;
+}
+
+/* ── Subtle ambient darkening at bottom to anchor the content ───────────── */
+.hsb-shadow-b {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(0, 20, 32, 0.28) 100%
+  );
+  z-index: 3;
+}
+
+/* unused — kept as empty rule so EvoFeed JSX reference doesn't break */
+.hsb-shadow-c { display: none; }
+.hsb-sheen    { display: none; }
+
+/* Video element — kept for when the actual AdobeStock file is available */
+.evo-section-bleed__video {
+  position: absolute;
+  z-index: 2;
+  width: 1450.67px;
+  height: 816px;
+  left: calc(50% - 725.33px + 0.33px);
+  top: calc(50% - 408px + 44px);
+  object-fit: cover;
+}
+
+/* Dark teal overlay — sits above wave + palms but BELOW content */
+.evo-section-bleed__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: rgba(0, 30, 42, 0.30);
+}
+
+.evo-section-bleed__content {
+  position: relative;
+  z-index: 2;                      /* above image-frame (which is isolation-isolated at z:auto) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.evo-section-bleed__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Figma: 32px / Bold / #fddb32 / line-height 1.1 / tracking -1px / center */
+.evo-section-bleed__headline {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fddb32;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-align: center;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+/* Figma: 18px / Book (300) / white / line-height 1.3 / tracking -0.4px */
+.evo-section-bleed__body {
+  font-size: 18px;
+  font-weight: 300;
+  color: #ffffff;
+  line-height: 1.3;
+  letter-spacing: -0.4px;
+  text-align: center;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+/* Figma: 48px pill / backdrop-blur 16px / bg rgba(0,0,0,0.25) / white 16px Medium */
+.evo-section-bleed__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 40000px;
+  border: none;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.25px;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  transition: background 0.15s;
+}
+
+.evo-section-bleed__btn:hover {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+/* ── Vacation rentals — full-bleed dark section ───────────────────────────────── */
+/* Figma 7051:495063: dark teal bg, px:20, py:32, gap:48, title 32px yellow */
+
+.evo-vacation-bleed {
+  width: 402px;
+  box-sizing: border-box;
+  background: linear-gradient(160deg, #0a3040 0%, #062535 50%, #041820 100%);
+  padding: 32px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.evo-vacation-bleed::before {
+  content: '';
+  position: absolute;
+  inset: -60%;
+  background:
+    repeating-linear-gradient(
+      -22deg,
+      transparent 0px, transparent 60px,
+      rgba(15, 180, 190, 0.14) 60px, rgba(15, 180, 190, 0.14) 76px,
+      transparent 76px, transparent 130px
+    );
+  animation: waveflow 9s linear infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.evo-vacation-bleed__title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fddb32;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-align: center;
+  margin: 0;
+  font-family: var(--bex-font);
+  position: relative;
+  z-index: 1;
+}
+
+/* 2×2 grid of category cards */
+.evo-vacation-bleed__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Category card — 1:1 aspect ratio, rounded 24px */
+.evo-cat-card {
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #1a2a38;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.evo-cat-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  /* Figma uses -scaleX mirror; approximate with normal */
+}
+
+.evo-cat-card__scrim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 92px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.evo-cat-card__label {
+  position: relative;
+  z-index: 2;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 20px;
+  letter-spacing: -0.25px;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+/* Frosted "Explore more deals" button */
+.evo-vacation-bleed__btn {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 48px;
+  border-radius: 40000px;
+  border: none;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.25px;
+  cursor: pointer;
+  font-family: var(--bex-font);
+}
+
+/* ── RTB cards — Section 5 (Bundle & Save) ────────────────────────────────────── */
+/* Figma: 320×360px, rounded 40px, yellow bg (#fddb32), centered content */
+
+.evo-rtb2-card {
+  flex-shrink: 0;
+  width: 320px;
+  height: 360px;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #fddb32;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px;
+  box-sizing: border-box;
+  gap: 16px;
+}
+
+.evo-rtb2-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.evo-rtb2-card__title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #191e3b;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-align: center;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+.evo-rtb2-card__subtitle {
+  font-size: 16px;
+  font-weight: 300;
+  color: #191e3b;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  text-align: center;
+  margin: 0;
+  white-space: pre-line;
+  font-family: var(--bex-font);
+}
+
+.evo-rtb2-card__art {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.evo-rtb2-card__btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 40000px;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #191e3b;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.25px;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  flex-shrink: 0;
+}
+
+/* ── OneKey card — Section 6 ─────────────────────────────────────────────────── */
+/* Figma 7051:495073: #f5f4f2 bg, full-width, 360px tall, rounded 40px */
+
+.evo-onekey2-card {
+  width: 100%;
+  min-height: 360px;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #f5f4f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  box-sizing: border-box;
+  gap: 16px;
+}
+
+.evo-onekey2-card__logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  font-family: var(--bex-font);
+  font-size: 18px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.3px;
+  line-height: 24px;
+}
+
+.evo-onekey2-card__logo-text {
+  font-weight: 300;
+}
+
+.evo-onekey2-card__logo-key {
+  font-weight: 700;
+}
+
+.evo-onekey2-card__logo-mark {
+  font-size: 10px;
+  font-weight: 400;
+  vertical-align: super;
+  margin-left: 1px;
+}
+
+.evo-onekey2-card__title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #191e3b;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  text-align: center;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+.evo-onekey2-card__body {
+  font-size: 18px;
+  font-weight: 300;
+  color: #191e3b;
+  line-height: 1.3;
+  letter-spacing: -0.4px;
+  text-align: center;
+  margin: 0;
+  font-family: var(--bex-font);
+}
+
+.evo-onekey2-card__btn {
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  color: #191e3b;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.15px;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  margin-top: 4px;
+}
+
+/* ── Milestone strip ─────────────────────────────────────────────────────────── */
+
+.bex-milestone-hoverstrip {
+  display: none; /* replaced by the version switcher pill */
+}
+
+/* ── Mobile shell (desktop centering) ────────────────────────────────────────── */
+
+.bex-shell {
+  min-height: 100dvh;
+  background: radial-gradient(ellipse at 50% 40%, #2e2e38 0%, #18181c 60%, #111114 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 24px 72px;
+}
+
+/* ── Responsive scale — shrink the frame so it always fits in the viewport ── */
+/* Total frame height: 902px. Add ~96px for shell padding = ~998px needed.     */
+
+@media (max-height: 1020px) {
+  .iphone-frame { zoom: 0.92; }
+}
+@media (max-height: 940px) {
+  .iphone-frame { zoom: 0.84; }
+}
+@media (max-height: 860px) {
+  .iphone-frame { zoom: 0.76; }
+  .bex-shell { padding: 16px 24px 68px; }
+}
+@media (max-height: 780px) {
+  .iphone-frame { zoom: 0.70; }
+}
+@media (max-height: 720px) {
+  .iphone-frame { zoom: 0.64; }
+}
+
+/* ── iPhone 16 Pro frame ─────────────────────────────────────────────────────── */
+
+.iphone-frame {
+  position: relative;
+  flex-shrink: 0;
+  /* Outer frame = 402px screen + 14px bezel each side */
+  width: 430px;
+  border-radius: 54px;
+  /* Titanium-black gradient body */
+  background:
+    linear-gradient(175deg, #38383c 0%, #1e1e22 35%, #2c2c30 100%);
+  padding: 14px;
+  box-sizing: border-box;
+  box-shadow:
+    /* inner rim highlight */
+    inset 0 0 0 1px rgba(255,255,255,0.13),
+    inset 0 2px 3px rgba(255,255,255,0.07),
+    /* outer hard edge */
+    0 0 0 1px rgba(0,0,0,0.65),
+    /* ambient lift shadows */
+    0 60px 200px rgba(0,0,0,0.70),
+    0 24px 72px rgba(0,0,0,0.50),
+    0 8px 24px rgba(0,0,0,0.40);
+}
+
+/* ── Screen clip ────────────────────────────────────────────────────────────── */
+
+.iphone-frame__screen {
+  width: 402px;
+  height: 874px;
+  border-radius: 44px;  /* matches Figma's rounded corner radius */
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  isolation: isolate;
+  /* faint screen bezel inset */
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.5);
+  /* transform creates a new containing block so position:fixed children
+     (bex-sheet-overlay) are scoped to the screen, not the browser viewport */
+  transform: translateZ(0);
+}
+
+/* ── Dynamic Island ─────────────────────────────────────────────────────────── */
+
+.iphone-frame__island {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 37px;
+  border-radius: 20px;
+  background: #000000;
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* ── Hardware buttons ───────────────────────────────────────────────────────── */
+
+.iphone-frame__btn {
+  position: absolute;
+  border-radius: 2px;
+}
+
+/* Action button (top left) */
+.iphone-frame__btn--action {
+  left: -3px;
+  top: 116px;
+  width: 3px;
+  height: 36px;
+  background: linear-gradient(to right, #111113, #2a2a2e);
+  border-radius: 2px 0 0 2px;
+  box-shadow: inset 1px 0 1px rgba(255,255,255,0.06);
+}
+
+/* Volume up */
+.iphone-frame__btn--vol-up {
+  left: -3px;
+  top: 166px;
+  width: 3px;
+  height: 68px;
+  background: linear-gradient(to right, #111113, #2a2a2e);
+  border-radius: 2px 0 0 2px;
+  box-shadow: inset 1px 0 1px rgba(255,255,255,0.06);
+}
+
+/* Volume down */
+.iphone-frame__btn--vol-dn {
+  left: -3px;
+  top: 246px;
+  width: 3px;
+  height: 68px;
+  background: linear-gradient(to right, #111113, #2a2a2e);
+  border-radius: 2px 0 0 2px;
+  box-shadow: inset 1px 0 1px rgba(255,255,255,0.06);
+}
+
+/* Power / side button */
+.iphone-frame__btn--power {
+  right: -3px;
+  top: 180px;
+  width: 3px;
+  height: 100px;
+  background: linear-gradient(to left, #111113, #2a2a2e);
+  border-radius: 0 2px 2px 0;
+  box-shadow: inset -1px 0 1px rgba(255,255,255,0.06);
+}
+
+/* Speaker dot hint at bottom */
+.iphone-frame__speaker {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+}
+
+/* ── Input text field (egds-text-input) ──────────────────────────────────────── */
+
+.egds-text-input {
+  width: 100%;
+}
+
+.egds-text-input__input-container {
+  position: relative;
+}
+
+.egds-text-input__display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-outline-variant, #dfe0e4);
+  background: var(--bex-bg-secondary);
+}
+
+.egds-text-input__icon {
+  color: var(--bex-fg-min);
+  flex-shrink: 0;
+}
+
+.egds-text-input__label-and-value {
+  flex: 1;
+  min-width: 0;
+}
+
+.egds-text-input__label {
+  display: block;
+  font-size: 12px;
+  color: var(--bex-fg-min);
+  margin-bottom: 2px;
+}
+
+.egds-text-input__native-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: var(--bex-font);
+  font-size: 15px;
+  color: var(--bex-fg-max);
+  outline: none;
+}
+
+.egds-text-input__native-input::placeholder {
+  color: var(--bex-fg-min);
+}
+
+/* ── Bottom sheet modal ──────────────────────────────────────────────────────── */
+
+/* ── Full-screen modal (replaces old bottom sheet) ───────────────────────────
+   Matches real Expedia app: slides up full-height, no scrim behind it.        */
+
+/* Dimmed backdrop — covers whole frame, sheet anchored to bottom */
+.bex-fs-overlay {
+  position: fixed;
+  inset: 0;
+  width: 402px;
+  height: 874px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Dimmed scrim behind the sheet */
+.bex-fs-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* Bottom sheet panel — slides up from bottom, rounded top corners */
+.bex-fs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 814px; /* 874 - 60px — leaves status bar visible */
+  background: #ffffff;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+
+/* ── Blue X close button ─────────────────────────────────────────────────── */
+.bex-fs__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin: 16px 16px 4px 16px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.bex-fs__close--inline {
+  margin: 0;
+}
+
+/* ── Where-to large search input ─────────────────────────────────────────── */
+.bex-fs__search-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px 20px 28px;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.bex-fs__search-input {
+  flex: 1;
+  font-family: var(--bex-font);
+  font-size: 22px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.3px;
+  border: none;
+  outline: none;
+  background: transparent;
+  caret-color: #1a6cda;
+  padding: 0;
+  min-width: 0;
+}
+
+.bex-fs__search-input::placeholder {
+  color: #c0bfbd;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+/* Filled-circle clear button — sized to not overpower the input text */
+.bex-fs__search-clear {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: #191e3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.bex-fs__divider {
+  height: 1px;
+  background: #e8e7e5;
+  margin: 0 0 8px;
+  flex-shrink: 0;
+}
+
+/* ── Suggestion results list ─────────────────────────────────────────────── */
+.bex-fs__results {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.bex-fs__results::-webkit-scrollbar { display: none; }
+
+.bex-fs__result-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px 13px 24px;
+  border: none;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--bex-font);
+  transition: background 0.1s;
+}
+
+.bex-fs__result-row:active {
+  background: #f5f4f2;
+}
+
+.bex-fs__result-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f0f1f5;
+}
+/* Lite uses bex-fs-overlay wrapper — no circle background */
+.bex-fs-overlay .bex-fs__result-icon {
+  background: none;
+  width: 24px;
+  height: 24px;
+}
+
+.bex-fs__result-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  text-align: left;
+}
+
+.bex-fs__result-primary {
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bex-fs__result-secondary {
+  font-size: 14px;
+  font-weight: 400;
+  color: #676a7d;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* "Search for X" fallback row */
+.bex-fs__search-for {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px 13px 24px;
+  border: none;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  text-align: left;
+}
+.bex-fs__search-for:active { background: #f5f4f2; }
+.bex-fs__search-for-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f0f1f5;
+  color: #191e3b;
+}
+.bex-fs-overlay .bex-fs__search-for-icon {
+  background: none;
+  width: 24px;
+  height: 24px;
+}
+.bex-fs__search-for-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  line-height: 18px;
+}
+
+/* ── Travelers sheet (EGDS step-input redesign) ──────────────────────────── */
+.bex-fs--travelers {
+  display: flex;
+  flex-direction: column;
+}
+
+.bex-si__toolbar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.bex-si__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0 0;
+}
+
+/* Step input row */
+.bex-si {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.bex-si__labels {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bex-si__label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #191e3b;
+  line-height: 20px;
+}
+
+.bex-si__sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: #676a7d;
+  line-height: 16px;
+}
+
+.bex-si__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bex-si__btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid #191e3b;
+  background: transparent;
+  color: #191e3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.12s, color 0.12s, opacity 0.12s;
+}
+
+.bex-si__btn--dim {
+  border-color: #dfe0e4;
+  color: #818494;
+  cursor: default;
+}
+
+.bex-si__value {
+  font-size: 16px;
+  font-weight: 500;
+  color: #191e3b;
+  width: 24px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.bex-si__divider {
+  height: 1px;
+  background: rgba(0,0,0,0.09);
+  margin: 0 24px;
+}
+
+/* Pets checkbox */
+.bex-si__pets {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 24px 8px;
+  cursor: pointer;
+}
+
+.bex-si__checkbox-wrap {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.bex-si__checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.bex-si__checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1.5px solid #818494;
+  background: transparent;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.bex-si__checkbox:checked + .bex-si__checkbox-box {
+  background: #191e3b;
+  border-color: #191e3b;
+}
+
+.bex-si__pets-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bex-si__pets-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  line-height: 18px;
+}
+
+.bex-si__pets-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: #676a7d;
+  line-height: 16px;
+}
+
+/* Add another room */
+.bex-si__add-room-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 24px 16px;
+}
+
+.bex-si__add-room {
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1668e3;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+/* Done footer */
+.bex-si__footer {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.bex-si__footer-border {
+  height: 1px;
+  background: #dfe0e4;
+}
+
+.bex-si__footer-pad {
+  padding: 16px 16px 40px;
+}
+
+.bex-si__done {
+  width: 100%;
+  height: 52px;
+  border-radius: 99px;
+  border: none;
+  background: #191e3b;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--bex-font);
+  cursor: pointer;
+  letter-spacing: -0.1px;
+  transition: opacity 0.12s;
+}
+
+.bex-si__done:active { opacity: 0.85; }
+
+/* ── Lite travelers sheet (bex-trav__*) ──────────────────────────────────── */
+.bex-trav__toolbar {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px 8px;
+  flex-shrink: 0;
+  position: relative;
+}
+.bex-trav__toolbar .bex-fs__close {
+  margin: 0;
+}
+.bex-trav__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 600;
+  color: #191e3b;
+  font-family: var(--bex-font);
+  letter-spacing: -0.2px;
+  pointer-events: none;
+}
+.bex-trav__toolbar-spacer {
+  width: 18px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.bex-trav__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bex-trav__room-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #191e3b;
+  font-family: var(--bex-font);
+  letter-spacing: -0.2px;
+  margin: 0 0 16px;
+}
+
+/* StepInput inside Lite travelers — reset horizontal padding, keep vertical */
+.bex-trav__body .bex-si {
+  padding: 10px 0;
+}
+.bex-trav__body .bex-si__label {
+  font-size: 15px;
+  font-weight: 500;
+}
+.bex-trav__body .bex-si__sub {
+  font-size: 13px;
+}
+
+.bex-trav__add-room-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 0 0;
+}
+.bex-trav__add-room {
+  font-family: var(--bex-font);
+  font-size: 15px;
+  font-weight: 500;
+  color: #1668e3;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bex-trav__footer {
+  flex-shrink: 0;
+  padding: 24px 20px 40px;
+  margin-top: auto;
+}
+.bex-trav__done {
+  width: 100%;
+  height: 52px;
+  border-radius: 999px;
+  border: none;
+  background: #1668e3;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--bex-font);
+  cursor: pointer;
+  letter-spacing: -0.2px;
+}
+.bex-trav__done:active { opacity: 0.88; }
+
+/* ── Calendar sheet ──────────────────────────────────────────────────────── */
+.bex-cal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── "When?" header row ─────────────────────────────────────────────────────── */
+.bex-cal__when-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 16px;
+  flex-shrink: 0;
+}
+
+.bex-cal__when-title {
+  font-family: var(--bex-font);
+  font-size: 26px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.bex-cal__when-clear {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 99px;
+  border: none;
+  background: #f0ede8;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  cursor: pointer;
+  letter-spacing: -0.1px;
+  transition: background 0.12s;
+}
+.bex-cal__when-clear:hover { background: #e5e1dc; }
+
+/* ── Sticky DOW row ─────────────────────────────────────────────────────────── */
+.bex-cal__dow-sticky {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0 24px;
+  border-bottom: 1px solid #dedfe3;
+  flex-shrink: 0;
+}
+
+/* legacy toolbar — kept for non-calendar sheets */
+.bex-cal__toolbar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+/* Tabs — "Calendar" | "Flexible dates" */
+.bex-cal__tabs {
+  display: flex;
+  flex-shrink: 0;
+  padding: 0 16px;
+}
+
+.bex-cal__tab {
+  flex: 1;
+  height: 44px;
+  border: none;
+  background: none;
+  font-family: var(--bex-font);
+  font-size: 15px;
+  font-weight: 400;
+  color: #676a7d;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.bex-cal__tab--active {
+  color: #1a6cda;
+  font-weight: 600;
+}
+
+.bex-cal__tab-underline {
+  height: 1px;
+  background: #dfe0e4;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+/* No tabs visible — just the divider line */
+.bex-cal__tab-underline--solo {
+  margin-top: 0;
+}
+
+.bex-cal__tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: #1a6cda;
+  border-radius: 1px;
+}
+
+/* ── Date range header (Calendar tab) ─────────────────────────────────────── */
+.bex-cal__range-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px 12px;
+  flex-shrink: 0;
+}
+
+.bex-cal__range-box {
+  flex: 1;
+  border-bottom: 2px solid #dfe0e4;
+  padding-bottom: 6px;
+}
+
+.bex-cal__range-box--set {
+  border-color: #1a6cda;
+}
+
+.bex-cal__range-box-val {
+  font-family: var(--bex-font);
+  font-size: 20px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.4px;
+  display: block;
+}
+
+.bex-cal__range-box:not(.bex-cal__range-box--set) .bex-cal__range-box-val {
+  color: #c0bfbd;
+  font-weight: 400;
+}
+
+.bex-cal__range-arrow {
+  flex-shrink: 0;
+  color: #191e3b;
+  margin-bottom: 8px;
+}
+
+/* Scrollable calendar body */
+.bex-cal__body {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 0 16px;
+}
+
+.bex-cal__body::-webkit-scrollbar { display: none; }
+
+/* Month block */
+.bex-cal__month {
+  padding: 8px 0 16px;
+}
+
+.bex-cal__month-header {
+  font-size: 15px;
+  font-weight: 700;
+  color: #191e3b;
+  padding: 8px 4px 12px;
+  text-align: center;
+}
+
+.bex-cal__dow-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.bex-cal__dow {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: #676a7d;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bex-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px 0;
+}
+
+/* Day cell */
+.bex-cal__cell {
+  height: 44px;
+  border: none;
+  background: none;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  transition: color 0.12s;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Pro cells — flex-col with date number + price */
+.bex-cal__cell-day {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.bex-cal__cell-price {
+  font-size: 10px;
+  font-weight: 400;
+  color: #818494;
+  line-height: 12px;
+}
+
+.bex-cal__cell-price--good {
+  color: #227950;
+  font-weight: 500;
+}
+
+/* Price on a selected (start/end) cell — white to stay visible on dark square */
+.bex-cal__cell-price--on-sel {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 400;
+}
+
+.bex-cal__cell--empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+.bex-cal__cell--past {
+  color: #c0bfbd;
+  cursor: not-allowed;
+}
+
+/* Today — black circle outline (Lite) */
+.bex-cal__cell--today {
+  font-weight: 700;
+  color: #191e3b;
+}
+.bex-cal__cell--today::before {
+  content: '';
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid #191e3b;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Selected — black filled circle (Lite) */
+.bex-cal__cell--sel {
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  background: none;
+  z-index: 1;
+}
+.bex-cal__cell--sel::before {
+  content: '';
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: #191e3b;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Range strip — black-tinted background, full cell width */
+.bex-cal__cell--range {
+  background: rgba(25, 30, 59, 0.10);
+  color: #191e3b;
+}
+
+/* Half-strip at range boundaries so strip doesn't extend past the circle */
+.bex-cal__cell--start.bex-cal__cell--range {
+  background: linear-gradient(90deg, transparent 50%, rgba(25,30,59,0.10) 50%);
+}
+.bex-cal__cell--end.bex-cal__cell--range {
+  background: linear-gradient(90deg, rgba(25,30,59,0.10) 50%, transparent 50%);
+}
+
+/* Flexibility footer pills (Calendar tab) */
+.bex-cal__flex-footer {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 12px;
+}
+
+.bex-cal__flex-footer::-webkit-scrollbar { display: none; }
+
+.bex-cal__flex-footer-pill {
+  flex-shrink: 0;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 99px;
+  border: 1.5px solid #dfe0e4;
+  background: transparent;
+  font-family: var(--bex-font);
+  font-size: 13px;
+  font-weight: 400;
+  color: #191e3b;
+  cursor: pointer;
+  transition: border-color 0.12s;
+  white-space: nowrap;
+}
+
+.bex-cal__flex-footer-pill--sel {
+  border-color: #191e3b;
+  border-width: 2px;
+  font-weight: 600;
+}
+
+/* Footer */
+.bex-cal__footer {
+  flex-shrink: 0;
+  padding: 12px 16px 36px;
+  border-top: 1px solid #dfe0e4;
+}
+
+.bex-cal__footer--flex {
+  border-top: none;
+}
+
+/* New action footer: "I'm flexible" pill (left) + arrow button (right) */
+.bex-cal__footer--action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px 32px;
+  border-top: none;
+  gap: 12px;
+}
+
+.bex-cal__im-flexible {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 99px;
+  border: none;
+  background: #f5f4f2;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(12, 14, 28, 0.6);
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(15px);
+  transition: background 0.12s;
+}
+.bex-cal__im-flexible:hover { background: #ece9e4; }
+
+.bex-cal__arrow-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #0c0e1c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0px 4px 12px rgba(12, 14, 28, 0.24);
+  transition: opacity 0.12s;
+  margin-left: auto;
+}
+.bex-cal__arrow-btn:active { opacity: 0.8; }
+
+.bex-cal__save {
+  width: 100%;
+  height: 52px;
+  border-radius: 99px;
+  border: none;
+  background: #191e3b;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--bex-font);
+  cursor: pointer;
+  transition: opacity 0.12s;
+}
+
+.bex-cal__save:active { opacity: 0.85; }
+
+/* ── Flexible dates ────────────────────────────────────────────────────────── */
+.bex-cal__flex {
+  padding: 24px 0 8px;
+}
+
+.bex-cal__flex-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: #191e3b;
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.bex-cal__flex-sub {
+  font-size: 13px;
+  font-weight: 400;
+  color: #676a7d;
+  margin: -8px 0 12px;
+  text-align: center;
+}
+
+.bex-cal__flex-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.bex-cal__flex-pill {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 99px;
+  border: 1.5px solid #dfe0e4;
+  background: transparent;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+
+.bex-cal__flex-pill--sel {
+  border-color: #191e3b;
+  border-width: 2px;
+  font-weight: 600;
+}
+
+/* Must include weekend row */
+.bex-cal__weekend-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0 16px;
+  cursor: pointer;
+}
+
+.bex-cal__weekend-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  line-height: 18px;
+}
+
+.bex-cal__flex-divider {
+  height: 1px;
+  background: #dfe0e4;
+  margin: 4px 0 20px;
+}
+
+/* Month grid — calendar icon + name + year */
+.bex-cal__flex-months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.bex-cal__flex-month {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  border-radius: 12px;
+  border: 1.5px solid #dfe0e4;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.12s;
+  gap: 4px;
+  padding: 8px 4px;
+}
+
+.bex-cal__flex-month--sel {
+  border-color: #191e3b;
+  border-width: 2px;
+}
+
+.bex-cal__flex-month-icon {
+  color: #191e3b;
+  flex-shrink: 0;
+}
+
+.bex-cal__flex-month--sel .bex-cal__flex-month-icon {
+  color: #191e3b;
+}
+
+.bex-cal__flex-month-name {
+  font-family: var(--bex-font);
+  font-size: 13px;
+  font-weight: 700;
+  color: #191e3b;
+  line-height: 1.2;
+}
+
+.bex-cal__flex-month-year {
+  font-family: var(--bex-font);
+  font-size: 12px;
+  font-weight: 400;
+  color: #818494;
+  line-height: 1.2;
+}
+
+/* ── Pro calendar overrides (.bex-cal--pro) ─────────────────────────────── */
+
+/* Pro toolbar: close button only, no title */
+.bex-cal__pro-toolbar {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.bex-cal__pro-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f0efed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #191e3b;
+  cursor: pointer;
+}
+
+/* Segmented control: Dates | Flexible */
+.bex-cal__seg {
+  display: flex;
+  align-items: center;
+  margin: 0 20px 16px;
+  background: #ebebeb;
+  border-radius: 99px;
+  padding: 3px;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.bex-cal__seg-btn {
+  flex: 1;
+  height: 36px;
+  border: none;
+  border-radius: 99px;
+  background: transparent;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #676a7d;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.bex-cal__seg-btn--active {
+  background: #ffffff;
+  color: #191e3b;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+/* Pro calendar body — more horizontal padding */
+.bex-cal__body--pro {
+  padding: 0 14px;
+}
+
+/* Pro month header — centered, bold */
+.bex-cal--pro .bex-cal__month-header {
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.3px;
+  padding-top: 12px;
+}
+
+/* Pro DOW row — 3-letter names, smaller color */
+.bex-cal__dow-row--pro {
+  margin-bottom: 2px;
+}
+.bex-cal--pro .bex-cal__dow {
+  font-size: 12px;
+  font-weight: 400;
+  color: #818494;
+  height: 36px;
+}
+
+/* Pro cells — taller, flex-col for date + price */
+.bex-cal--pro .bex-cal__cell {
+  height: 52px;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 16px;
+}
+
+/* Pro grid — slightly more gap */
+.bex-cal--pro .bex-cal__grid {
+  gap: 4px 0;
+}
+
+/* Pro Today — no outline indicator */
+.bex-cal--pro .bex-cal__cell--today::before {
+  display: none;
+}
+
+/* Pro Selected — dark navy rounded square */
+.bex-cal--pro .bex-cal__cell--sel::before {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  top: 4px;
+  transform: translateX(-50%);
+}
+
+/* Pro range — grey rounded-rect strip at top of cells */
+.bex-cal--pro .bex-cal__cell--range {
+  background: none;
+}
+.bex-cal--pro .bex-cal__cell--range::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: #f0f0f0;
+  z-index: -1;
+  pointer-events: none;
+}
+.bex-cal--pro .bex-cal__cell--start.bex-cal__cell--range::after {
+  left: 50%;
+  border-radius: 0;
+}
+.bex-cal--pro .bex-cal__cell--end.bex-cal__cell--range::after {
+  right: 50%;
+  border-radius: 0;
+}
+
+/* Pro footer — divider on top, chips + Done */
+.bex-cal__footer--pro-exact {
+  flex-shrink: 0;
+  border-top: 1px solid #e8e8e8;
+  padding: 0 0 34px;
+}
+
+.bex-cal__flex-footer--pro {
+  padding: 12px 20px;
+  gap: 8px;
+}
+
+.bex-cal__flex-footer-pill--pro {
+  height: 40px;
+  padding: 0 16px;
+  background: #f0f0f0;
+  border: 1.5px solid transparent;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+}
+
+.bex-cal__flex-footer-pill--pro.bex-cal__flex-footer-pill--sel {
+  border-color: #191e3b;
+  border-width: 2px;
+  background: #f0f0f0;
+  font-weight: 600;
+}
+
+.bex-cal__save--pro {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  height: 48px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Legacy aliases kept for Pro version sheet (uses same classes) */
+.bex-sheet-overlay { display: none; }
+.bex-sheet         { display: none; }
+
+/* ── Pro Travelers bottom-card popover ─────────────────────────────────────── */
+/* Based on Figma: Popover/Travelers-Stays (7706:234816)
+   Design: white card, 32px top radius, EGDS filled xS step buttons          */
+
+.bex-pro-trav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 200;
+}
+
+.bex-pro-trav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 201;
+  background: #ffffff;
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  max-height: 80%;
+  overflow: hidden;
+}
+
+.bex-pro-trav__handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(0, 0, 0, 0.14);
+  margin: 12px auto 8px;
+  flex-shrink: 0;
+}
+
+.bex-pro-trav__scroll {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 4px 0 0;
+}
+
+.bex-pro-trav__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.bex-pro-trav__room {
+  padding: 8px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.bex-pro-trav__room-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #191e3b;
+  letter-spacing: -0.32px;
+  line-height: 22px;
+  padding: 8px 0;
+}
+
+.bex-pro-trav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Each Adults / Children counter row */
+.bex-pro-trav__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.bex-pro-trav__row-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bex-pro-trav__row-label {
+  font-size: 16px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.24px;
+  line-height: 20px;
+}
+
+.bex-pro-trav__row-sub {
+  font-size: 14px;
+  font-weight: 400;
+  color: #766e7f;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+}
+
+.bex-pro-trav__steppers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* EGDS filled xS icon button — matches close button visual */
+.bex-pro-trav__step-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f0f1f5;
+  color: #191e3b;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s, color 0.12s;
+  flex-shrink: 0;
+  padding: 0;
+  padding-bottom: 1px; /* optical centering of +/− */
+}
+
+.bex-pro-trav__step-btn:hover {
+  background: #e2e3ea;
+}
+
+.bex-pro-trav__step-btn--disabled {
+  background: #f0f1f5;
+  color: #c0bfcc;
+  cursor: not-allowed;
+}
+
+.bex-pro-trav__count {
+  width: 32px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.24px;
+  line-height: 20px;
+}
+
+/* "Remove room" / "Add another room" right-aligned links */
+.bex-pro-trav__ctas {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 0;
+}
+
+.bex-pro-trav__add-room-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 28px 4px;
+}
+
+.bex-pro-trav__link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  padding: 6px 0;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.bex-pro-trav__divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.09);
+  margin: 0 28px;
+  flex-shrink: 0;
+}
+
+/* Footer: "Need to book 9 or more rooms?" + Done pill */
+.bex-pro-trav__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px 20px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.bex-pro-trav__group-link {
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  flex: 1;
+  min-width: 0;
+}
+
+.bex-pro-trav__done {
+  height: 40px;
+  min-width: 60px;
+  padding: 0 16px;
+  border-radius: 40000px;
+  border: none;
+  background: #191e3b;
+  color: #ffffff;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+
+.bex-pro-trav__done:hover {
+  background: #2a3362;
+}
+
+/* ── Press effect ────────────────────────────────────────────────────────────── */
+
+.bex-press {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.1s ease;
+}
+
+.bex-press:active {
+  opacity: 0.8;
+}
+
+/* ── Padding bottom for safe area ────────────────────────────────────────────── */
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+/* ── Version Switcher pill control ───────────────────────────────────────────── */
+
+.bex-vsw {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; /* above the frame transform stacking context */
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 99px;
+  background: rgba(14, 12, 26, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 0.5px rgba(255, 255, 255, 0.08);
+  font-family: var(--bex-font);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.bex-vsw__group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.bex-vsw__sep {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.14);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.bex-vsw__pill {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 99px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+  font-family: inherit;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bex-vsw__pill:hover {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.bex-vsw__pill[data-active] {
+  background: #ffffff;
+  color: #191e3b;
+}
+
+/* ── Pro Hero ─────────────────────────────────────────────────────────────────── */
+
+/* Hero Container Elevation from Figma design tokens.
+   z-index:2 keeps the hero card above .evo-section-bleed (z-index:1, margin-top:-44px)
+   so the section's video background peeks from behind the 44px rounded bottom corners. */
+/* ── Hero card — EGDS Hero Container Elevation ────────────────────────────── */
+.bex-hero-pro {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+  /* Flat at top — phone frame clips to its own 44px radius; only bottom is rounded */
+  border-radius: 0 0 44px 44px;
+  overflow: hidden;
+  /* Hero Container Elevation token — Figma node 10246:836560 */
+  box-shadow:
+    0px 3px  7px rgba(0, 0, 0, 0.08),
+    0px 13px 13px rgba(0, 0, 0, 0.10),
+    0px 30px 18px rgba(0, 0, 0, 0.04),
+    0px 53px 21px rgba(0, 0, 0, 0.01),
+    0px 83px 23px rgba(0, 0, 0, 0.00);
+}
+
+/* Removed — card is flush at top, no sheen needed */
+.bex-hero-pro::before { display: none; }
+
+/* Status bar — light mode overrides */
+.bex-hero-pro .bex-status-bar--light {
+  color: #191e3b;
+}
+
+/* Toolbar */
+.bex-hero-pro__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 52px;
+}
+
+/* Expedia logo: yellow mark + wordmark */
+/* Expedia logo SVG — pixel-accurate 108×24px from Figma vector assets */
+.bex-hero-pro__logo {
+  width: 108px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.bex-hero-pro__profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--bex-font);
+}
+
+.bex-hero-pro__signin {
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+}
+
+.bex-hero-pro__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  background: #f5f4f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #191e3b;
+  flex-shrink: 0;
+}
+
+/* ── Hot-state profile widget ───────────────────────────────────────────── */
+.bex-hero-pro__hot-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bex-hero-pro__hot-profile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.bex-hero-pro__okc {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a0e2a;
+  letter-spacing: -0.16px;
+  white-space: nowrap;
+}
+.bex-hero-pro__tier {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a0e2a;
+  letter-spacing: -0.16px;
+}
+.bex-hero-pro__avatar-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 0.9px solid rgba(36, 20, 20, 0.09);
+  flex-shrink: 0;
+  filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.08)) drop-shadow(0px 8px 14px rgba(0,0,0,0.06));
+}
+
+/* LOB Nav — 80×80 tiles, scrollable */
+@keyframes lob-item-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bex-hero-pro__lobnav {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 8px 20px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.bex-hero-pro__lobnav::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Discount codes pill (Cars LOB, inside bex-hero-pro__bottom) ─────────── */
+.bex-hero-pro__discount-pill {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+  padding: 0 14px 0 20px;
+  background: rgba(240, 240, 240, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s;
+}
+
+.bex-hero-pro__discount-pill:active {
+  background: rgba(224, 224, 224, 0.9);
+}
+
+.bex-hero-pro__discount-label {
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.25px;
+  white-space: nowrap;
+}
+
+.bex-hero-pro__discount-pill > svg {
+  color: #191e3b;
+  flex-shrink: 0;
+}
+
+.bex-hero-pro__lobitem {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 12px;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  /* Staggered entrance on first load via nth-child */
+  animation: lob-item-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.bex-hero-pro__lobitem:nth-child(1) { animation-delay: 0.04s; }
+.bex-hero-pro__lobitem:nth-child(2) { animation-delay: 0.08s; }
+.bex-hero-pro__lobitem:nth-child(3) { animation-delay: 0.12s; }
+.bex-hero-pro__lobitem:nth-child(4) { animation-delay: 0.16s; }
+.bex-hero-pro__lobitem:nth-child(5) { animation-delay: 0.20s; }
+.bex-hero-pro__lobitem:nth-child(6) { animation-delay: 0.24s; }
+
+/* Sliding selection ring — outline only, no fill (Figma spec). */
+/* Liquid glass selection pill — floats over LOB items when selected */
+.bex-hero-pro__lobitem-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  box-shadow:
+    /* Dark selection ring */
+    inset 0 0 0 1.5px rgba(25, 30, 59, 0.85),
+    /* Top specular */
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    /* Drop shadow for depth */
+    0 2px 8px rgba(0, 0, 0, 0.10),
+    0 1px 2px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Lite selected state — CSS-only (no Framer Motion in BexHero.tsx) */
+.bex-hero-pro__lobitem[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 1.5px #191e3b;
+  background: transparent;
+  border-radius: 12px;
+}
+
+.bex-hero-pro__lobpic {
+  flex: 1;
+  width: 100%;
+  object-fit: contain;
+  min-height: 0;
+  display: block;
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bex-hero-pro__lobpic--loaded {
+  opacity: 1;
+}
+
+.bex-hero-pro__loblabel {
+  font-family: var(--bex-font);
+  font-size: 12px;
+  font-weight: 500;
+  color: #191e3b;
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: -0.16px;
+  position: relative;
+  z-index: 1;
+  line-height: 16px;
+  flex-shrink: 0;
+}
+
+/* Search area — 20px between LOB nav and fieldscard (per design), pb-20, px-20 */
+.bex-hero-pro__bottom {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Fields card — EGDS Small Card Elevation */
+.bex-hero-pro__fieldscard {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  /* Small Card Elevation token — Figma node 10246:836560 */
+  box-shadow:
+    0px  3px 16px rgba(0, 0, 0, 0.10),
+    0px  8px 20px rgba(0, 0, 0, 0.05),
+    0px 13px 18px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ── Fixed status bar — always visible on top of scrolled content ─────────── */
+.bex-status-bar-fixed {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 250;
+  /* Solid white matches hero card exactly — no opacity mismatch seam */
+  background: #ffffff;
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+}
+/* Gradient feather below status bar — dissolves the hard bottom edge */
+.bex-status-bar-fixed::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+/* Spacer inside hero to hold 62px for the fixed status bar */
+.bex-status-spacer {
+  height: 62px;
+  flex-shrink: 0;
+}
+
+/* ── Scroll-state: collapsed hero card ───────────────────────────────────── */
+.bex-sticky-bar {
+  position: fixed;
+  /* Start exactly at the bottom of the fixed status bar so the top edge is visible */
+  top: 62px; left: 0; right: 0;
+  z-index: 90;
+  pointer-events: none;
+}
+
+/* Hero-card shell — same shadow token as the main search form container */
+.bex-sticky-bar__hero-card {
+  background: #ffffff;
+  border-radius: 0 0 44px 44px;
+  /* Hairline top border makes the card's top edge visible against the status bar */
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  /* Hero Container Elevation — identical to .bex-hero-pro */
+  box-shadow:
+    0px  3px  7px rgba(0, 0, 0, 0.08),
+    0px 13px 13px rgba(0, 0, 0, 0.10),
+    0px 30px 18px rgba(0, 0, 0, 0.04),
+    0px 53px 21px rgba(0, 0, 0, 0.01),
+    0px 83px 23px rgba(0, 0, 0, 0.00);
+  padding: 12px 20px 20px;
+  pointer-events: all;
+}
+
+/* Search pill — Figma: h-56, full radius, EGDS/Elevation/High */
+/* Search pill — Figma: w-362px h-56, white bg, EGDS/Elevation/High shadow, 1px white border */
+.bex-sticky-bar__pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 56px;
+  border-radius: 999px;
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  /* EGDS/Elevation/High */
+  box-shadow: 0px 0px 36px 0px rgba(16, 16, 16, 0.12);
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--bex-font);
+}
+
+/* LOB bubble — Figma: absolute left:7 top:8, 40px, white pill */
+/* LOB bubble — Figma: absolute left:7 top:7, h-40, white, radius-833 */
+.bex-sticky-bar__lob-bubble {
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 833px;
+  padding: 7px;
+  color: #555;
+  z-index: 1;
+}
+
+.bex-sticky-bar__lob-img {
+  width: 26.667px;
+  height: 26.667px;
+  object-fit: contain;
+  /* Always visible — browser cache from hero means instant render */
+  opacity: 1;
+}
+
+.bex-sticky-bar__pill-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.3px;
+  text-align: center;
+  user-select: none;
+}
+
+/* ── Bottom sheet overlay ────────────────────────────────────────────────── */
+.bex-sticky-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+}
+
+.bex-sticky-overlay__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+}
+
+/* Sheet slides down from top */
+.bex-sticky-overlay__sheet {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: #ffffff;
+  border-radius: 0 0 44px 44px;
+  max-height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  box-shadow:
+    0px  3px  7px rgba(0, 0, 0, 0.08),
+    0px 13px 13px rgba(0, 0, 0, 0.10),
+    0px 30px 18px rgba(0, 0, 0, 0.04),
+    0px 53px 21px rgba(0, 0, 0, 0.01),
+    0px 83px 23px rgba(0, 0, 0, 0.00);
+}
+
+.bex-sticky-overlay__sheet::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+/* Inside the sheet — strip hero card chrome (sheet provides its own rounding/shadow) */
+/* Keep status-spacer visible so content clears the fixed status bar at top:0 */
+.bex-sticky-overlay__sheet .bex-status-spacer { display: block; height: 62px; }
+.bex-sticky-overlay__sheet .bex-hero-pro {
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.bex-sticky-overlay__sheet .bex-hero-pro::before { display: none; }
+.bex-sticky-overlay__sheet .bex-hero-pro__bottom { padding-bottom: 36px; }
+
+/* ── Hot-state collapsed pill search bar ──────────────────────────────────── */
+.bex-hero__pill-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - 40px);
+  margin: 16px 20px 24px;   /* generous breathing room top & bottom */
+  padding: 15px 20px;       /* taller, more comfortable tap target */
+  background: #ffffff;
+  border: none;
+  border-radius: 99px;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.08),
+    0 4px 14px rgba(0,0,0,0.08),
+    0 8px 24px rgba(0,0,0,0.05);
+  cursor: pointer;
+  color: #888;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  /* Subtle pulse to invite interaction */
+  animation: pill-breathe 3s ease-in-out infinite;
+}
+@keyframes pill-breathe {
+  0%, 100% { box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 14px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.05); }
+  50%       { box-shadow: 0 2px 6px rgba(0,0,0,0.11), 0 6px 20px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06); }
+}
+.bex-hero__pill-bar--pro {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(24px) saturate(2);
+  -webkit-backdrop-filter: blur(24px) saturate(2);
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.08),
+    0 4px 16px rgba(0,0,0,0.09),
+    0 0 0 0.5px rgba(255,255,255,0.6) inset;
+  animation: pill-breathe-pro 3s ease-in-out infinite;
+}
+@keyframes pill-breathe-pro {
+  0%, 100% { box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.09), 0 0 0 0.5px rgba(255,255,255,0.6) inset; }
+  50%       { box-shadow: 0 2px 6px rgba(0,0,0,0.11), 0 8px 24px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(255,255,255,0.7) inset; }
+}
+.bex-hero__pill-bar-text {
+  flex: 1;
+  color: #555;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1;
+}
+/* Search icon inside pill */
+.bex-hero__pill-bar svg {
+  color: #888;
+  flex-shrink: 0;
+}
+/* Overlay variant — absolutely positioned so it doesn't shift layout on exit.
+   Offsets match the original pill margins (top:16 left:20 right:20 bottom:24). */
+.bex-hero__pill-bar--overlay {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  right: 20px;
+  bottom: 24px;
+  width: auto;
+  margin: 0;
+  z-index: 10;
+  pointer-events: auto;
+}
+/* Hot-zone wrapper — must be tall enough for pill + its margins when collapsed.
+   16px top + ~52px pill + 24px bottom = 92px. Form height takes over when expanded. */
+.bex-hero__hot-zone {
+  position: relative;
+  min-height: 92px;
+}
+
+/* LOB-specific tabs (Flights: Roundtrip/One-way/Multi-city, Packages) */
+/* Tabs row — centered, inset to align with field content (px-20 matches field padding) */
+.bex-hero-pro__tabs {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  gap: 0;
+  margin: 0 20px;                   /* inset to align the border line with the search form card */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  flex-shrink: 0;
+}
+
+.bex-hero-pro__tabs::-webkit-scrollbar { display: none; }
+
+.bex-hero-pro__tab {
+  flex: 1;
+  white-space: nowrap;
+  padding: 12px 8px 11px;
+  border: none;
+  background: none;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #766e7f;
+  cursor: pointer;
+  letter-spacing: -0.16px;
+  text-align: center;
+  position: relative;
+  /* bottom border sits over the container border-bottom via margin */
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bex-hero-pro__tab--active {
+  color: #191e3b;
+  border-bottom-color: #191e3b;
+}
+
+/* Animated sliding indicator — rendered as motion.span inside the active tab */
+.bex-hero-pro__tab-indicator {
+  position: absolute;
+  bottom: -1px;      /* extends into the container border-bottom area */
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #191e3b;
+  border-radius: 1.5px 1.5px 0 0;
+}
+
+/* Scrollable tab row (Packages: 4 longer labels) — tabs use natural width, scroll if needed */
+.bex-hero-pro__tabs--scroll {
+  justify-content: flex-start;  /* center blocks scrollability; start lets overflow scroll freely */
+  padding-left: 4px;
+}
+.bex-hero-pro__tabs--scroll .bex-hero-pro__tab {
+  flex: none;
+  padding: 12px 14px 11px;
+}
+
+/* Pill row outer — CSS grid trick: animates height 0↔auto without JS layout */
+.bex-hero-pro__pill-row-outer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bex-hero-pro__pill-row-outer[data-visible="true"] {
+  grid-template-rows: 1fr;
+}
+.bex-hero-pro__pill-row-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Pill row — grey pills above the search form for Flights & Packages */
+.bex-hero-pro__pill-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 16px 20px 4px;
+}
+
+/* Individual pill — grey filled, no outline, fully rounded */
+.bex-hero-pro__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+  padding: 0 14px;
+  background: rgba(0, 0, 0, 0.07);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.bex-hero-pro__pill:active {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+/* Visible label text — controls pill width (only current value, not longest option) */
+.bex-hero-pro__pill-label {
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.25px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Chevron */
+.bex-hero-pro__pill > svg {
+  width: 20px;
+  height: 20px;
+  color: #191e3b;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+/* Transparent select overlaid on the whole pill for native interaction */
+/* pill-select no longer used — pills now open bottom sheets */
+.bex-hero-pro__pill-select { display: none; }
+
+/* ── Pill floating popover menu ──────────────────────────────────────────── */
+
+/* Wrapper that establishes the positioning context for the menu */
+.bex-hero-pro__pill-menu-wrapper {
+  position: relative;
+}
+
+/* Transparent full-area backdrop to dismiss on click outside */
+.bex-pill-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 209;
+  background: transparent;
+}
+
+/* Floating EGDS-style popover card */
+.bex-pill-menu {
+  position: absolute;
+  z-index: 210;
+  min-width: 224px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transform-origin: top left;
+}
+
+/* Each menu row */
+.bex-pill-menu__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  height: 52px;
+  padding: 0 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  text-align: left;
+  transition: background 0.1s;
+}
+
+/* Inset divider — 20px from each edge, doesn't touch the card corners */
+.bex-pill-menu__item--border::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 0.5px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.bex-pill-menu__item:active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Leading icon */
+.bex-pill-menu__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #191e3b;
+}
+
+/* Item label */
+.bex-pill-menu__text {
+  flex: 1;
+  font-family: var(--bex-font);
+  font-size: 15px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+/* Selected row — bold label + checkmark */
+.bex-pill-menu__item--sel .bex-pill-menu__text {
+  font-weight: 600;
+}
+
+/* Trailing checkmark */
+.bex-pill-menu__check {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #191e3b;
+  margin-left: auto;
+}
+
+/* Origin + swap button wrapper */
+.bex-hero-pro__origin-wrap {
+  position: relative;
+}
+
+.bex-hero-pro__swap-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f5f4f2;
+  color: #191e3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  padding: 0;
+}
+
+/* Field rows — Figma: py-16 px-20, gap-12, text gap-4 */
+.bex-hero-pro__field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+/* 4px breathing room on the very first field of the card */
+.bex-hero-pro__fieldscard > .bex-hero-pro__field:first-child,
+.bex-hero-pro__fieldscard > .bex-hero-pro__origin-wrap:first-child > .bex-hero-pro__field:first-child,
+.bex-hero-pro__fieldscard > .bex-hero-pro__location-pair:first-child > .bex-hero-pro__field:first-child {
+  padding-top: 20px;
+}
+
+/* 4px breathing room on the very last field (only when no bundle row follows) */
+.bex-hero-pro__fieldscard > .bex-hero-pro__field:last-child {
+  padding-bottom: 20px;
+}
+/* Cars: last child is the car-footer — no extra padding needed (footer handles its own) */
+
+.bex-hero-pro__field {
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: var(--bex-font);
+  transition: background 0.1s ease;
+  box-sizing: border-box;
+}
+
+
+.bex-hero-pro__field {
+  transition: background-color 0.12s ease;
+}
+
+.bex-hero-pro__field:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.bex-hero-pro__field:active {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.bex-hero-pro__field-icon {
+  color: #191e3b;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* EGDS two-line text: label (12px gray) + value (14px dark) */
+.bex-hero-pro__field-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.bex-hero-pro__field-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #766e7f;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bex-hero-pro__field-value {
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Empty / placeholder state — same size, muted gray */
+/* Empty state — icon stays dark, only placeholder text gets grey */
+.bex-hero-pro__field--empty .bex-hero-pro__field-value {
+  color: #7c7891;
+  font-weight: 400;
+}
+
+/* Inline select (Cruises duration) */
+.bex-hero-pro__inline-select {
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+}
+
+/* ── Cars LOB ─────────────────────────────────────────────────────────── */
+
+/* Vertical route connector line — shared by Flights, Packages, and Cars location pair */
+.bex-hero-pro__location-pair {
+  position: relative;
+}
+
+.bex-hero-pro__flight-connector,
+.bex-hero-pro__car-connector {
+  position: absolute;
+  left: 28px;
+  width: 1px;
+  top: 44px;
+  bottom: 44px;
+  background: rgba(0, 0, 0, 0.52);
+  pointer-events: none;
+}
+
+/* Lite Cars divider between the two location fields — indented past icon column */
+.bex-hero__lite-car-divider {
+  margin-left: 52px !important;
+}
+
+/* Lite Cars — Pick-up / Drop-off time row */
+.bex-hero-pro__car-times {
+  display: flex;
+  align-items: stretch;
+  min-height: 56px;
+}
+
+.bex-hero-pro__car-time {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+  min-width: 0;
+}
+
+.bex-hero-pro__car-time-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+
+.bex-hero-pro__car-time-body .bex-hero-pro__field-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bex-hero-pro__car-time-sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 12px 0;
+  background: rgba(0, 0, 0, 0.09);
+  flex-shrink: 0;
+}
+
+/* ── Cars date/time rows (Figma 7051:495403) ────────────────────────────── */
+
+/* A row split 50/50: date on left, time on right */
+.bex-hero-pro__car-date-row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Left half: date button (180px) */
+.bex-hero-pro__car-date-half {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 180px;
+  flex-shrink: 0;
+  padding: 16px 20px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bex-hero-pro__car-date-ph {
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #676a7d;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bex-hero-pro__car-date-val {
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Vertical connector line between pick-up and drop-off date rows */
+.bex-hero-pro__car-date-connector {
+  position: absolute;
+  /* icon column: 20px padding + 9px (half of 18px icon) = 29px from left edge of the half */
+  left: 29px;
+  bottom: -10px; /* reach into the divider below */
+  width: 1px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.52);
+  pointer-events: none;
+}
+
+/* Right half: time select (flex: 1) */
+.bex-hero-pro__car-time-half {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 16px 16px;
+  min-width: 0;
+}
+
+.bex-hero-pro__car-time-select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  cursor: pointer;
+  outline: none;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Grey footer: "Choose a different drop-off location" */
+.bex-hero-pro__car-footer {
+  background: #f5f4f2;
+}
+
+.bex-hero-pro__car-footer-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  text-align: left;
+}
+
+.bex-hero-pro__car-footer-btn > svg {
+  flex-shrink: 0;
+  color: #191e3b;
+}
+
+.bex-hero-pro__car-footer-btn > span {
+  font-family: var(--bex-font);
+  font-size: 13px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 17px;
+}
+
+/* Cruise advisory note */
+.bex-hero-pro__note {
+  font-size: 13px;
+  font-weight: 400;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  margin: 0;
+  padding: 0 4px;
+}
+
+.bex-hero-pro__divider {
+  /* Aligns with field left/right padding (20px) — same on both sides */
+  margin: 0 20px;
+  height: 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+/*
+ * When a divider sits between two fields that share a vertical connector line,
+ * indent its left edge past the icon column so it doesn't cross the connector.
+ * Icon column: 20px field-padding + 24px icon + 8px gap ≈ 52px from card edge.
+ */
+.bex-hero-pro__origin-wrap > .bex-hero-pro__divider {
+  margin-left: 52px;
+}
+
+/* Pro Cars — divider between pick-up date row and drop-off date row:
+   indented left so it doesn't cross the vertical connector line (connector at x≈29px, icon column ≈52px) */
+.bex-hero-pro__car-date-row + .bex-hero-pro__divider {
+  margin-left: 52px;
+}
+
+/* Bundle & Save tray — Figma: p-16, column layout, gap-16 */
+.bex-hero-pro__bundle {
+  background: #f5f4f2;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bex-hero-pro__bundle-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+  font-family: var(--bex-font);
+  color: #191e3b;
+  text-align: left;
+}
+
+/* Rotate chevron up when expanded */
+.bex-hero-pro__bundle[data-expanded="true"] .bex-hero-pro__bundle-btn svg {
+  transform: rotate(180deg);
+  transition: transform 0.22s ease;
+}
+
+.bex-hero-pro__bundle-btn svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.22s ease;
+}
+
+.bex-hero-pro__bundle-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 17px;
+  flex: 1;
+}
+
+/* Search button — navy pill, 48px, full width */
+.bex-hero-pro__submit {
+  width: 100%;
+  height: 48px;
+  border-radius: 40000px;
+  border: none;
+  background: #191e3b;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.16px;
+  cursor: pointer;
+  font-family: var(--bex-font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* Glass sheen on the dark pill */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 2px 10px rgba(25, 30, 59, 0.28);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.bex-hero-pro__submit:active {
+  background: #0f1224;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 4px rgba(25, 30, 59, 0.20);
+}
+
+.bex-hero-pro__submit:hover {
+  background: #2a3362;
+}
+
+/* ─── BexHero Lite — content area & EGDS Standard inputs ─────────────────── */
+
+.bex-hero-lite__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+/* Groups inputs + checkbox together with 12px gap — matches Figma "Fields" frame */
+.bex-hero-lite__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bex-hero-lite__fields {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bundle checkbox */
+.bex-hero-lite__checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  color: #191e3b;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+.bex-hero-lite__checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #818494;
+  border-radius: 3px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.bex-hero-lite__checkbox:checked {
+  background: #191e3b;
+  border-color: #191e3b;
+}
+
+.bex-hero-lite__checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.bex-hero-lite__checkbox-label {
+  line-height: 1.3;
+}
+
+/* ── Pro Destination Sheet (full-screen dark modal) ────────────────────────
+   Figma: 7051:495637 — dark #0c0e1c bg, white rounded card, pill search input
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Pro destination sheet card — direct flex child of bex-fs-overlay,
+   same positioning pattern as .bex-fs in Lite */
+.bex-pro-dest__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 812px; /* 874px frame - 62px status bar = 812px */
+  background: #ffffff;
+  border-radius: 32px 32px 0 0;
+  overflow: hidden;
+}
+
+/* Top bar: standalone close button at top-left */
+.bex-pro-dest__top-bar {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 0;
+  flex-shrink: 0;
+}
+
+.bex-pro-dest__top-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f0efed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #191e3b;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+/* Pill search input wrapper */
+.bex-pro-dest__search-wrap {
+  padding: 12px 16px 0;
+  flex-shrink: 0;
+}
+
+.bex-pro-dest__pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 999px;
+  box-shadow: 0px 0px 36px rgba(16,16,16,0.12);
+  height: 52px;
+  padding: 0 16px 0 20px;
+}
+
+/* Back arrow removed — keep class empty for safety */
+.bex-pro-dest__back {
+  display: none;
+}
+
+.bex-pro-dest__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: #191e3b;
+  background: transparent;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.bex-pro-dest__input::placeholder {
+  color: #766e7f;
+  font-size: 14px;
+}
+
+.bex-pro-dest__clear {
+  background: #9b99a8;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Scrollable results area */
+.bex-pro-dest__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 32px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.bex-pro-dest__body::-webkit-scrollbar {
+  display: none;
+}
+
+/* "Recent searches" section title */
+.bex-pro-dest__section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #191e3b;
+  margin: 0 0 12px;
+  padding: 0 20px;
+  letter-spacing: -0.32px;
+  line-height: 22px;
+}
+
+.bex-pro-dest__list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individual suggestion row — 72px tall */
+.bex-pro-dest__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  min-height: 72px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s;
+}
+
+.bex-pro-dest__item:active {
+  background: rgba(0,0,0,0.04);
+}
+
+/* 48×48 rounded square icon container */
+.bex-pro-dest__item-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #f5f4f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #191e3b;
+}
+
+/* Icon background removed for "Search for X" row */
+.bex-pro-dest__item-icon--search {
+  background: none;
+  color: #191e3b;
+}
+
+.bex-pro-dest__item-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.bex-pro-dest__item-primary {
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  line-height: 18px;
+  letter-spacing: -0.16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bex-pro-dest__item-secondary {
+  font-size: 14px;
+  font-weight: 400;
+  color: #676a7d;
+  line-height: 18px;
+  letter-spacing: -0.16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dismiss × button on right */
+.bex-pro-dest__item-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9b99a8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 6px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Pro Travelers Sheet (Figma 7051:495577) ────────────────────────────── */
+
+.bex-pro-trav {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Grey circle × close button — top left */
+.bex-pro-trav__close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f0f1f5;
+  border: none;
+  cursor: pointer;
+  color: #191e3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 20px 0 0 20px;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bex-pro-trav__close:active { background: #e2e3ea; }
+
+/* "Travelers" heading */
+.bex-pro-trav__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #191e3b;
+  margin: 14px 20px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+/* Scrollable rooms area */
+.bex-pro-trav__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.bex-pro-trav__body::-webkit-scrollbar { display: none; }
+
+/* Each room block — horizontal padding lives here */
+.bex-pro-trav__room {
+  padding: 16px 20px 8px;
+}
+
+/* Divider between rooms — inset 20px to align with room content */
+.bex-pro-trav__room-divider {
+  height: 1px;
+  background: #e2e3ea;
+  margin: 0 20px;
+}
+
+/* "Room N" label */
+.bex-pro-trav__room-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #191e3b;
+  margin: 0 0 4px;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+/* Override bex-si padding inside the Pro travelers sheet
+   so it aligns with the 20px room padding, not its own 24px */
+.bex-pro-trav__body .bex-si {
+  padding: 14px 0;
+}
+
+.bex-pro-trav__body .bex-si__label {
+  font-size: 16px;
+  font-weight: 400;
+  color: #191e3b;
+}
+
+.bex-pro-trav__body .bex-si__sub {
+  font-size: 13px;
+  color: #676a7d;
+  margin-top: 2px;
+}
+
+/* Stepper buttons — match close button: light grey fill, no outline */
+.bex-pro-trav__body .bex-si__btn {
+  border: none;
+  background: #f0f1f5;
+  transition: background 0.12s, color 0.12s;
+}
+
+.bex-pro-trav__body .bex-si__btn:hover {
+  background: #e2e3ea;
+}
+
+.bex-pro-trav__body .bex-si__btn--dim {
+  border: none;
+  background: #f0f1f5;
+  color: #c0bfcc;
+}
+
+/* Remove room */
+.bex-pro-trav__remove-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 0 8px;
+}
+
+.bex-pro-trav__remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  font-family: inherit;
+  padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Add another room */
+.bex-pro-trav__add-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 20px 16px;
+}
+
+/* ── Child age selectors (flights flat list) ─────────────────────────────── */
+.bex-pro-trav__child-ages {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 0 4px;
+}
+
+.bex-pro-trav__child-age-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bex-pro-trav__child-age-label {
+  font-family: var(--bex-font);
+  font-size: 15px;
+  color: #707480;
+  letter-spacing: -0.1px;
+}
+
+.bex-pro-trav__child-age-wrap {
+  position: relative;
+}
+
+/* Pill button — matches Figma: h=40, w=120, bg #f0eeed, fully rounded */
+.bex-pro-trav__child-age-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 120px;
+  background: #f0f1f5;
+  border: none;
+  border-radius: 9999px;
+  padding: 0 4px 0 16px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s;
+}
+
+.bex-pro-trav__child-age-btn--open,
+.bex-pro-trav__child-age-btn:active {
+  background: #e2e3ea;
+}
+
+.bex-pro-trav__child-age-val {
+  font-family: var(--bex-font);
+  font-size: 16px;
+  font-weight: 400;
+  color: #191e3b;
+}
+
+.bex-pro-trav__child-age-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #191e3b;
+  flex-shrink: 0;
+}
+
+/* Floating age picker card */
+.bex-pro-trav__child-age-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 120px;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  z-index: 20;
+  padding: 4px 0;
+  scrollbar-width: none;
+}
+
+.bex-pro-trav__child-age-menu::-webkit-scrollbar { display: none; }
+
+.bex-pro-trav__child-age-opt {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  background: none;
+  font-family: var(--bex-font);
+  font-size: 16px;
+  color: #191e3b;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.bex-pro-trav__child-age-opt:active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.bex-pro-trav__child-age-opt--sel {
+  font-weight: 600;
+  color: #191e3b;
+}
+
+.bex-pro-trav__add {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: #191e3b;
+  font-family: inherit;
+  padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Footer with Done button */
+.bex-pro-trav__footer {
+  padding: 16px 20px 28px;
+  flex-shrink: 0;
+  border-top: 1px solid #e2e3ea;
+}
+
+.bex-pro-trav__done {
+  width: 100%;
+  height: 52px;
+  border-radius: 999px;
+  background: #191e3b;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bex-pro-trav__done:active { opacity: 0.85; }
+
+/* ── Multi-city form ──────────────────────────────────────────── */
+
+/* Outer column — gaps between travelers card, segment labels, segment cards */
+.bex-mc__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Each flight segment = label + card stacked with 8px gap */
+.bex-mc__segment {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+/* "Flight N" label row — outside the card */
+.bex-mc__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.bex-mc__label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+/* Small grey circle dismiss button for flight 3+ */
+.bex-mc__dismiss {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e8e8e8;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bex-mc__dismiss:active {
+  background: #d4d4d4;
+}
+
+/* "Add another flight" row — right-aligned */
+.bex-mc__add-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
+.bex-mc__add-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bex-mc__add-btn:active {
+  opacity: 0.6;
+}
