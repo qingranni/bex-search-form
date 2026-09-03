@@ -1820,6 +1820,18 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
     });
   }, [pkgMultiMode]);
 
+  // Scroll back to top when collapsing to single mode so the pictogram is visible.
+  // Skip the very first render (pkgMultiMode starts false, no transition has happened yet).
+  const pkgMultiModeHasBeenTrue = useRef(false);
+  useEffect(() => {
+    if (pkgMultiMode) { pkgMultiModeHasBeenTrue.current = true; return; }
+    if (!pkgMultiModeHasBeenTrue.current) return; // haven't expanded yet — skip
+    requestAnimationFrame(() => {
+      (document.querySelector('.bex-app') as HTMLElement | null)
+        ?.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }, [pkgMultiMode]);
+
   // Cancel any pending progressive disclosure when LOB changes
   useEffect(() => {
     if (nextSheetTimerRef.current) clearTimeout(nextSheetTimerRef.current);
