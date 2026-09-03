@@ -5689,9 +5689,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 0 0;
 }
-.bex-hero-pro__pkg-section-header--car {
+/* No top padding on the very first section block */
+.bex-hero-pro__pkg-section-block:first-child .bex-hero-pro__pkg-section-header {
+  padding-top: 0;
+}
+/* Subsequent sections get 4px breathing room above the header */
+.bex-hero-pro__pkg-section-block + .bex-hero-pro__pkg-section-block .bex-hero-pro__pkg-section-header {
   padding-top: 4px;
 }
 .bex-hero-pro__pkg-section-label {

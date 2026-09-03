@@ -1793,8 +1793,8 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
   // Reset bundle when switching LOBs or package tabs
   useEffect(() => { setBundleExpanded(false); setPkgMultiMode(false); }, [activeLob, packageTab]);
 
-  // Scroll the pill row (back btn + "Stay + Flight") to the very top of the viewport.
-  // Uses offsetTop chain instead of getBoundingClientRect to work correctly under CSS zoom.
+  // Scroll so the pill row (← back + "Stay + Flight") sits just below the status bar.
+  // Uses getBoundingClientRect + zoom compensation so it works under CSS zoom.
   useEffect(() => {
     if (!pkgMultiMode) return;
     requestAnimationFrame(() => {
@@ -1802,15 +1802,20 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
       const pillRow = pillRowOuterRef.current;
       if (!scrollContainer || !pillRow) return;
 
-      // Sum offsetTop walking up through offsetParent until we reach the scroll container
-      let offset = 0;
-      let el: HTMLElement | null = pillRow;
-      while (el && el !== scrollContainer) {
-        offset += el.offsetTop;
-        el = el.offsetParent as HTMLElement | null;
-      }
+      const STATUS_BAR_H = 62; // matches .bex-status-bar { height: 62px }
 
-      scrollContainer.scrollTo({ top: offset, behavior: 'smooth' });
+      // CSS zoom factor: visual px / CSS px
+      const cRect = scrollContainer.getBoundingClientRect();
+      const zoom = scrollContainer.offsetWidth > 0 ? cRect.width / scrollContainer.offsetWidth : 1;
+
+      // Pill row's absolute content position in CSS px
+      const pillRect = pillRow.getBoundingClientRect();
+      const pillViewportCSS = (pillRect.top - cRect.top) / zoom;      // CSS px from container top
+      const pillContentCSS  = pillViewportCSS + scrollContainer.scrollTop; // absolute in content
+
+      // Scroll so pill row lands exactly at STATUS_BAR_H from the container top
+      const targetScrollTop = Math.max(0, pillContentCSS - STATUS_BAR_H);
+      scrollContainer.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
     });
   }, [pkgMultiMode]);
 
