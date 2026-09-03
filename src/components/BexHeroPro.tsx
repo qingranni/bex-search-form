@@ -1519,6 +1519,16 @@ const PKG_MULTI_CONTAINER_VARIANTS = {
   exit:    { opacity: 0, transition: { duration: 0.12, ease: 'easeIn' } },
 } as const;
 
+// Single-mode wrapper — starts at opacity:1 (no blank) but propagates "visible"
+// to FieldRow children so they stagger in correctly via FIELD_ITEM_VARIANTS
+const PKG_SINGLE_VARIANTS = {
+  hidden:  { opacity: 1, scale: 0.98 },
+  visible: { opacity: 1, scale: 1,
+             transition: { type: 'spring' as const, stiffness: 500, damping: 32, mass: 0.6 } },
+  exit:    { opacity: 0, scale: 0.97, y: -8,
+             transition: { duration: 0.16, ease: [0.32, 0, 0.67, 0] as any } },
+} as const;
+
 // Each section block (label + card) springs in / out
 const PKG_SECTION_ITEM_VARIANTS = {
   hidden:   { opacity: 0, y: 22, scale: 0.95 },
@@ -2207,13 +2217,10 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
             <motion.div
               key="pkg-single"
               className="bex-hero-pro__fieldscard"
-              // Start at opacity:1 so there's no blank flash when returning from multi-mode.
-              // The outer FORM_WRAPPER_VARIANTS handles the fade-in when switching LOBs.
-              initial={{ opacity: 1, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1,
-                         transition: { type: 'spring', stiffness: 500, damping: 32, mass: 0.6 } }}
-              exit={{    opacity: 0, scale: 0.97, y: -8,
-                         transition: { duration: 0.16, ease: [0.32, 0, 0.67, 0] as any } }}
+              variants={PKG_SINGLE_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
               {hasFlights ? (
                 <div className="bex-hero-pro__origin-wrap">
