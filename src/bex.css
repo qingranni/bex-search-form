@@ -5666,10 +5666,8 @@
 /* ── Packages mode-switch layout shell ──────────────────────────────────────── */
 /* Outer spring-height wrapper — Framer layout animation drives height */
 .bex-hero-pro__pkg-layout-shell {
-  /* let width follow the parent */
   width: 100%;
-  /* clip overflow so sections don't bleed outside during entry */
-  overflow: hidden;
+  /* No overflow:hidden — would clip the card box-shadows */
 }
 
 /* ── Packages multi-leg expanded container ─────────────────────────────────── */
