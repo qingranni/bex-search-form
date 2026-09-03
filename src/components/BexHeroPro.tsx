@@ -1515,7 +1515,8 @@ const FORM_WRAPPER_VARIANTS = {
 const PKG_MULTI_CONTAINER_VARIANTS = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-  exit:   { transition: { staggerChildren: 0.04, staggerDirection: -1 as const } },
+  // Faster reverse-stagger so the blank gap before single mode appears is minimal
+  exit:   { transition: { staggerChildren: 0.03, staggerDirection: -1 as const } },
 } as const;
 
 // Each section block (label + card) springs in / out
@@ -2103,13 +2104,9 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
     const hasCar     = packageTab === 1 || packageTab === 2 || packageTab === 3;
 
     return (
-      /* Layout shell: springs height as content swaps between modes */
-      <motion.div
-        layout
-        className="bex-hero-pro__pkg-layout-shell"
-        transition={{ type: 'spring', stiffness: 360, damping: 34, mass: 0.85 }}
-      >
-        <AnimatePresence mode="popLayout" initial={false}>
+      /* Layout shell: contains both mode views */
+      <div className="bex-hero-pro__pkg-layout-shell">
+        <AnimatePresence mode="wait" initial={false}>
 
           {/* ══ FLEX / MULTI-MODE ═══════════════════════════════════════════ */}
           {pkgMultiMode ? (
@@ -2250,7 +2247,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
           )}
 
         </AnimatePresence>
-      </motion.div>
+      </div>
     );
   };
 
