@@ -1791,8 +1791,10 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
     if (!overlay) setCollapsed(warmth === 'hot');
   }, [warmth, overlay]);
 
-  // Reset bundle when switching LOBs or package tabs
-  useEffect(() => { setBundleExpanded(false); setPkgMultiMode(false); }, [activeLob, packageTab]);
+  // Switching LOB resets everything including multi-mode
+  useEffect(() => { setBundleExpanded(false); setPkgMultiMode(false); }, [activeLob]);
+  // Switching package tab (Flight+Stay → Flight+Car etc.) only resets bundle, not multi-mode
+  useEffect(() => { setBundleExpanded(false); }, [packageTab]);
 
   // Scroll so the pill row (← back + "Stay + Flight") sits just below the status bar.
   // Uses getBoundingClientRect + zoom compensation so it works under CSS zoom.
