@@ -29,7 +29,7 @@ const LOBS: { id: LobId; label: string }[] = [
 ];
 
 const FLIGHT_TABS = ['Roundtrip', 'One-way', 'Multi-city'];
-const PACKAGE_TABS = ['Stay + Flight', 'Flight + Car', 'Stay + Car', 'Stay + Flight + Car'];
+const PACKAGE_TABS = ['Flight + Stay', 'Flight + Car', 'Stay + Car', 'Flight + Stay + Car'];
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
