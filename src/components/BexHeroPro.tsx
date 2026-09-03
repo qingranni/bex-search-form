@@ -1514,28 +1514,29 @@ const FORM_WRAPPER_VARIANTS = {
 // Stagger container for multi-mode — children use PKG_SECTION_ITEM_VARIANTS
 const PKG_MULTI_CONTAINER_VARIANTS = {
   hidden:  {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-  // No stagger on exit — unified quick fade so the blank before single mode is imperceptible
-  exit:    { opacity: 0, transition: { duration: 0.12, ease: 'easeIn' } },
+  // Slower stagger (120ms between sections) so each section's arrival is clearly visible
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.06 } },
+  // Unified fade-out long enough to be seen but short enough to not block single-mode return
+  exit:    { opacity: 0, transition: { duration: 0.22, ease: [0.32, 0, 0.67, 0] as any } },
 } as const;
 
 // Single-mode wrapper — starts at opacity:1 (no blank) but propagates "visible"
-// to FieldRow children so they stagger in correctly via FIELD_ITEM_VARIANTS
+// to FieldRow children so they stagger in one-by-one, guiding the eye back through the form
 const PKG_SINGLE_VARIANTS = {
-  hidden:  { opacity: 1, scale: 0.98 },
+  hidden:  { opacity: 1, scale: 0.97 },
   visible: { opacity: 1, scale: 1,
-             transition: { type: 'spring' as const, stiffness: 500, damping: 32, mass: 0.6 } },
+             transition: { type: 'spring' as const, stiffness: 400, damping: 30, mass: 0.65 } },
   exit:    { opacity: 0, scale: 0.97, y: -8,
-             transition: { duration: 0.16, ease: [0.32, 0, 0.67, 0] as any } },
+             transition: { duration: 0.22, ease: [0.32, 0, 0.67, 0] as any } },
 } as const;
 
-// Each section block (label + card) springs in / out
+// Each section block springs in from further below with a bouncier, slower spring
+// so users clearly see each section arriving in sequence
 const PKG_SECTION_ITEM_VARIANTS = {
-  hidden:   { opacity: 0, y: 22, scale: 0.95 },
+  hidden:   { opacity: 0, y: 32, scale: 0.93 },
   visible:  { opacity: 1, y: 0,  scale: 1,
-              transition: { type: 'spring' as const, stiffness: 440, damping: 26, mass: 0.62 } },
-  // Exit matches the container fade — no independent exit needed
-  exit:     { opacity: 0, transition: { duration: 0.12, ease: 'easeIn' } },
+              transition: { type: 'spring' as const, stiffness: 340, damping: 24, mass: 0.75 } },
+  exit:     { opacity: 0, transition: { duration: 0.22, ease: [0.32, 0, 0.67, 0] as any } },
 } as const;
 
 // Each field / divider item staggers in from slightly below
