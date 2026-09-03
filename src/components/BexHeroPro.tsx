@@ -1783,13 +1783,24 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
   // Reset bundle when switching LOBs or package tabs
   useEffect(() => { setBundleExpanded(false); setPkgMultiMode(false); }, [activeLob, packageTab]);
 
-  // Scroll up so "Stay + Flight" pill row + expanded form are fully visible.
-  // scrollIntoView mis-fires under CSS zoom, so we target .bex-app directly.
+  // Scroll the pill row (back btn + "Stay + Flight") to the very top of the viewport.
+  // Uses offsetTop chain instead of getBoundingClientRect to work correctly under CSS zoom.
   useEffect(() => {
     if (!pkgMultiMode) return;
     requestAnimationFrame(() => {
-      (document.querySelector('.bex-app') as HTMLElement | null)
-        ?.scrollTo({ top: 0, behavior: 'smooth' });
+      const scrollContainer = document.querySelector('.bex-app') as HTMLElement | null;
+      const pillRow = pillRowOuterRef.current;
+      if (!scrollContainer || !pillRow) return;
+
+      // Sum offsetTop walking up through offsetParent until we reach the scroll container
+      let offset = 0;
+      let el: HTMLElement | null = pillRow;
+      while (el && el !== scrollContainer) {
+        offset += el.offsetTop;
+        el = el.offsetParent as HTMLElement | null;
+      }
+
+      scrollContainer.scrollTo({ top: offset, behavior: 'smooth' });
     });
   }, [pkgMultiMode]);
 
