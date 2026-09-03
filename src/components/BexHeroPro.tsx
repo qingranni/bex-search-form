@@ -2207,8 +2207,10 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
             <motion.div
               key="pkg-single"
               className="bex-hero-pro__fieldscard"
-              initial={{ opacity: 0, scale: 0.97, y: 10 }}
-              animate={{ opacity: 1, scale: 1,    y: 0,
+              // Start at opacity:1 so there's no blank flash when returning from multi-mode.
+              // The outer FORM_WRAPPER_VARIANTS handles the fade-in when switching LOBs.
+              initial={{ opacity: 1, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1,
                          transition: { type: 'spring', stiffness: 500, damping: 32, mass: 0.6 } }}
               exit={{    opacity: 0, scale: 0.97, y: -8,
                          transition: { duration: 0.16, ease: [0.32, 0, 0.67, 0] as any } }}
