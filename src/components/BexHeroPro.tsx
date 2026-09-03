@@ -1513,10 +1513,10 @@ const FORM_WRAPPER_VARIANTS = {
 
 // Stagger container for multi-mode — children use PKG_SECTION_ITEM_VARIANTS
 const PKG_MULTI_CONTAINER_VARIANTS = {
-  hidden: {},
+  hidden:  {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-  // Faster reverse-stagger so the blank gap before single mode appears is minimal
-  exit:   { transition: { staggerChildren: 0.03, staggerDirection: -1 as const } },
+  // No stagger on exit — unified quick fade so the blank before single mode is imperceptible
+  exit:    { opacity: 0, transition: { duration: 0.12, ease: 'easeIn' } },
 } as const;
 
 // Each section block (label + card) springs in / out
@@ -1524,8 +1524,8 @@ const PKG_SECTION_ITEM_VARIANTS = {
   hidden:   { opacity: 0, y: 22, scale: 0.95 },
   visible:  { opacity: 1, y: 0,  scale: 1,
               transition: { type: 'spring' as const, stiffness: 440, damping: 26, mass: 0.62 } },
-  exit:     { opacity: 0, y: -8, scale: 0.97,
-              transition: { duration: 0.12, ease: [0.32, 0, 0.67, 0] as any } },
+  // Exit matches the container fade — no independent exit needed
+  exit:     { opacity: 0, transition: { duration: 0.12, ease: 'easeIn' } },
 } as const;
 
 // Each field / divider item staggers in from slightly below
