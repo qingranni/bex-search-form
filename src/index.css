@@ -8,6 +8,8 @@ html, body {
   margin: 0;
   padding: 0;
   overscroll-behavior: contain;
+  /* Centra No. 2 stylistic set 2 uses the single-storey “a”. */
+  font-feature-settings: "ss02" 1;
 }
 
 html::-webkit-scrollbar,
@@ -179,20 +181,20 @@ body {
 
 /* ── EGDS color theme (light) ───────────────────────────────────────────────── */
 :root {
-  --color-primary: #1668e3;
-  --color-primary-container: #c8dff9;
+  --color-primary: #191e3b;
+  --color-primary-container: #f0f1f5;
   --color-primary-container-variant: #fff9d9;
-  --color-primary-variant: #0e3672;
+  --color-primary-variant: #0c0e1c;
   --color-on-primary: #ffffff;
-  --color-on-primary-container: #0d4eaf;
-  --color-secondary: #1668e3;
-  --color-secondary-container: #c8dff9;
+  --color-on-primary-container: #191e3b;
+  --color-secondary: #191e3b;
+  --color-secondary-container: #f0f1f5;
   --color-on-secondary: #ffffff;
-  --color-on-secondary-container: #0d4eaf;
+  --color-on-secondary-container: #191e3b;
   --color-on-surface: #191e3b;
   --color-on-surface-variant: #676a7d;
   --color-outline: #818494;
-  --color-outline-focus: #1668e3;
+  --color-outline-focus: #191e3b;
   --color-outline-variant: #dfe0e4;
   --color-on-overlay: #ffffff;
   --color-overlay: #191e3b;

@@ -1,8 +1,8 @@
 import React from 'react';
 
 // ── Photo assets ──────────────────────────────────────────────────────────────
-const IMG_PHOENIX   = 'https://images.unsplash.com/photo-1562978000-05cf94d38c4e?w=800&h=500&fit=crop&crop=top&auto=format&q=82';
-const IMG_HOTEL_1   = 'https://www.figma.com/api/mcp/asset/5e8b21c7-9c34-4a27-b012-a6a75934c92a.png';
+const IMG_PHOENIX   = '/images/phoenix-hot.jpg';
+const IMG_HOTEL_1   = '/images/figma/5e8b21c7-9c34-4a27-b012-a6a75934c92a.png';
 const IMG_HOTEL_2   = 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=640&h=430&fit=crop&crop=center&auto=format&q=80';
 
 // Recent activity thumbnails
@@ -61,7 +61,7 @@ const IconOneKey = () => (
   </svg>
 );
 const IconCheckmark = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="#1976d2" aria-hidden>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="#191e3b" aria-hidden>
     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
   </svg>
 );
@@ -122,7 +122,7 @@ const RecentCard: React.FC<RecentCardProps> = ({ photo, name, sub, price }) => (
       <div className="hot-recent-card__name">{name}</div>
       <div className="hot-recent-card__sub">{sub}</div>
       <div className="hot-recent-card__price">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="#1976d2" aria-hidden>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="#191e3b" aria-hidden>
           <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
         </svg>
         <span>{price}</span>

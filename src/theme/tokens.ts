@@ -31,12 +31,12 @@ export const color = {
   btnTertiary:      'var(--bex-btn-tertiary, #f7f4f3)',
 
   // EGDS semantic
-  primary:          'var(--color-primary, #1668e3)',
+  primary:          'var(--color-primary, #191e3b)',
   onSurface:        'var(--color-on-surface, #191e3b)',
   onSurfaceVariant: 'var(--color-on-surface-variant, #676a7d)',
   outline:          'var(--color-outline, #818494)',
   outlineVariant:   'var(--color-outline-variant, #dfe0e4)',
-  outlineFocus:     'var(--color-outline-focus, #1668e3)',
+  outlineFocus:     'var(--color-outline-focus, #191e3b)',
   positive:         'var(--color-positive, #227950)',
   critical:         'var(--color-critical, #a7183c)',
 
@@ -48,7 +48,7 @@ export const color = {
     bgLightBlue:    '#d7edfb',
     strokeMin:      '#24141417',
     outlineVariant: '#dfe0e4',
-    primary:        '#1668e3',
+    primary:        '#191e3b',
     white:          '#ffffff',
   },
 } as const;

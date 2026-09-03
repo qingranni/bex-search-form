@@ -6,12 +6,12 @@ import { BexHero } from './BexHero';
 import { BexHeroPro } from './BexHeroPro';
 
 const LOB_PICTOGRAMS: Record<string, string> = {
-  stays:      'https://www.figma.com/api/mcp/asset/7ddeaffe-5255-495e-8884-df63ea8c7631.png',
-  flights:    'https://www.figma.com/api/mcp/asset/9bafe27c-f567-4aaa-ac8a-942202531e11.png',
-  cars:       'https://www.figma.com/api/mcp/asset/26459eb8-01e3-41e7-9ede-ebf24b33753a.png',
-  packages:   'https://www.figma.com/api/mcp/asset/4ec77f99-6308-4ab9-9e31-5b5b18559ba9.png',
-  activities: 'https://www.figma.com/api/mcp/asset/92107ca5-817c-483c-956d-9a16e86d86bb.png',
-  cruises:    'https://www.figma.com/api/mcp/asset/8b4c9ef2-b888-4e14-b07d-f90710d13a52.png',
+  stays:      '/images/figma/7ddeaffe-5255-495e-8884-df63ea8c7631.png',
+  flights:    '/images/figma/9bafe27c-f567-4aaa-ac8a-942202531e11.png',
+  cars:       '/images/figma/26459eb8-01e3-41e7-9ede-ebf24b33753a.png',
+  packages:   '/images/figma/4ec77f99-6308-4ab9-9e31-5b5b18559ba9.png',
+  activities: '/images/figma/92107ca5-817c-483c-956d-9a16e86d86bb.png',
+  cruises:    '/images/figma/8b4c9ef2-b888-4e14-b07d-f90710d13a52.png',
 };
 
 const LOB_LABELS: Record<string, string> = {
@@ -127,7 +127,11 @@ export const StickySearchBar: React.FC<Props> = ({
               {/* Hero form — overlay=true hides toolbar */}
               {version === 'lite'
                 ? <BexHero warmth={warmth} overlay />
-                : <BexHeroPro warmth={warmth} overlay />
+                : <BexHeroPro
+                    warmth={warmth}
+                    overlay
+                    fieldSheets={version === 'msf' ? 'lite' : 'pro'}
+                  />
               }
             </motion.div>
           </motion.div>

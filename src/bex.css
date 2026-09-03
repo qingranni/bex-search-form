@@ -1200,7 +1200,7 @@
   gap: 4px;
   font-size: 13px;
   font-weight: 600;
-  color: #1976d2;
+  color: #191e3b;
   font-family: var(--bex-font);
   margin-top: 2px;
 }
@@ -1389,8 +1389,8 @@
   display: inline-block;
   font-size: 11px;
   font-weight: 500;
-  color: #1976d2;
-  background: #e3f2fd;
+  color: #191e3b;
+  background: #f0f1f5;
   border-radius: 6px;
   padding: 2px 7px;
   font-family: var(--bex-font);
@@ -1509,7 +1509,7 @@
   gap: 6px;
   font-size: 12px;
   font-weight: 500;
-  color: #1976d2;
+  color: #191e3b;
   font-family: var(--bex-font);
 }
 .hot-feed__rtb-card__title {
@@ -2723,6 +2723,198 @@
   background: rgba(0, 0, 0, 0.45);
 }
 
+/* ── Lite cruise mWeb sheet ───────────────────────────────────────────────────
+   Cruises are not native-app inventory, so selecting the LOB opens the mWeb
+   experience without replacing the native Lite search form underneath. */
+.bex-cruise-sheet {
+  position: fixed;
+  inset: 60px 0 0;
+  z-index: 250;
+  width: 402px;
+  height: 814px;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  color: #191e3b;
+  overflow: hidden;
+  font-family: var(--bex-font);
+}
+
+.bex-cruise-sheet__header {
+  height: 58px;
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  border-bottom: 1px solid #c9c9c9;
+  background: #fff;
+}
+
+.bex-cruise-sheet__header-title {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.bex-cruise-sheet__icon-btn {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: #191e3b;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.bex-cruise-sheet__icon-btn:last-child {
+  justify-self: end;
+}
+
+.bex-cruise-sheet__content {
+  height: calc(100% - 58px);
+  padding: 20px 24px 28px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.bex-cruise-sheet__content::-webkit-scrollbar {
+  display: none;
+}
+
+.bex-cruise-sheet__content h2 {
+  max-width: 340px;
+  margin: 0;
+  color: #191e3b;
+  font-size: 34px;
+  line-height: 1.14;
+  letter-spacing: -0.8px;
+  font-weight: 700;
+}
+
+.bex-cruise-sheet__advice {
+  margin: 32px 0 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.bex-cruise-sheet__advice a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bex-cruise-sheet__fields {
+  display: grid;
+  gap: 12px;
+}
+
+.bex-cruise-sheet__field {
+  width: 100%;
+  min-height: 54px;
+  padding: 8px 14px;
+  border: 1px solid #72747d;
+  border-radius: 9px;
+  background: #fff;
+  color: #24283f;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.bex-cruise-sheet__field-icon {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+}
+
+.bex-cruise-sheet__field-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.bex-cruise-sheet__field-copy {
+  display: grid;
+  line-height: 1.15;
+}
+
+.bex-cruise-sheet__field-copy small {
+  margin-bottom: 3px;
+  font-size: 12px;
+}
+
+.bex-cruise-sheet__search {
+  width: 100%;
+  height: 54px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 999px;
+  background: #191e3b;
+  color: #fff;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bex-cruise-sheet__promo {
+  position: relative;
+  height: 354px;
+  margin-top: 34px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #153a61;
+  color: #fff;
+}
+
+.bex-cruise-sheet__promo > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.bex-cruise-sheet__promo-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(4, 13, 28, 0.86) 100%);
+}
+
+.bex-cruise-sheet__promo-copy {
+  position: absolute;
+  inset: auto 36px 26px;
+}
+
+.bex-cruise-sheet__promo-copy h3 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 21px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.bex-cruise-sheet__promo-copy p {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.bex-cruise-sheet__promo-copy button {
+  height: 42px;
+  padding: 0 18px;
+  border: 1px solid #d5d7db;
+  border-radius: 999px;
+  background: #fff;
+  color: #1769d8;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 /* Bottom sheet panel — slides up from bottom, rounded top corners */
 .bex-fs {
   position: relative;
@@ -2735,7 +2927,7 @@
   overflow: hidden;
 }
 
-/* ── Blue X close button ─────────────────────────────────────────────────── */
+/* ── Primary X close button ──────────────────────────────────────────────── */
 .bex-fs__close {
   display: flex;
   align-items: center;
@@ -2767,20 +2959,20 @@
   flex: 1;
   font-family: var(--bex-font);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 500;
   color: #191e3b;
   letter-spacing: -0.3px;
   border: none;
   outline: none;
   background: transparent;
-  caret-color: #1a6cda;
+  caret-color: #191e3b;
   padding: 0;
   min-width: 0;
 }
 
 .bex-fs__search-input::placeholder {
   color: #c0bfbd;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 18px;
 }
 
@@ -3076,7 +3268,7 @@
   font-family: var(--bex-font);
   font-size: 14px;
   font-weight: 500;
-  color: #1668e3;
+  color: #191e3b;
   background: none;
   border: none;
   cursor: pointer;
@@ -3181,11 +3373,50 @@
   font-family: var(--bex-font);
   font-size: 15px;
   font-weight: 500;
-  color: #1668e3;
+  color: #191e3b;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
+}
+
+.bex-trav__cabin {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 8px 42px 8px 14px;
+  min-height: 58px;
+  border: 1.5px solid #818494;
+  border-radius: 10px;
+  color: #191e3b;
+  cursor: pointer;
+}
+
+.bex-trav__cabin-label {
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+
+.bex-trav__cabin select {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  color: #191e3b;
+  font: 500 16px/20px var(--bex-font);
+  appearance: none;
+  cursor: pointer;
+}
+
+.bex-trav__cabin > svg {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .bex-trav__footer {
@@ -3198,7 +3429,7 @@
   height: 52px;
   border-radius: 999px;
   border: none;
-  background: #1668e3;
+  background: #191e3b;
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
@@ -3287,7 +3518,7 @@
 }
 
 .bex-cal__tab--active {
-  color: #1a6cda;
+  color: #191e3b;
   font-weight: 600;
 }
 
@@ -3310,7 +3541,7 @@
   left: 16px;
   right: 16px;
   height: 2px;
-  background: #1a6cda;
+  background: #191e3b;
   border-radius: 1px;
 }
 
@@ -3330,12 +3561,12 @@
 }
 
 .bex-cal__range-box--set {
-  border-color: #1a6cda;
+  border-color: #191e3b;
 }
 
 .bex-cal__range-box-val {
   font-family: var(--bex-font);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #191e3b;
   letter-spacing: -0.4px;
@@ -3344,7 +3575,7 @@
 
 .bex-cal__range-box:not(.bex-cal__range-box--set) .bex-cal__range-box-val {
   color: #c0bfbd;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .bex-cal__range-arrow {
@@ -3741,8 +3972,7 @@
 .bex-cal__pro-toolbar {
   display: flex;
   align-items: center;
-  height: 64px;
-  padding: 0 20px;
+  padding: 20px 20px 0;
   flex-shrink: 0;
 }
 
@@ -3771,6 +4001,10 @@
   gap: 2px;
 }
 
+.bex-cal__pro-toolbar + .bex-cal__seg {
+  margin-top: 12px;
+}
+
 .bex-cal__seg-btn {
   flex: 1;
   height: 36px;
@@ -3796,13 +4030,17 @@
   padding: 0 14px;
 }
 
+.bex-cal--pro .bex-cal__month:first-child {
+  padding-top: 0;
+}
+
 /* Pro month header — centered, bold */
 .bex-cal--pro .bex-cal__month-header {
   font-size: 17px;
   font-weight: 700;
   text-align: center;
   letter-spacing: -0.3px;
-  padding-top: 12px;
+  padding-top: 4px;
 }
 
 /* Pro DOW row — 3-letter names, smaller color */
@@ -3872,6 +4110,10 @@
   flex-shrink: 0;
   border-top: 1px solid #e8e8e8;
   padding: 0 0 34px;
+}
+
+.bex-cal__footer--pro-exact.bex-cal__footer--no-flex {
+  padding-top: 16px;
 }
 
 .bex-cal__flex-footer--pro {
@@ -4166,6 +4408,9 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999; /* above the frame transform stacking context */
+}
+
+.bex-vsw__surface {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -4180,6 +4425,13 @@
   font-family: var(--bex-font);
   user-select: none;
   white-space: nowrap;
+}
+
+.bex-vsw__state-wrap {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transform-origin: left center;
 }
 
 .bex-vsw__group {
@@ -4197,6 +4449,8 @@
 }
 
 .bex-vsw__pill {
+  position: relative;
+  isolation: isolate;
   height: 28px;
   padding: 0 12px;
   border-radius: 99px;
@@ -4220,8 +4474,21 @@
 }
 
 .bex-vsw__pill[data-active] {
-  background: #ffffff;
   color: #191e3b;
+}
+
+.bex-vsw__active-indicator {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 99px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.bex-vsw__pill-label {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Pro Hero ─────────────────────────────────────────────────────────────────── */
@@ -5071,6 +5338,10 @@
   text-overflow: ellipsis;
 }
 
+.bex-hero-pro__field-value--handoff {
+  opacity: 0;
+}
+
 /* Empty / placeholder state — same size, muted gray */
 /* Empty state — icon stays dark, only placeholder text gets grey */
 .bex-hero-pro__field--empty .bex-hero-pro__field-value {
@@ -5365,6 +5636,108 @@
   flex: 1;
 }
 
+/* ── Packages "Add multiple dates or destinations" footer button ───────────── */
+.bex-hero-pro__pkg-add-multi-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: #f5f4f2;
+  border: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  font-family: var(--bex-font);
+  font-size: 13px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 17px;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.bex-hero-pro__pkg-add-multi-btn svg {
+  flex-shrink: 0;
+  color: #191e3b;
+}
+.bex-hero-pro__pkg-add-multi-btn:active {
+  background: #ebe9e7;
+}
+
+/* ── Packages multi-leg expanded container ─────────────────────────────────── */
+.bex-hero-pro__pkg-multi {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Section header row: "Flight" label + Roundtrip/Economy pills */
+.bex-hero-pro__pkg-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0 0;
+}
+.bex-hero-pro__pkg-section-header--car {
+  padding-top: 4px;
+}
+.bex-hero-pro__pkg-section-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  font-family: var(--bex-font);
+  font-feature-settings: "ss02";
+  margin-right: 4px;
+}
+.bex-hero-pro__pkg-section-pills {
+  display: flex;
+  gap: 6px;
+}
+
+/* Inset field cards used inside the multi-leg layout */
+.bex-hero-pro__fieldscard--inset {
+  box-shadow:
+    0px 3px 16px rgba(0,0,0,0.10),
+    0px 8px 20px rgba(0,0,0,0.05),
+    0px 13px 18px rgba(0,0,0,0.05);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* "← Single dates or destinations" collapse button */
+.bex-hero-pro__pkg-single-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 40000px;
+  height: 40px;
+  padding: 0 20px;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: #191e3b;
+  letter-spacing: -0.25px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+.bex-hero-pro__pkg-single-btn svg {
+  flex-shrink: 0;
+}
+.bex-hero-pro__pkg-single-btn:active {
+  background: #e4e4e4;
+}
+
+/* Pill size variant used inside pkg-section-header */
+.bex-hero-pro__pill--sm {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
 /* Search button — navy pill, 48px, full width */
 .bex-hero-pro__submit {
   width: 100%;
@@ -5477,13 +5850,38 @@
    same positioning pattern as .bex-fs in Lite */
 .bex-pro-dest__card {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   height: 812px; /* 874px frame - 62px status bar = 812px */
   background: #ffffff;
   border-radius: 32px 32px 0 0;
   overflow: hidden;
+}
+
+.bex-pro-dest__morph-surface {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  box-shadow: 0 12px 40px rgba(16, 16, 16, 0.08);
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform, width, height, border-radius;
+}
+
+.bex-pro-dest__card--closing {
+  pointer-events: none;
+}
+
+.bex-pro-dest__card--closing .bex-pro-dest__top-bar,
+.bex-pro-dest__card--closing .bex-pro-dest__search-wrap,
+.bex-pro-dest__card--closing .bex-pro-dest__body {
+  opacity: 0;
+  transition: opacity 0.16s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 /* Top bar: standalone close button at top-left */
@@ -5536,16 +5934,112 @@
   flex: 1;
   border: none;
   outline: none;
-  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  height: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
   color: #191e3b;
   background: transparent;
   font-family: inherit;
+  letter-spacing: -0.16px;
   min-width: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.bex-pro-dest__input--handoff {
+  color: transparent;
+}
+
+.bex-pro-dest__input--handoff::placeholder {
+  color: transparent;
+}
+
+.bex-pro-dest__pill--awaiting-handoff {
+  opacity: 0;
+}
+
+.bex-pro-dest__handoff-pill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 8;
+  display: block;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0px 0px 36px rgba(16,16,16,0.12);
+  color: #191e3b;
+  font-family: var(--bex-font);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
+  will-change: transform, width, height;
+}
+
+.bex-pro-dest__handoff-pill--settled {
+  opacity: 0;
+}
+
+.bex-pro-dest__handoff-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+}
+
+.bex-pro-dest__handoff-pill-text {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 18px;
+}
+
+.bex-pro-dest__handoff-pill-text--from {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+}
+
+.bex-pro-dest__handoff-pill-text--to {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  color: #766e7f;
+}
+
+.bex-pro-dest__handoff-pill-text--filled {
+  position: static;
+  inset: auto;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.16px;
+  line-height: 18px;
+  color: #191e3b;
 }
 
 .bex-pro-dest__input::placeholder {
   color: #766e7f;
   font-size: 14px;
+  font-weight: 300;
+  letter-spacing: -0.16px;
 }
 
 .bex-pro-dest__clear {
@@ -5589,6 +6083,10 @@
   line-height: 22px;
 }
 
+.bex-pro-dest__section-title--following {
+  margin-top: 28px;
+}
+
 .bex-pro-dest__list {
   display: flex;
   flex-direction: column;
@@ -5614,6 +6112,21 @@
   background: rgba(0,0,0,0.04);
 }
 
+.bex-pro-dest__item-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
 /* 48×48 rounded square icon container */
 .bex-pro-dest__item-icon {
   width: 48px;
@@ -5631,6 +6144,12 @@
 .bex-pro-dest__item-icon--search {
   background: none;
   color: #191e3b;
+  width: 24px;
+  height: 24px;
+}
+
+.bex-pro-dest__item--search-for {
+  gap: 8px;
 }
 
 .bex-pro-dest__item-text {

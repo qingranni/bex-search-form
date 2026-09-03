@@ -6,12 +6,12 @@ import type { Warmth } from './VersionSwitcher';
 
 // ─── Figma pictogram assets — refreshed from Lite node 7051:374819 (Aug 2026)
 const LOB_PICTOGRAMS: Record<string, string> = {
-  stays:      'https://www.figma.com/api/mcp/asset/7ddeaffe-5255-495e-8884-df63ea8c7631.png',
-  flights:    'https://www.figma.com/api/mcp/asset/9bafe27c-f567-4aaa-ac8a-942202531e11.png',
-  cars:       'https://www.figma.com/api/mcp/asset/26459eb8-01e3-41e7-9ede-ebf24b33753a.png',
-  packages:   'https://www.figma.com/api/mcp/asset/4ec77f99-6308-4ab9-9e31-5b5b18559ba9.png',
-  activities: 'https://www.figma.com/api/mcp/asset/92107ca5-817c-483c-956d-9a16e86d86bb.png',
-  cruises:    'https://www.figma.com/api/mcp/asset/8b4c9ef2-b888-4e14-b07d-f90710d13a52.png',
+  stays:      '/images/figma/7ddeaffe-5255-495e-8884-df63ea8c7631.png',
+  flights:    '/images/figma/9bafe27c-f567-4aaa-ac8a-942202531e11.png',
+  cars:       '/images/figma/26459eb8-01e3-41e7-9ede-ebf24b33753a.png',
+  packages:   '/images/figma/4ec77f99-6308-4ab9-9e31-5b5b18559ba9.png',
+  activities: '/images/figma/92107ca5-817c-483c-956d-9a16e86d86bb.png',
+  cruises:    '/images/figma/8b4c9ef2-b888-4e14-b07d-f90710d13a52.png',
 };
 
 // ─── LOB config ───────────────────────────────────────────────────────────────
@@ -56,15 +56,15 @@ const IconPlane = () => (
 // Takeoff: plane rotated 45° CW so nose points NE (departing)
 // EGDS 2 "Flight takeoff" glyph — plane body sweeping up-right, runway line at bottom
 const IconFlightTakeoff = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M2.5 19h19v2h-19zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10l-6.9-6.43-1.93.51 4.14 7.17-4.97 1.33-1.97-1.54-1.45.39 2.59 4.49 1.27-.34 8.2-2.2 4.91-1.32c.81-.22 1.29-1.05 1.06-1.86z"/>
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+    <path d="M16.1254 15.0003C16.3325 15.0003 16.5004 15.1682 16.5004 15.3753V16.1253C16.5002 16.3323 16.3324 16.5003 16.1254 16.5003H1.87542C1.66858 16.5001 1.50059 16.3322 1.50042 16.1253V15.3753C1.50042 15.1683 1.66847 15.0005 1.87542 15.0003H16.1254ZM6.99358 1.93392C7.58178 1.76445 8.21435 1.96916 8.59124 2.4515L11.852 6.62435L13.5229 6.18588C15.0283 5.79011 16.5004 6.92522 16.5004 8.48178C16.5004 9.57125 15.7595 10.5212 14.7026 10.7855L4.91351 13.2328C4.02444 13.455 3.08906 13.1159 2.54925 12.3753L2.52776 12.3451C2.36295 12.1188 2.24159 11.8638 2.17034 11.5931L1.15374 7.73178C1.0499 7.33722 1.28101 6.93188 1.67327 6.81967L2.67522 6.53256C3.26145 6.36504 3.89054 6.56957 4.26702 7.04916L5.28851 8.35092L6.66839 7.98763L5.28069 3.20931C5.2252 3.01808 5.24804 2.81241 5.34417 2.63803C5.44035 2.4637 5.60207 2.33475 5.79339 2.27963L6.99358 1.93392ZM6.93108 3.51303L8.32366 8.30795C8.38007 8.50213 8.35594 8.7111 8.25628 8.88705C8.1566 9.06297 7.98991 9.19107 7.79437 9.24252L5.19378 9.92611C4.90467 10.0021 4.59819 9.89941 4.41351 9.66439L3.08733 7.97494L2.79144 8.0599L3.62151 11.2113C3.64528 11.3015 3.68568 11.3868 3.74065 11.4622L3.76116 11.4915C3.94099 11.7383 4.253 11.8515 4.54925 11.7777L14.3383 9.33041C14.7276 9.2331 15.0004 8.883 15.0004 8.48178C15.0004 7.90857 14.4581 7.49031 13.9037 7.63607L11.7563 8.2015C11.4665 8.27769 11.1586 8.17385 10.9741 7.93783L7.4096 3.37533L6.93108 3.51303Z" fill="#191E3B"/>
   </svg>
 );
 
 // EGDS 2 "Flight land" glyph — plane body sweeping down-right, runway line at bottom
 const IconFlightLanding = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M2.5 19h19v2h-19zM19.34 9.21c-.31-.76-1.12-1.18-1.91-.9l-4.07 1.54-8.43-4.09-1.83.7 5.55 5.47-3.8 1.43-2.8-1.51-1.34.51 2.74 4.12 10.45-3.96 4.98-1.88c.79-.28 1.22-1.11.94-1.93z"/>
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+    <path d="M16.125 15C16.3321 15 16.5 15.1679 16.5 15.375V16.125C16.5 16.3321 16.3321 16.5 16.125 16.5H1.875C1.66789 16.5 1.5 16.3321 1.5 16.125V15.375C1.50001 15.1679 1.6679 15 1.875 15H16.125ZM8.65039 2.05665C8.75594 1.66102 9.15938 1.42339 9.55664 1.52247L10.5801 1.77833C11.1593 1.92318 11.598 2.39746 11.6963 2.98634L12.5615 8.1797L14.6914 8.71193C15.7541 8.97759 16.5 9.93296 16.5 11.0283C16.4998 12.5811 15.0406 13.7202 13.5342 13.3438L3.2041 10.7617C2.20275 10.5112 1.50013 9.61134 1.5 8.57911V8.45118C1.5 8.2512 1.52648 8.05135 1.5791 7.85841L2.65137 3.92775C2.75868 3.53426 3.16096 3.29878 3.55664 3.39747L4.56738 3.6504C5.15908 3.79833 5.60226 4.28979 5.68848 4.89357L5.9209 6.51954L7.36426 6.8799L8.65039 2.05665ZM8.62305 7.98048C8.51738 8.3761 8.11409 8.61395 7.7168 8.51466L5.06836 7.85255C4.77251 7.77859 4.55092 7.53237 4.50781 7.23048L4.2041 5.10548L3.90527 5.03029L3.02637 8.25392C3.0089 8.31811 3 8.38466 3 8.45118V8.57911C3.00013 8.92315 3.23457 9.22321 3.56836 9.30665L13.8975 11.8887C14.4573 12.0286 14.9998 11.6053 15 11.0283C15 10.6213 14.723 10.2657 14.3281 10.167L11.7207 9.51564C11.431 9.44322 11.2112 9.20569 11.1621 8.91115L10.2158 3.23341L9.90918 3.15626L8.62305 7.98048Z" fill="#191E3B"/>
   </svg>
 );
 
@@ -109,6 +109,8 @@ interface FieldValues {
   adults: number;
   children: number;
   infants: number;
+  infantsInSeat: number;
+  infantsOnLap: number;
   rooms: number;
   origin: string;
   cabinClass: string;
@@ -124,6 +126,8 @@ const WARM_FIELDS: FieldValues = {
   adults: 2,
   children: 0,
   infants: 0,
+  infantsInSeat: 0,
+  infantsOnLap: 0,
   rooms: 1,
   origin: 'Austin, TX (AUS-Austin-Bergstrom-Intl.)',
   cabinClass: 'Economy',
@@ -139,6 +143,8 @@ const COLD_FIELDS: FieldValues = {
   adults: 2,
   children: 0,
   infants: 0,
+  infantsInSeat: 0,
+  infantsOnLap: 0,
   rooms: 1,
   origin: '',
   cabinClass: 'Economy',
@@ -300,10 +306,11 @@ interface SheetProps {
   fieldValues: FieldValues;
   onClose: () => void;
   onChange: (v: Partial<FieldValues>) => void;
+  includeCabinClass?: boolean;
 }
 
 // ── Calendar helpers ──────────────────────────────────────────────────────────
-const CAL_DAYS  = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const CAL_DAYS  = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const CAL_MONTH_NAMES = [
   'January','February','March','April','May','June',
   'July','August','September','October','November','December',
@@ -330,7 +337,14 @@ function formatRangeLabel(start: Date | null, end: Date | null): string {
 }
 
 // ── FieldSheet ────────────────────────────────────────────────────────────────
-const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onChange }) => {
+export const LiteFieldSheet: React.FC<SheetProps> = ({
+  type,
+  lob,
+  fieldValues,
+  onClose,
+  onChange,
+  includeCabinClass = true,
+}) => {
   const [query, setQuery] = useState(type === 'origin' ? fieldValues.origin : fieldValues.where);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -338,6 +352,9 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
   const [adults, setAdults]     = useState(fieldValues.adults);
   const [children, setChildren] = useState(fieldValues.children);
   const [infants, setInfants]   = useState(fieldValues.infants ?? 0);
+  const [infantsInSeat, setInfantsInSeat] = useState(fieldValues.infantsInSeat ?? 0);
+  const [infantsOnLap, setInfantsOnLap] = useState(fieldValues.infantsOnLap ?? 0);
+  const [cabinClass, setCabinClass] = useState(fieldValues.cabinClass || 'Economy');
   const [pets, setPets]         = useState(false);
 
   // Calendar state
@@ -482,7 +499,7 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
         >
           {/* Close */}
           <button type="button" className="bex-fs__close" onClick={onClose} aria-label="Close">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#1a6cda"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#191e3b"/></svg>
           </button>
 
           {/* Large search input */}
@@ -565,30 +582,51 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
           exit={{ y: '100%' }}
           transition={sheetSpring}
         >
-          {/* Toolbar — X left + "Travelers" centered */}
+          {/* Toolbar — X left + contextual title centered */}
           <div className="bex-trav__toolbar">
             <button type="button" className="bex-fs__close" onClick={onClose} aria-label="Close">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#1a6cda"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#191e3b"/></svg>
             </button>
-            <span className="bex-trav__title">Travelers</span>
+            <span className="bex-trav__title">
+              {lob === 'flights' && includeCabinClass ? 'Travelers and Cabin class' : 'Travelers'}
+            </span>
             <span className="bex-trav__toolbar-spacer" aria-hidden="true" />
           </div>
 
           {/* Body */}
           <div className="bex-trav__body">
-            {/* Room 1 heading */}
-            <p className="bex-trav__room-label">Room 1</p>
+            {lob !== 'flights' && <p className="bex-trav__room-label">Room 1</p>}
 
             {/* Adults */}
             <StepInput label="Adults" value={adults} min={1} max={14} onCh={setAdults} />
 
             {/* Children */}
-            <StepInput label="Children" sub="Ages 0 to 17" value={children} min={0} max={6} onCh={setChildren} />
+            <StepInput label="Children" sub={lob === 'flights' ? 'Ages 2 to 17' : 'Ages 0 to 17'} value={children} min={0} max={6} onCh={setChildren} />
 
-            {/* Add another room */}
-            <div className="bex-trav__add-room-row">
-              <button type="button" className="bex-trav__add-room">Add another room</button>
-            </div>
+            {lob === 'flights' ? (
+              <>
+                <StepInput label="Infants in seat" sub="Younger than 2" value={infantsInSeat} min={0} max={4} onCh={setInfantsInSeat} />
+                <StepInput label="Infants on lap" sub="Younger than 2" value={infantsOnLap} min={0} max={4} onCh={setInfantsOnLap} />
+                {includeCabinClass && (
+                  <label className="bex-trav__cabin">
+                    <span className="bex-trav__cabin-label">Cabin class</span>
+                    <select value={cabinClass} onChange={e => setCabinClass(e.target.value)}>
+                      <option>Economy</option>
+                      <option>Premium economy</option>
+                      <option>Business class</option>
+                      <option>First class</option>
+                    </select>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="m7 10 5 5 5-5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </label>
+                )}
+              </>
+            ) : (
+              <div className="bex-trav__add-room-row">
+                <button type="button" className="bex-trav__add-room">Add another room</button>
+              </div>
+            )}
           </div>
 
           {/* Done footer */}
@@ -596,7 +634,17 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
             <button
               type="button"
               className="bex-trav__done"
-              onClick={() => { onChange({ adults, children, infants }); onClose(); }}
+              onClick={() => {
+                onChange({
+                  adults,
+                  children,
+                  infants: lob === 'flights' ? infantsInSeat + infantsOnLap : infants,
+                  infantsInSeat,
+                  infantsOnLap,
+                  cabinClass,
+                });
+                onClose();
+              }}
             >
               Done
             </button>
@@ -620,8 +668,8 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
             </button>
           </div>
 
-          {/* Tabs: Calendar | Flexible dates — flexible only for Stays */}
-          {lob === 'stays' ? (
+          {/* Tabs: Calendar | Flexible dates — only for Stays */}
+          {lob === 'stays' && (
             <>
               <div className="bex-cal__tabs" role="tablist">
                 <button role="tab" aria-selected={calTab === 'exact'}
@@ -633,8 +681,6 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
               </div>
               <div className="bex-cal__tab-underline" />
             </>
-          ) : (
-            <div className="bex-cal__tab-underline bex-cal__tab-underline--solo" />
           )}
 
           {(calTab === 'exact' || lob !== 'stays') ? (
@@ -644,7 +690,7 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
                 <div className={`bex-cal__range-box${rangeStart ? ' bex-cal__range-box--set' : ''}`}>
                   <span className="bex-cal__range-box-val">
                     {rangeStart
-                      ? rangeStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                      ? rangeStart.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
                       : 'Start date'}
                   </span>
                 </div>
@@ -654,7 +700,7 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
                 <div className={`bex-cal__range-box${rangeEnd ? ' bex-cal__range-box--set' : ''}`}>
                   <span className="bex-cal__range-box-val">
                     {rangeEnd
-                      ? rangeEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                      ? rangeEnd.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
                       : 'End date'}
                   </span>
                 </div>
@@ -668,13 +714,15 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
 
               {/* Flexibility footer pills + Done */}
               <div className="bex-cal__footer">
-                <div className="bex-cal__flex-footer">
-                  {['Exact dates', '± 1 day', '± 2 days', '± 3 days', '± 7 days'].map(f => (
-                    <button key={f} type="button"
-                      className={`bex-cal__flex-footer-pill${flexibility === f ? ' bex-cal__flex-footer-pill--sel' : ''}`}
-                      onClick={() => setFlexibility(f)}>{f}</button>
-                  ))}
-                </div>
+                {lob !== 'flights' && lob !== 'packages' && lob !== 'cars' && lob !== 'activities' && (
+                  <div className="bex-cal__flex-footer">
+                    {['Exact dates', '± 1 day', '± 2 days', '± 3 days', '± 7 days'].map(f => (
+                      <button key={f} type="button"
+                        className={`bex-cal__flex-footer-pill${flexibility === f ? ' bex-cal__flex-footer-pill--sel' : ''}`}
+                        onClick={() => setFlexibility(f)}>{f}</button>
+                    ))}
+                  </div>
+                )}
                 <button type="button" className="bex-cal__save"
                   onClick={() => {
                     if (rangeStart) onChange({ when: formatRangeLabel(rangeStart, rangeEnd) });
@@ -789,16 +837,99 @@ const LOB_PILL_LABELS: Record<string, string> = {
   activities: 'Search for activities', cruises: 'Search for cruises',
 };
 
+interface CruiseMwebSheetProps {
+  destination: string;
+  dates: string;
+  onClose: () => void;
+  onDestination: () => void;
+  onDates: () => void;
+}
+
+const CruiseMwebSheet: React.FC<CruiseMwebSheetProps> = ({
+  destination,
+  dates,
+  onClose,
+  onDestination,
+  onDates,
+}) => (
+  <motion.div
+    className="bex-cruise-sheet"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="bex-cruise-sheet-title"
+    initial={{ y: '100%' }}
+    animate={{ y: 0 }}
+    exit={{ y: '100%' }}
+    transition={{ type: 'spring', stiffness: 420, damping: 42, mass: 0.8 }}
+  >
+    <header className="bex-cruise-sheet__header">
+      <button type="button" className="bex-cruise-sheet__icon-btn" onClick={onClose} aria-label="Back">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      <span className="bex-cruise-sheet__header-title">Cruises</span>
+      <button type="button" className="bex-cruise-sheet__icon-btn" onClick={onClose} aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+        </svg>
+      </button>
+    </header>
+
+    <div className="bex-cruise-sheet__content">
+      <h2 id="bex-cruise-sheet-title">Find Discount Cruise Deals</h2>
+      <p className="bex-cruise-sheet__advice">
+        For expert cruise advice, call <a href="tel:18664039848">1-866-403-9848</a>.
+      </p>
+
+      <div className="bex-cruise-sheet__fields">
+        <button type="button" className="bex-cruise-sheet__field" onClick={onDestination}>
+          <span className="bex-cruise-sheet__field-icon"><IconLocation /></span>
+          <span>{destination || 'Going to'}</span>
+        </button>
+        <button type="button" className="bex-cruise-sheet__field" onClick={onDates}>
+          <span className="bex-cruise-sheet__field-icon"><IconCalendar /></span>
+          <span>{dates || 'Departing between'}</span>
+        </button>
+        <button type="button" className="bex-cruise-sheet__field">
+          <span className="bex-cruise-sheet__field-icon"><IconClock /></span>
+          <span className="bex-cruise-sheet__field-copy">
+            <small>Duration</small>
+            <span>3 – 9 nights</span>
+          </span>
+        </button>
+      </div>
+
+      <button type="button" className="bex-cruise-sheet__search">Search</button>
+
+      <article className="bex-cruise-sheet__promo">
+        <img
+          src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=900&h=700&fit=crop&auto=format&q=85"
+          alt="Travelers enjoying a cruise"
+        />
+        <div className="bex-cruise-sheet__promo-shade" />
+        <div className="bex-cruise-sheet__promo-copy">
+          <h3>Norwegian Freestyle Sale</h3>
+          <p>Enjoy up to $1,000 onboard credit &amp; more on any sailing. Book by 8/25.</p>
+          <button type="button">Book Now</button>
+        </div>
+      </article>
+    </div>
+  </motion.div>
+);
+
 export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = false }) => {
   const [activeLob, setActiveLob] = useState<LobId>('stays');
   const [flightType, setFlightType] = useState<FlightType>('roundtrip');
   const [packageType, setPackageType] = useState<PackageType>('stay+flight'); // default: Stay + Flight
   const [openSheet, setOpenSheet] = useState<FieldType>(null);
+  const [cruiseSheetOpen, setCruiseSheetOpen] = useState(false);
   const [bundleExpanded, setBundleExpanded] = useState(false);
   const [carDropoffExpanded, setCarDropoffExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [collapsed, setCollapsed] = useState(!overlay && warmth === 'hot');
   const loadingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const expandSheetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [fields, setFields] = useState<FieldValues>(
     warmth === 'hot' ? WARM_FIELDS : COLD_FIELDS
   );
@@ -868,8 +999,18 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
     loadingTimer.current = setTimeout(() => setIsLoading(false), 560);
   }, [activeLob]);
 
+  const handleLobSelect = useCallback((lobId: LobId) => {
+    if (lobId === 'cruises') {
+      setCruiseSheetOpen(true);
+      return;
+    }
+    handleLobChange(lobId);
+    if (collapsed) setCollapsed(false);
+  }, [collapsed, handleLobChange]);
+
   useEffect(() => () => {
     if (loadingTimer.current) clearTimeout(loadingTimer.current);
+    if (expandSheetTimer.current) clearTimeout(expandSheetTimer.current);
   }, []);
 
   // Reset bundle when switching LOBs or package type
@@ -1123,7 +1264,7 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
           <InputRow icon={<IconLocation />} label="Where to?" value={fields.where} onClick={() => setOpenSheet('where')} />
         )}
         <hr className="bex-hero-pro__divider" />
-        <InputRow icon={<IconCalendar />} label="Select dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+        <InputRow icon={<IconCalendar />} label={hasFlights ? 'Select flight dates' : 'Select dates'} value={fields.when} onClick={() => setOpenSheet('when')} />
         <hr className="bex-hero-pro__divider" />
         <InputRow icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
         {/* Economy (only when flights included) */}
@@ -1143,7 +1284,7 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
             {bundleExpanded && (
               <button type="button" className="bex-hero__bundle-input" onClick={() => setOpenSheet('when')}>
                 <IconCalendar />
-                <span className="bex-hero__bundle-input-label">{fields.when || 'Stay dates'}</span>
+                <span className="bex-hero__bundle-input-label">{fields.when || 'Dates for stay'}</span>
               </button>
             )}
           </div>
@@ -1210,12 +1351,12 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
                 <div className="bex-hero-pro__hot-profile-text">
                   <span className="bex-hero-pro__okc">OneKeyCash: $10.00</span>
                   <span className="bex-hero-pro__tier">
-                    <img src="https://www.figma.com/api/mcp/asset/6aafc84c-1497-4f11-ac54-cf3e08e04fad.svg" width="14" height="14" alt="" aria-hidden="true" />
+                    <img src="/images/figma/6aafc84c-1497-4f11-ac54-cf3e08e04fad.svg" width="14" height="14" alt="" aria-hidden="true" />
                     Gold
                   </span>
                 </div>
                 <img
-                  src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face&auto=format"
+                  src="/images/mary-avatar.jpg"
                   alt="Mary's profile"
                   className="bex-hero-pro__avatar-photo"
                 />
@@ -1244,7 +1385,7 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
               className="bex-hero-pro__lobitem"
               aria-pressed={activeLob === lob.id}
               aria-selected={activeLob === lob.id}
-              onClick={() => { handleLobChange(lob.id); if (collapsed) setCollapsed(false); }}
+              onClick={() => handleLobSelect(lob.id)}
             >
               <img src={LOB_PICTOGRAMS[lob.id]} alt="" className="bex-hero-pro__lobpic" aria-hidden="true"
                 onLoad={e => (e.currentTarget as HTMLImageElement).classList.add('bex-hero-pro__lobpic--loaded')} />
@@ -1266,7 +1407,11 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
                 key="lite-pill"
                 type="button"
                 className="bex-hero__pill-bar bex-hero__pill-bar--overlay"
-                onClick={() => setCollapsed(false)}
+                onClick={() => {
+                  setCollapsed(false);
+                  if (expandSheetTimer.current) clearTimeout(expandSheetTimer.current);
+                  expandSheetTimer.current = setTimeout(() => setOpenSheet('where'), 520);
+                }}
                 initial={{ opacity: 0, scale: 0.94 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.94 }}
@@ -1292,7 +1437,7 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
+              transition={{ duration: 0.34, ease: 'easeOut' }}
             >
               {/* Bottom — identical structure to Pro */}
               <div className="bex-hero-pro__bottom">
@@ -1343,13 +1488,25 @@ export const BexHero: React.FC<BexHeroProps> = ({ warmth = 'cold', overlay = fal
       {/* Field sheets — bottom sheet slide-up */}
       <AnimatePresence>
         {openSheet && (
-          <FieldSheet
+          <LiteFieldSheet
             key={openSheet}
             type={openSheet}
             lob={activeLob}
             fieldValues={fields}
             onClose={handleSheetClose}
             onChange={mcEditRef.current ? handleMcFieldChange : updateField}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {cruiseSheetOpen && (
+          <CruiseMwebSheet
+            destination={fields.where}
+            dates={fields.when}
+            onClose={() => setCruiseSheetOpen(false)}
+            onDestination={() => setOpenSheet('where')}
+            onDates={() => setOpenSheet('when')}
           />
         )}
       </AnimatePresence>

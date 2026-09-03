@@ -1,14 +1,14 @@
 import React from 'react';
 
-// ── Figma image assets (7-day CDN expiry) ──────────────────────────────────────
-const IMG_HOTEL      = 'https://www.figma.com/api/mcp/asset/ad641617-d02a-4fd4-9fb3-b0c91f498ca8.png';
-const IMG_MERCH_1    = 'https://www.figma.com/api/mcp/asset/9b32d48a-d174-40b1-baf9-4070de6a6df9.png';
-const IMG_MERCH_2    = 'https://www.figma.com/api/mcp/asset/79db9b9b-2b44-497e-87bd-e6d022fbb2e6.png';
-const IMG_DEST       = 'https://www.figma.com/api/mcp/asset/0199b28c-b569-44b6-9477-3dcccccd3a64.png';
-const IMG_CAT_HOME   = 'https://www.figma.com/api/mcp/asset/304f7449-704f-4f59-a231-ee465adfd2e6.png';
-const IMG_CAT_CONDO  = 'https://www.figma.com/api/mcp/asset/aa25da95-79d3-4c20-8c8f-447e48224902.png';
-const IMG_CAT_CABIN  = 'https://www.figma.com/api/mcp/asset/b08be23a-46e1-431a-adcf-9b15726c4884.png';
-const IMG_CAT_VILLA  = 'https://www.figma.com/api/mcp/asset/530e72ef-c492-4281-896a-8877fe7cb32f.png';
+// ── Vendored Figma image assets ────────────────────────────────────────────────
+const IMG_HOTEL      = '/images/figma/ad641617-d02a-4fd4-9fb3-b0c91f498ca8.png';
+const IMG_MERCH_1    = '/images/figma/9b32d48a-d174-40b1-baf9-4070de6a6df9.png';
+const IMG_MERCH_2    = '/images/figma/79db9b9b-2b44-497e-87bd-e6d022fbb2e6.png';
+const IMG_DEST       = '/images/figma/79db9b9b-2b44-497e-87bd-e6d022fbb2e6.png';
+const IMG_CAT_HOME   = '/images/figma/304f7449-704f-4f59-a231-ee465adfd2e6.png';
+const IMG_CAT_CONDO  = '/images/figma/aa25da95-79d3-4c20-8c8f-447e48224902.png';
+const IMG_CAT_CABIN  = '/images/figma/b08be23a-46e1-431a-adcf-9b15726c4884.png';
+const IMG_CAT_VILLA  = '/images/figma/530e72ef-c492-4281-896a-8877fe7cb32f.png';
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 const IconArrow = () => (

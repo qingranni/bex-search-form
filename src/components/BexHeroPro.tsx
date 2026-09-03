@@ -1,17 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 // BexStatusBar is now rendered fixed in App.tsx
 import { ExpediaLogo } from './ExpediaLogo';
+import { LiteFieldSheet } from './BexHero';
 import type { Warmth } from './VersionSwitcher';
 
 // ─── Figma pictogram assets — refreshed from node 7051:374174 (Aug 2026)
 const LOB_PICTOGRAMS: Record<string, string> = {
-  stays:      'https://www.figma.com/api/mcp/asset/e81936d0-16c5-47cc-9f41-65db3fffb478.png',
-  flights:    'https://www.figma.com/api/mcp/asset/11b9793f-e00f-4197-88d7-7f653826e726.png',
-  cars:       'https://www.figma.com/api/mcp/asset/42f601d8-f33c-4d70-99be-f1c5f6af1e7b.png',
-  packages:   'https://www.figma.com/api/mcp/asset/225e6cc3-bf29-4d88-9b3e-6ead5f288bb4.png',
-  activities: 'https://www.figma.com/api/mcp/asset/924d61a8-d175-4159-ac8b-58b9c8f9795c.png',
-  cruises:    'https://www.figma.com/api/mcp/asset/a26c7685-9c65-4824-bab2-76f0748f05ed.png',
+  stays:      '/images/figma/e81936d0-16c5-47cc-9f41-65db3fffb478.png',
+  flights:    '/images/figma/11b9793f-e00f-4197-88d7-7f653826e726.png',
+  cars:       '/images/figma/42f601d8-f33c-4d70-99be-f1c5f6af1e7b.png',
+  packages:   '/images/figma/225e6cc3-bf29-4d88-9b3e-6ead5f288bb4.png',
+  activities: '/images/figma/924d61a8-d175-4159-ac8b-58b9c8f9795c.png',
+  cruises:    '/images/figma/a26c7685-9c65-4824-bab2-76f0748f05ed.png',
 };
 
 // ─── LOB config ───────────────────────────────────────────────────────────────
@@ -47,15 +48,15 @@ const IconPlane = () => (
 // Takeoff: plane rotated 45° CW so nose points NE (departing)
 // EGDS 2 "Flight takeoff" glyph — plane body sweeping up-right, runway line at bottom
 const IconFlightTakeoff = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M2.5 19h19v2h-19zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10l-6.9-6.43-1.93.51 4.14 7.17-4.97 1.33-1.97-1.54-1.45.39 2.59 4.49 1.27-.34 8.2-2.2 4.91-1.32c.81-.22 1.29-1.05 1.06-1.86z"/>
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+    <path d="M16.1254 15.0003C16.3325 15.0003 16.5004 15.1682 16.5004 15.3753V16.1253C16.5002 16.3323 16.3324 16.5003 16.1254 16.5003H1.87542C1.66858 16.5001 1.50059 16.3322 1.50042 16.1253V15.3753C1.50042 15.1683 1.66847 15.0005 1.87542 15.0003H16.1254ZM6.99358 1.93392C7.58178 1.76445 8.21435 1.96916 8.59124 2.4515L11.852 6.62435L13.5229 6.18588C15.0283 5.79011 16.5004 6.92522 16.5004 8.48178C16.5004 9.57125 15.7595 10.5212 14.7026 10.7855L4.91351 13.2328C4.02444 13.455 3.08906 13.1159 2.54925 12.3753L2.52776 12.3451C2.36295 12.1188 2.24159 11.8638 2.17034 11.5931L1.15374 7.73178C1.0499 7.33722 1.28101 6.93188 1.67327 6.81967L2.67522 6.53256C3.26145 6.36504 3.89054 6.56957 4.26702 7.04916L5.28851 8.35092L6.66839 7.98763L5.28069 3.20931C5.2252 3.01808 5.24804 2.81241 5.34417 2.63803C5.44035 2.4637 5.60207 2.33475 5.79339 2.27963L6.99358 1.93392ZM6.93108 3.51303L8.32366 8.30795C8.38007 8.50213 8.35594 8.7111 8.25628 8.88705C8.1566 9.06297 7.98991 9.19107 7.79437 9.24252L5.19378 9.92611C4.90467 10.0021 4.59819 9.89941 4.41351 9.66439L3.08733 7.97494L2.79144 8.0599L3.62151 11.2113C3.64528 11.3015 3.68568 11.3868 3.74065 11.4622L3.76116 11.4915C3.94099 11.7383 4.253 11.8515 4.54925 11.7777L14.3383 9.33041C14.7276 9.2331 15.0004 8.883 15.0004 8.48178C15.0004 7.90857 14.4581 7.49031 13.9037 7.63607L11.7563 8.2015C11.4665 8.27769 11.1586 8.17385 10.9741 7.93783L7.4096 3.37533L6.93108 3.51303Z" fill="#191E3B"/>
   </svg>
 );
 
 // EGDS 2 "Flight land" glyph — plane body sweeping down-right, runway line at bottom
 const IconFlightLanding = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M2.5 19h19v2h-19zM19.34 9.21c-.31-.76-1.12-1.18-1.91-.9l-4.07 1.54-8.43-4.09-1.83.7 5.55 5.47-3.8 1.43-2.8-1.51-1.34.51 2.74 4.12 10.45-3.96 4.98-1.88c.79-.28 1.22-1.11.94-1.93z"/>
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+    <path d="M16.125 15C16.3321 15 16.5 15.1679 16.5 15.375V16.125C16.5 16.3321 16.3321 16.5 16.125 16.5H1.875C1.66789 16.5 1.5 16.3321 1.5 16.125V15.375C1.50001 15.1679 1.6679 15 1.875 15H16.125ZM8.65039 2.05665C8.75594 1.66102 9.15938 1.42339 9.55664 1.52247L10.5801 1.77833C11.1593 1.92318 11.598 2.39746 11.6963 2.98634L12.5615 8.1797L14.6914 8.71193C15.7541 8.97759 16.5 9.93296 16.5 11.0283C16.4998 12.5811 15.0406 13.7202 13.5342 13.3438L3.2041 10.7617C2.20275 10.5112 1.50013 9.61134 1.5 8.57911V8.45118C1.5 8.2512 1.52648 8.05135 1.5791 7.85841L2.65137 3.92775C2.75868 3.53426 3.16096 3.29878 3.55664 3.39747L4.56738 3.6504C5.15908 3.79833 5.60226 4.28979 5.68848 4.89357L5.9209 6.51954L7.36426 6.8799L8.65039 2.05665ZM8.62305 7.98048C8.51738 8.3761 8.11409 8.61395 7.7168 8.51466L5.06836 7.85255C4.77251 7.77859 4.55092 7.53237 4.50781 7.23048L4.2041 5.10548L3.90527 5.03029L3.02637 8.25392C3.0089 8.31811 3 8.38466 3 8.45118V8.57911C3.00013 8.92315 3.23457 9.22321 3.56836 9.30665L13.8975 11.8887C14.4573 12.0286 14.9998 11.6053 15 11.0283C15 10.6213 14.723 10.2657 14.3281 10.167L11.7207 9.51564C11.431 9.44322 11.2112 9.20569 11.1621 8.91115L10.2158 3.23341L9.90918 3.15626L8.62305 7.98048Z" fill="#191E3B"/>
   </svg>
 );
 
@@ -149,6 +150,8 @@ interface FieldValues {
   adults: number;
   children: number;
   infants: number;
+  infantsInSeat: number;
+  infantsOnLap: number;
   rooms: number;
   // Flights / Packages
   origin: string;
@@ -173,6 +176,8 @@ const WARM_FIELDS: FieldValues = {
   adults: 2,
   children: 0,
   infants: 0,
+  infantsInSeat: 0,
+  infantsOnLap: 0,
   rooms: 1,
   origin: 'Austin, TX (AUS-Austin-Bergstrom-Intl.)',
   cabinClass: 'Economy',
@@ -188,6 +193,8 @@ const COLD_FIELDS: FieldValues = {
   adults: 2,
   children: 0,
   infants: 0,
+  infantsInSeat: 0,
+  infantsOnLap: 0,
   rooms: 1,
   origin: '',
   cabinClass: 'Economy',
@@ -231,18 +238,23 @@ const DURATION_OPTIONS = [
 
 // ─── Field sheet (shared interaction layer) ───────────────────────────────────
 
-type FieldType = 'where' | 'origin' | 'when' | 'who' | null;
+type CloseReason = 'dismiss' | 'commit';
 
 // ── ProTravelersSheet — proper component so hooks work correctly ───────────
 interface ProTravelersSheetProps {
   lob: LobId;
   fieldValues: FieldValues;
   sheetSpring: object;
-  onClose: () => void;
+  closing?: boolean;
+  closeTransition?: object;
+  onClose: (reason?: CloseReason) => void;
   onChange: (v: Partial<FieldValues>) => void;
+  onCloseComplete?: () => void;
 }
 
-const ProTravelersSheet: React.FC<ProTravelersSheetProps> = ({ lob, fieldValues, sheetSpring, onClose, onChange }) => {
+const ProTravelersSheet: React.FC<ProTravelersSheetProps> = ({
+  lob, fieldValues, sheetSpring, closing = false, closeTransition, onClose, onChange, onCloseComplete,
+}) => {
   // Stays / Packages → room-based; everything else → flat people list
   const isRoomBased = lob === 'stays' || lob === 'packages';
 
@@ -298,8 +310,17 @@ const ProTravelersSheet: React.FC<ProTravelersSheetProps> = ({ lob, fieldValues,
   );
 
   return (
-    <motion.div className="bex-fs bex-pro-trav" initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={sheetSpring as any}>
-      <button type="button" className="bex-pro-trav__close" onClick={onClose} aria-label="Close">
+    <motion.div
+      className="bex-fs bex-pro-trav"
+      initial={{ y: '100%' }}
+      animate={{ y: closing ? '100%' : 0 }}
+      exit={{ y: '100%' }}
+      transition={(closing ? closeTransition : sheetSpring) as any}
+      onAnimationComplete={() => {
+        if (closing) onCloseComplete?.();
+      }}
+    >
+      <button type="button" className="bex-pro-trav__close" onClick={() => onClose('dismiss')} aria-label="Close">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
         </svg>
@@ -398,7 +419,7 @@ const ProTravelersSheet: React.FC<ProTravelersSheetProps> = ({ lob, fieldValues,
               infants: isRoomBased ? 0 : infantsSeat + infantsLap,
               rooms: isRoomBased ? rooms.length : 1,
             });
-            onClose();
+            onClose('commit');
           }}>
           Done
         </button>
@@ -407,12 +428,58 @@ const ProTravelersSheet: React.FC<ProTravelersSheetProps> = ({ lob, fieldValues,
   );
 };
 
+type HandoffBox = {
+  left: number; top: number; width: number; height: number; text: string;
+  textLeft: number; textTop: number; textWidth: number; textHeight: number;
+};
+type LayoutBox = { left: number; top: number; width: number; height: number };
+type HandoffAnim = {
+  from: LayoutBox;
+  to: LayoutBox;
+  surfaceTo: LayoutBox;
+  fromText: LayoutBox;
+  toText: LayoutBox;
+};
+
+/** Viewport pixels → overlay layout pixels (handles iPhone-frame zoom). */
+function viewportToOverlayBox(box: LayoutBox, overlay: HTMLElement): LayoutBox {
+  const o = overlay.getBoundingClientRect();
+  const sx = o.width / overlay.clientWidth || 1;
+  const sy = o.height / overlay.clientHeight || 1;
+  return {
+    left: (box.left - o.left) / sx,
+    top: (box.top - o.top) / sy,
+    width: box.width / sx,
+    height: box.height / sy,
+  };
+}
+
+/** Resting box of `el` inside the overlay, ignoring the sheet's slide transform. */
+function restBoxInOverlay(el: HTMLElement, overlay: HTMLElement, card: HTMLElement): LayoutBox {
+  const cardTop = overlay.clientHeight - card.offsetHeight;
+  let left = 0;
+  let top = 0;
+  let node: HTMLElement | null = el;
+  while (node && node !== card) {
+    left += node.offsetLeft;
+    top += node.offsetTop;
+    node = node.offsetParent as HTMLElement | null;
+  }
+  return {
+    left,
+    top: cardTop + top,
+    width: el.offsetWidth,
+    height: el.offsetHeight,
+  };
+}
+
 interface SheetProps {
   type: FieldType;
   lob: LobId;
   fieldValues: FieldValues;
-  onClose: () => void;
+  onClose: (reason?: CloseReason) => void;
   onChange: (v: Partial<FieldValues>) => void;
+  handoff?: HandoffBox | null;
 }
 
 // ─── Destination suggestions ──────────────────────────────────────────────────
@@ -496,6 +563,21 @@ const ALL_SUGGESTIONS_PRO: SuggestionPro[] = [
   { kind: 'poi',          primary: 'Pike Place Market',                secondary: 'Seattle, Washington, United States' },
 ];
 
+const INITIAL_RECENT_SEARCHES_PRO: SuggestionPro[] = [
+  { kind: 'city', primary: 'New York (and vicinity)', secondary: 'New York, United States' },
+  { kind: 'city', primary: 'London', secondary: 'United Kingdom' },
+  { kind: 'city', primary: 'Paris', secondary: 'France' },
+];
+
+const SUGGESTED_DESTINATIONS_PRO: SuggestionPro[] = [
+  { kind: 'city', primary: 'Tokyo, Japan', secondary: 'Inspired by your past trips to Japan' },
+  { kind: 'city', primary: 'Dubai, United Arab Emirates', secondary: 'Great flight and hotel deals for your dates' },
+  { kind: 'city', primary: 'Los Angeles, California', secondary: 'Popular with travelers near you' },
+  { kind: 'city', primary: 'Barcelona, Spain', secondary: 'Great-value stays available now' },
+  { kind: 'city', primary: 'Sydney, Australia', secondary: 'Inspired by your past beach trips' },
+  { kind: 'city', primary: 'Cancún, Mexico', secondary: 'Member prices on beachfront stays' },
+];
+
 // ── EGDS2 typeahead icons (per Figma spec ObKdPkKTCJTynraxUq5Qww/6047:34) ───
 
 // lob_flights — airplane (airport / all airports / metrocode)
@@ -540,6 +622,12 @@ const IconSuggestBusPro = () => (
   </svg>
 );
 
+const IconSuggestHistoryPro = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <path d="M9 1.66699C13.1421 1.66699 16.5 5.39763 16.5 10C16.5 14.6024 13.1421 18.333 9 18.333C5.25273 18.333 2.14688 15.2799 1.58887 11.29C1.55482 11.0466 1.72942 10.833 1.95117 10.833H2.71484C2.90401 10.833 3.06293 10.9905 3.09668 11.1973C3.60433 14.3078 6.05415 16.667 9 16.667C12.3137 16.667 15 13.6819 15 10C15 6.3181 12.3137 3.33301 9 3.33301C7.10539 3.33301 5.416 4.30914 4.31641 5.83301H6.48438C6.71781 5.83301 6.83306 6.15685 6.67188 6.33594L5.73438 7.37793C5.66408 7.45593 5.56908 7.49998 5.46973 7.5H2.25C1.83588 7.5 1.50015 7.12709 1.5 6.66699V3.08887C1.5001 2.97869 1.53935 2.87293 1.60938 2.79492L2.54688 1.75293C2.70798 1.57393 2.99972 1.70182 3 1.96094V4.99902C4.36835 2.97547 6.54665 1.66699 9 1.66699ZM9.375 5.83301C9.5821 5.83301 9.75 6.01989 9.75 6.25V9.65527L11.7354 11.8604C11.8815 12.023 11.8815 12.2865 11.7354 12.4492L11.2051 13.0391C11.0587 13.2016 10.8213 13.2014 10.6748 13.0391L8.25 10.3447V6.25C8.25 6.01989 8.4179 5.83301 8.625 5.83301H9.375Z" fill="#191E3B"/>
+  </svg>
+);
+
 function SuggestionIconPro({ kind }: { kind: SuggestionKind }) {
   if (kind === 'allAirports' || kind === 'airport') return <IconSuggestAirportPro />;
   if (kind === 'hotel')                             return <IconSuggestHotelPro />;
@@ -580,9 +668,22 @@ function formatRangeLabelPro(start: Date | null, end: Date | null): string {
   return end ? `${fmt(start)} – ${fmt(end)}` : fmt(start);
 }
 
-const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onChange }) => {
-  const [query, setQuery] = useState(type === 'origin' ? fieldValues.origin : fieldValues.where);
+const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onChange, handoff }) => {
+  const initialQuery = type === 'origin' ? fieldValues.origin : fieldValues.where;
+  const [query, setQuery] = useState(initialQuery);
+  const [recentSearches, setRecentSearches] = useState(INITIAL_RECENT_SEARCHES_PRO);
+  const [handoffDone, setHandoffDone] = useState(!handoff);
+  const [handoffPhase, setHandoffPhase] = useState<'in' | 'out'>('in');
+  const [handoffAnim, setHandoffAnim] = useState<HandoffAnim | null>(null);
+  const [closeLabel, setCloseLabel] = useState(handoff?.text ?? '');
+  const handoffStartedAt = useRef(0);
+  const closeReasonRef = useRef<CloseReason>('dismiss');
+  const closingLockRef = useRef(false);
+  const closeMeasuredRef = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
 
   // Travelers state
   const [adults,   setAdults]   = useState(fieldValues.adults);
@@ -602,11 +703,148 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
   const [mustWeekend,  setMustWeekend]  = useState(false);
   const [flexMonths,   setFlexMonths]   = useState<string[]>([]);
 
-  useEffect(() => {
-    if (type === 'where' || type === 'origin') {
-      setTimeout(() => inputRef.current?.focus(), 50);
+  useLayoutEffect(() => {
+    if ((type !== 'where' && type !== 'origin')) return;
+    const overlay = overlayRef.current;
+    const card = cardRef.current;
+    const pill = pillRef.current;
+    if (!overlay || !card || !pill) return;
+
+    const fieldValueEl = document.querySelector('.bex-hero-pro__field-value--handoff') as HTMLElement | null;
+    const fieldBtn = fieldValueEl?.closest('.bex-hero-pro__field') as HTMLElement | null;
+
+    if (handoffPhase === 'out') {
+      // On commit, the field label may have grown; retarget the landing box
+      // before paint so the reverse morph doesn't start at the old size.
+      if (closeReasonRef.current !== 'commit' || closeMeasuredRef.current) return;
+      if (!fieldBtn || !fieldValueEl) return;
+      const fieldBox = viewportToOverlayBox(fieldBtn.getBoundingClientRect(), overlay);
+      const fieldTextBox = viewportToOverlayBox(fieldValueEl.getBoundingClientRect(), overlay);
+      closeMeasuredRef.current = true;
+      setHandoffAnim(prev => prev ? {
+        ...prev,
+        from: fieldBox,
+        fromText: {
+          left: fieldTextBox.left - fieldBox.left,
+          top: fieldTextBox.top - fieldBox.top,
+          width: fieldTextBox.width,
+          height: fieldTextBox.height,
+        },
+      } : prev);
+      return;
     }
-  }, [type]);
+
+    const fieldBox = fieldBtn
+      ? viewportToOverlayBox(fieldBtn.getBoundingClientRect(), overlay)
+      : handoff
+        ? viewportToOverlayBox(handoff, overlay)
+        : null;
+    const fieldTextBox = fieldValueEl
+      ? viewportToOverlayBox(fieldValueEl.getBoundingClientRect(), overlay)
+      : handoff
+        ? viewportToOverlayBox({
+            left: handoff.textLeft,
+            top: handoff.textTop,
+            width: handoff.textWidth,
+            height: handoff.textHeight,
+          }, overlay)
+        : null;
+
+    const livePill = viewportToOverlayBox(pill.getBoundingClientRect(), overlay);
+    const liveInput = inputRef.current
+      ? viewportToOverlayBox(inputRef.current.getBoundingClientRect(), overlay)
+      : {
+          left: livePill.left + 20,
+          top: livePill.top + (livePill.height - 18) / 2,
+          width: Math.max(livePill.width - 40, 80),
+          height: 18,
+        };
+
+    const restPill = restBoxInOverlay(pill, overlay, card);
+    const to = restPill.width >= 80 ? restPill : livePill;
+    const restInput = inputRef.current
+      ? restBoxInOverlay(inputRef.current, overlay, card)
+      : liveInput;
+    const surfaceTo = {
+      left: card.offsetLeft,
+      top: overlay.clientHeight - card.offsetHeight,
+      width: card.offsetWidth,
+      height: card.offsetHeight,
+    };
+
+    if (!handoff || !fieldBox || !fieldTextBox) return;
+    const src = viewportToOverlayBox(handoff, overlay);
+    const srcText = viewportToOverlayBox({
+      left: handoff.textLeft,
+      top: handoff.textTop,
+      width: handoff.textWidth,
+      height: handoff.textHeight,
+    }, overlay);
+    setHandoffAnim({
+      from: src,
+      to,
+      surfaceTo,
+      fromText: {
+        left: srcText.left - src.left,
+        top: srcText.top - src.top,
+        width: srcText.width,
+        height: srcText.height,
+      },
+      toText: {
+        left: restInput.left - to.left,
+        top: restInput.top - to.top,
+        width: restInput.width,
+        height: restInput.height,
+      },
+    });
+    handoffStartedAt.current = performance.now();
+  }, [handoff, type, handoffPhase, fieldValues.where, fieldValues.origin]);
+
+  useEffect(() => {
+    if (type !== 'where' && type !== 'origin') return;
+    if (handoffPhase === 'out') return;
+    if (handoff && !handoffDone) return;
+    const timer = setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 40);
+    return () => clearTimeout(timer);
+  }, [type, handoff, handoffDone, handoffPhase]);
+
+  useEffect(() => {
+    if (handoffPhase === 'out') {
+      const fallback = setTimeout(() => finishClose(), 480);
+      return () => clearTimeout(fallback);
+    }
+    if (!handoff || handoffDone) return;
+    const fallback = setTimeout(() => setHandoffDone(true), 720);
+    return () => clearTimeout(fallback);
+  }, [handoff, handoffDone, handoffPhase]);
+
+  const finishClose = () => {
+    if (closingLockRef.current) return;
+    closingLockRef.current = true;
+    onClose(closeReasonRef.current);
+  };
+
+  const requestClose = (reason: CloseReason = 'dismiss', label?: string) => {
+    if (closingLockRef.current || handoffPhase === 'out') return;
+    closeReasonRef.current = reason;
+    inputRef.current?.blur();
+    const fallbackLabel = type === 'origin' ? 'Leaving from' : 'Where to?';
+    setCloseLabel(
+      reason === 'commit'
+        ? (label ?? query)
+        : (handoff?.text || fallbackLabel)
+    );
+    closeMeasuredRef.current = false;
+    handoffStartedAt.current = performance.now();
+    setHandoffPhase('out');
+  };
+
+  const commitDestination = (value: string) => {
+    if (type === 'origin') onChange({ origin: value });
+    else onChange({ where: value });
+    setQuery(value);
+    requestClose('commit', value);
+  };
 
   const filtered = ALL_SUGGESTIONS_PRO.filter(s =>
     query.trim()
@@ -614,6 +852,15 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
         s.secondary.toLowerCase().includes(query.toLowerCase())
       : true
   ).slice(0, 7);
+  const selectedPlace = initialQuery.split(/[,(]/)[0].trim().toLowerCase();
+  const isReopenedWithValue = initialQuery.trim().length > 0 && query === initialQuery;
+  const nearbySuggestions = selectedPlace
+    ? ALL_SUGGESTIONS_PRO.filter(s => {
+        const searchable = `${s.primary} ${s.secondary}`.toLowerCase();
+        const isCurrentSelection = initialQuery.toLowerCase().startsWith(s.primary.toLowerCase());
+        return searchable.includes(selectedPlace) && !isCurrentSelection;
+      }).slice(0, 7)
+    : [];
 
   // ── StepInput ────────────────────────────────────────────────────────────
   const StepInput = ({ label, sub, value, min, max, onCh }: {
@@ -690,30 +937,83 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
     );
   };
 
+  const destIsPlaceholder = handoffPhase === 'out'
+    ? !closeLabel.trim() || closeLabel === (type === 'origin' ? 'Leaving from' : 'Where to?')
+    : !initialQuery.trim();
+  const handoffLabel = handoffPhase === 'out' ? closeLabel : (handoff?.text ?? '');
+  const ghostSettled = handoffDone && handoffPhase === 'in';
+  const showHandoffGhost = (type === 'where' || type === 'origin') && !!handoffAnim;
+  const typeTween = { duration: 0.36, ease: [0.22, 1, 0.36, 1] } as const;
+  const closeEase = { type: 'tween' as const, duration: 0.42, ease: [0.32, 0.72, 0, 1] };
   const nextMonth   = new Date(displayMonth.getFullYear(), displayMonth.getMonth() + 1, 1);
   const sheetSpring = { type: 'spring', stiffness: 420, damping: 42, mass: 0.8 } as const;
+  const handoffMove = handoffPhase === 'out' ? closeEase : sheetSpring;
+  const handoffType = handoffPhase === 'out' ? closeEase : typeTween;
+  const destPillBox = handoffAnim && (handoffPhase === 'out' ? handoffAnim.from : handoffAnim.to);
+  const destTextBox = handoffAnim && (handoffPhase === 'out' ? handoffAnim.fromText : handoffAnim.toText);
 
   return (
-    <div className="bex-fs-overlay">
+    <div className="bex-fs-overlay" ref={overlayRef}>
       {/* Scrim */}
       <motion.div className="bex-fs-scrim"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        transition={{ duration: 0.22 }} onClick={onClose} />
+        initial={{ opacity: 0 }}
+        animate={{ opacity: handoffPhase === 'out' ? 0 : 1 }}
+        exit={{ opacity: 0 }}
+        transition={handoffPhase === 'out' ? closeEase : { duration: 0.28 }}
+        onClick={() => requestClose('dismiss')} />
 
       {/* ── WHERE / ORIGIN — full-screen dark modal (Figma 7051:495637) ─────── */}
       {(type === 'where' || type === 'origin') && (
-        /* Card is a direct flex child of bex-fs-overlay — identical structure to bex-fs in Lite.
-           The scrim (already rendered above) handles tap-to-dismiss in the gap above the card. */
-        <motion.div
-          className="bex-pro-dest__card"
-          initial={{ y: '100%' }}
-          animate={{ y: 0 }}
-          exit={{ y: '100%' }}
-          transition={sheetSpring}
-        >
+        <>
+          {handoff && handoffAnim && (
+            <motion.div
+              className="bex-pro-dest__morph-surface"
+              initial={{
+                x: handoffAnim.from.left,
+                y: handoffAnim.from.top,
+                width: handoffAnim.from.width,
+                height: handoffAnim.from.height,
+                borderRadius: 12,
+              }}
+              animate={{
+                x: handoffPhase === 'out' ? handoffAnim.from.left : handoffAnim.surfaceTo.left,
+                y: handoffPhase === 'out' ? handoffAnim.from.top : handoffAnim.surfaceTo.top,
+                width: handoffPhase === 'out' ? handoffAnim.from.width : handoffAnim.surfaceTo.width,
+                height: handoffPhase === 'out' ? handoffAnim.from.height : handoffAnim.surfaceTo.height,
+                borderRadius: handoffPhase === 'out' ? 12 : '32px 32px 0 0',
+              }}
+              transition={handoffMove}
+              onAnimationComplete={() => {
+                if (handoffPhase !== 'out') return;
+                if (performance.now() - handoffStartedAt.current < 280) return;
+                finishClose();
+              }}
+              aria-hidden="true"
+            />
+          )}
+          <motion.div
+            ref={cardRef}
+            className={`bex-pro-dest__card${handoffPhase === 'out' ? ' bex-pro-dest__card--closing' : ''}`}
+            initial={handoff ? { opacity: 0 } : { y: '100%' }}
+            animate={handoff
+              ? { opacity: handoffPhase === 'out' ? 0 : 1 }
+              : { y: handoffPhase === 'out' ? '100%' : 0 }}
+            exit={handoff ? { opacity: 0 } : { y: '100%' }}
+            transition={handoff
+              ? (handoffPhase === 'out'
+                  ? { duration: 0.14, ease: [0.32, 0.72, 0, 1] }
+                  : { duration: 0.22, delay: 0.14, ease: [0.22, 1, 0.36, 1] })
+              : (handoffPhase === 'out' ? closeEase : sheetSpring)}
+            onAnimationComplete={() => {
+              if (!handoff && handoffPhase === 'out') {
+                if (performance.now() - handoffStartedAt.current < 280) return;
+                finishClose();
+              }
+            }}
+          >
             {/* Top-left close button */}
             <div className="bex-pro-dest__top-bar">
-              <button type="button" className="bex-pro-dest__top-close" onClick={onClose} aria-label="Close">
+              <button type="button" className="bex-pro-dest__top-close" onClick={() => requestClose('dismiss')} aria-label="Close">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                 </svg>
@@ -722,13 +1022,16 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
 
             {/* Pill search input — no arrow inside */}
             <div className="bex-pro-dest__search-wrap">
-              <div className="bex-pro-dest__pill">
+              <div
+                ref={pillRef}
+                className={`bex-pro-dest__pill${showHandoffGhost && !ghostSettled ? ' bex-pro-dest__pill--awaiting-handoff' : ''}`}
+              >
                 <input
                   ref={inputRef}
                   value={query}
                   onChange={e => setQuery(e.target.value)}
                   placeholder={type === 'origin' ? 'Leaving from' : 'Where to?'}
-                  className="bex-pro-dest__input"
+                  className={`bex-pro-dest__input${showHandoffGhost && !ghostSettled ? ' bex-pro-dest__input--handoff' : ''}`}
                   autoComplete="off"
                   spellCheck={false}
                 />
@@ -744,30 +1047,70 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
             {/* Results body */}
             <div className="bex-pro-dest__body">
               {query.trim().length === 0 ? (
-                /* Empty state: recent searches */
+                /* Empty state: recent searches followed by destination inspiration */
                 <>
-                  <p className="bex-pro-dest__section-title">Recent searches</p>
+                  {recentSearches.length > 0 && (
+                    <>
+                      <p className="bex-pro-dest__section-title">Recent searches</p>
+                      <div className="bex-pro-dest__list">
+                        {recentSearches.map(s => (
+                          <div key={s.primary} className="bex-pro-dest__item">
+                            <button type="button" className="bex-pro-dest__item-main"
+                              onClick={() => commitDestination(s.primary)}>
+                              <span className="bex-pro-dest__item-icon">
+                                <IconSuggestHistoryPro />
+                              </span>
+                              <span className="bex-pro-dest__item-text">
+                                <span className="bex-pro-dest__item-primary">{s.primary}</span>
+                                <span className="bex-pro-dest__item-secondary">{s.secondary}</span>
+                              </span>
+                            </button>
+                            <button type="button" className="bex-pro-dest__item-dismiss"
+                              aria-label={`Remove ${s.primary} from recent searches`}
+                              onClick={() => setRecentSearches(items => items.filter(item => item.primary !== s.primary))}>
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  <p className={`bex-pro-dest__section-title${recentSearches.length > 0 ? ' bex-pro-dest__section-title--following' : ''}`}>
+                    Suggested destinations
+                  </p>
                   <div className="bex-pro-dest__list">
-                    {ALL_SUGGESTIONS_PRO.slice(0, 6).map((s, i) => (
-                      <button key={i} type="button" className="bex-pro-dest__item"
-                        onMouseDown={() => {
-                          if (type === 'origin') onChange({ origin: s.primary });
-                          else onChange({ where: s.primary });
-                          onClose();
-                        }}>
+                    {SUGGESTED_DESTINATIONS_PRO.map(s => (
+                      <button key={s.primary} type="button" className="bex-pro-dest__item"
+                        onClick={() => commitDestination(s.primary)}>
                         <span className="bex-pro-dest__item-icon">
                           <SuggestionIconPro kind={s.kind} />
                         </span>
                         <span className="bex-pro-dest__item-text">
                           <span className="bex-pro-dest__item-primary">{s.primary}</span>
-                          {s.secondary && <span className="bex-pro-dest__item-secondary">{s.secondary}</span>}
+                          <span className="bex-pro-dest__item-secondary">{s.secondary}</span>
                         </span>
-                        <button type="button" className="bex-pro-dest__item-dismiss"
-                          aria-label="Remove from recent"
-                          onMouseDown={e => e.stopPropagation()}
-                          onClick={e => e.stopPropagation()}>
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                        </button>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : isReopenedWithValue ? (
+                /* Reopening a populated field: offer useful places around the selection */
+                <>
+                  <p className="bex-pro-dest__section-title">
+                    {nearbySuggestions.length > 0 ? 'Nearby locations' : 'Suggested destinations'}
+                  </p>
+                  <div className="bex-pro-dest__list">
+                    {(nearbySuggestions.length > 0 ? nearbySuggestions : SUGGESTED_DESTINATIONS_PRO).map(s => (
+                      <button key={`${s.kind}-${s.primary}`} type="button" className="bex-pro-dest__item"
+                        onClick={() => commitDestination(s.primary)}>
+                        <span className="bex-pro-dest__item-icon">
+                          <SuggestionIconPro kind={s.kind} />
+                        </span>
+                        <span className="bex-pro-dest__item-text">
+                          <span className="bex-pro-dest__item-primary">{s.primary}</span>
+                          <span className="bex-pro-dest__item-secondary">{s.secondary}</span>
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -777,11 +1120,7 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
                 <div className="bex-pro-dest__list">
                   {filtered.map((s, i) => (
                     <button key={i} type="button" className="bex-pro-dest__item"
-                      onMouseDown={() => {
-                        if (type === 'origin') onChange({ origin: s.primary });
-                        else onChange({ where: s.primary });
-                        onClose();
-                      }}>
+                      onMouseDown={() => commitDestination(s.primary)}>
                       <span className="bex-pro-dest__item-icon">
                         <SuggestionIconPro kind={s.kind} />
                       </span>
@@ -792,11 +1131,7 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
                     </button>
                   ))}
                   <button type="button" className="bex-pro-dest__item bex-pro-dest__item--search-for"
-                    onMouseDown={() => {
-                      if (type === 'origin') onChange({ origin: query.trim() });
-                      else onChange({ where: query.trim() });
-                      onClose();
-                    }}>
+                    onMouseDown={() => commitDestination(query.trim())}>
                     <span className="bex-pro-dest__item-icon bex-pro-dest__item-icon--search">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
@@ -809,6 +1144,81 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
                 </div>
               )}
             </div>
+          </motion.div>
+        </>
+      )}
+
+      {showHandoffGhost && handoffAnim && destPillBox && destTextBox && (
+        <motion.div
+          className={`bex-pro-dest__handoff-pill${ghostSettled ? ' bex-pro-dest__handoff-pill--settled' : ''}`}
+          initial={{
+            x: handoffAnim.from.left,
+            y: handoffAnim.from.top,
+            width: handoffAnim.from.width,
+            height: handoffAnim.from.height,
+            borderRadius: 12,
+            boxShadow: '0px 0px 36px rgba(16,16,16,0.12)',
+          }}
+          animate={{
+            x: destPillBox.left,
+            y: destPillBox.top,
+            width: destPillBox.width,
+            height: destPillBox.height,
+            borderRadius: handoffPhase === 'out' ? 12 : 999,
+            boxShadow: handoffPhase === 'out'
+              ? '0px 0px 0px rgba(16,16,16,0)'
+              : '0px 0px 36px rgba(16,16,16,0.12)',
+          }}
+          transition={handoffMove}
+          onAnimationComplete={() => {
+            if (handoffPhase === 'out') return;
+            if (performance.now() - handoffStartedAt.current < 320) return;
+            window.setTimeout(() => setHandoffDone(true), 50);
+          }}
+          aria-hidden="true"
+        >
+          <motion.span
+            className="bex-pro-dest__handoff-label"
+            initial={{
+              x: handoffAnim.fromText.left,
+              y: handoffAnim.fromText.top,
+              width: handoffAnim.fromText.width,
+              height: handoffAnim.fromText.height,
+            }}
+            animate={{
+              x: destTextBox.left,
+              y: destTextBox.top,
+              width: destTextBox.width,
+              height: destTextBox.height,
+            }}
+            transition={handoffType}
+          >
+            {destIsPlaceholder ? (
+              <>
+                <motion.span
+                  className="bex-pro-dest__handoff-pill-text bex-pro-dest__handoff-pill-text--from"
+                  style={{ color: '#7c7891' }}
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: handoffPhase === 'out' ? 1 : 0 }}
+                  transition={handoffType}
+                >
+                  {handoffLabel}
+                </motion.span>
+                <motion.span
+                  className="bex-pro-dest__handoff-pill-text bex-pro-dest__handoff-pill-text--to"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: handoffPhase === 'out' ? 0 : 1 }}
+                  transition={handoffType}
+                >
+                  {handoffLabel}
+                </motion.span>
+              </>
+            ) : (
+              <span className="bex-pro-dest__handoff-pill-text bex-pro-dest__handoff-pill-text--filled">
+                {handoffLabel}
+              </span>
+            )}
+          </motion.span>
         </motion.div>
       )}
 
@@ -818,18 +1228,32 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
           lob={lob}
           fieldValues={fieldValues}
           sheetSpring={sheetSpring}
-          onClose={onClose}
+          closing={handoffPhase === 'out'}
+          closeTransition={closeEase}
+          onClose={requestClose}
+          onCloseComplete={finishClose}
           onChange={onChange}
         />
       )}
 
       {/* ── WHEN sheet — Calendar (Figma 12010:66501) ─────────────────────── */}
       {type === 'when' && (
-        <motion.div className="bex-fs bex-cal bex-cal--pro" initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={sheetSpring}>
+        <motion.div
+          className="bex-fs bex-cal bex-cal--pro"
+          initial={{ y: '100%' }}
+          animate={{ y: handoffPhase === 'out' ? '100%' : 0 }}
+          exit={{ y: '100%' }}
+          transition={handoffPhase === 'out' ? closeEase : sheetSpring}
+          onAnimationComplete={() => {
+            if (handoffPhase !== 'out') return;
+            if (performance.now() - handoffStartedAt.current < 280) return;
+            finishClose();
+          }}
+        >
 
           {/* Header: X close button only */}
           <div className="bex-cal__pro-toolbar">
-            <button type="button" className="bex-cal__pro-close" onClick={onClose} aria-label="Close">
+            <button type="button" className="bex-cal__pro-close" onClick={() => requestClose('dismiss')} aria-label="Close">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
               </svg>
@@ -861,16 +1285,18 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
               </div>
 
               {/* Footer: divider + scrollable chips + Done */}
-              <div className="bex-cal__footer bex-cal__footer--pro-exact">
-                <div className="bex-cal__flex-footer bex-cal__flex-footer--pro">
-                  {['Exact dates', '±1 day', '±2 days', '±3 days', '±7 days'].map(f => (
-                    <button key={f} type="button"
-                      className={`bex-cal__flex-footer-pill bex-cal__flex-footer-pill--pro${flexibility === f ? ' bex-cal__flex-footer-pill--sel' : ''}`}
-                      onClick={() => setFlexibility(f)}>{f}</button>
-                  ))}
-                </div>
+              <div className={`bex-cal__footer bex-cal__footer--pro-exact${lob === 'flights' || lob === 'packages' || lob === 'cars' || lob === 'activities' ? ' bex-cal__footer--no-flex' : ''}`}>
+                {lob !== 'flights' && lob !== 'packages' && lob !== 'cars' && lob !== 'activities' && (
+                  <div className="bex-cal__flex-footer bex-cal__flex-footer--pro">
+                    {['Exact dates', '±1 day', '±2 days', '±3 days', '±7 days'].map(f => (
+                      <button key={f} type="button"
+                        className={`bex-cal__flex-footer-pill bex-cal__flex-footer-pill--pro${flexibility === f ? ' bex-cal__flex-footer-pill--sel' : ''}`}
+                        onClick={() => setFlexibility(f)}>{f}</button>
+                    ))}
+                  </div>
+                )}
                 <button type="button" className="bex-cal__save bex-cal__save--pro"
-                  onClick={() => { if (rangeStart) onChange({ when: formatRangeLabelPro(rangeStart, rangeEnd) }); onClose(); }}>
+                  onClick={() => { if (rangeStart) onChange({ when: formatRangeLabelPro(rangeStart, rangeEnd) }); requestClose('commit'); }}>
                   Done
                 </button>
               </div>
@@ -928,7 +1354,7 @@ const FieldSheet: React.FC<SheetProps> = ({ type, lob, fieldValues, onClose, onC
                   onClick={() => {
                     const months = flexMonths.map(k => { const [, m] = k.split('-').map(Number); return SHORT_MONTH_NAMES_PRO[m]; });
                     onChange({ when: [flexDur, months.join(', ')].filter(Boolean).join(' · ') });
-                    onClose();
+                    requestClose('commit');
                   }}>Done</button>
               </div>
             </>
@@ -948,7 +1374,7 @@ interface RoomData { adults: number; children: number; }
 interface ProTravProps {
   lob: LobId;
   fieldValues: FieldValues;
-  onClose: () => void;
+  onClose: (reason?: CloseReason) => void;
   onChange: (v: Partial<FieldValues>) => void;
 }
 
@@ -967,7 +1393,7 @@ const ProTravelersCard: React.FC<ProTravProps> = ({ lob, fieldValues, onClose, o
     const totAdults = rooms.reduce((s, r) => s + r.adults, 0);
     const totChildren = rooms.reduce((s, r) => s + r.children, 0);
     onChange({ adults: totAdults, children: totChildren, rooms: rooms.length });
-    onClose();
+    onClose('commit');
   };
 
   // EGDS filled circular stepper button
@@ -1105,20 +1531,42 @@ interface FieldRowProps {
   value: string;
   onClick: () => void;
   si?: number; // stagger index
+  onHandoff?: (box: HandoffBox) => void;
+  valueHidden?: boolean;
 }
 
 // Single-line field: staggers in based on si (stagger index) via parent variant propagation.
-const FieldRow: React.FC<FieldRowProps> = ({ icon, label, value, onClick, si = 0 }) => (
+const FieldRow: React.FC<FieldRowProps> = ({ icon, label, value, onClick, si = 0, onHandoff, valueHidden = false }) => (
   <motion.button
     type="button"
     className={`bex-hero-pro__field${!value ? ' bex-hero-pro__field--empty' : ''}`}
-    onClick={onClick}
+    onClick={e => {
+      if (onHandoff) {
+        const valueEl = e.currentTarget.querySelector('.bex-hero-pro__field-value') as HTMLElement | null;
+        const field = e.currentTarget.getBoundingClientRect();
+        const text = (valueEl ?? e.currentTarget).getBoundingClientRect();
+        onHandoff({
+          left: field.left,
+          top: field.top,
+          width: field.width,
+          height: field.height,
+          textLeft: text.left,
+          textTop: text.top,
+          textWidth: text.width,
+          textHeight: text.height,
+          text: valueEl?.textContent?.trim() || label,
+        });
+      }
+      onClick();
+    }}
     variants={FIELD_ITEM_VARIANTS as any}
     custom={si}
   >
     <span className="bex-hero-pro__field-icon">{icon}</span>
     <span className="bex-hero-pro__field-text">
-      <span className="bex-hero-pro__field-value">{value || label}</span>
+      <span className={`bex-hero-pro__field-value${valueHidden ? ' bex-hero-pro__field-value--handoff' : ''}`}>
+        {value || label}
+      </span>
     </span>
   </motion.button>
 );
@@ -1169,22 +1617,25 @@ interface Props {
   warmth: Warmth;
   /** When true: no status bar/toolbar, always expanded. Used in scroll-expand overlay. */
   overlay?: boolean;
+  /** MSF keeps the Pro shell but uses Lite field sheets and interaction behavior. */
+  fieldSheets?: 'pro' | 'lite';
 }
 
-export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
+export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldSheets = 'pro' }) => {
   const [activeLob, setActiveLob] = useState<LobId>('stays');
   const [openSheet, setOpenSheet] = useState<FieldType>(null);
+  const [handoff, setHandoff] = useState<HandoffBox | null>(null);
   const [collapsed, setCollapsed] = useState(!overlay && warmth === 'hot');
   const [fields, setFields] = useState<FieldValues>(
     warmth === 'hot' ? WARM_FIELDS : COLD_FIELDS
   );
   const [flightTab, setFlightTab] = useState(0);
   const [packageTab, setPackageTab] = useState(0);
-  const [packageFlightTab, setPackageFlightTab] = useState(0); // Roundtrip / One-way
   const [packageCabinClass, setPackageCabinClass] = useState('Economy');
   const [bundleExpanded, setBundleExpanded] = useState(false);
+  const [pkgMultiMode, setPkgMultiMode] = useState(false);
   const [carDropoffExpanded, setCarDropoffExpanded] = useState(false);
-  // Which pill popover menu is open: 'flightType' | 'cabin' | 'pkgType' | 'pkgFlight' | 'pkgCabin'
+  // Which pill popover menu is open: 'flightType' | 'cabin' | 'pkgType' | 'pkgCabin'
   const [activePillMenu, setActivePillMenu] = useState<string | null>(null);
   const [pillMenuPos, setPillMenuPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
   const pillBtnRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -1216,11 +1667,13 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
 
   const lobNavRef = useRef<HTMLDivElement>(null);
   const lobItemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const pillRowOuterRef = useRef<HTMLDivElement>(null);
 
   // Always-current fields ref for progressive disclosure timers
   const fieldsRef = useRef(fields);
   useEffect(() => { fieldsRef.current = fields; }, [fields]);
   const nextSheetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const expandSheetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const updateField = (partial: Partial<FieldValues>) =>
     setFields(prev => ({ ...prev, ...partial }));
@@ -1286,14 +1739,15 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
     return null;
   };
 
-  const handleSheetClose = () => {
+  const handleSheetClose = (reason: CloseReason = 'dismiss') => {
     const closedSheet = openSheet;
     const isMc = mcEditRef.current !== null;
     mcEditRef.current = null;
     setOpenSheet(null);
+    setHandoff(null);
 
-    // Progressive disclosure: auto-open next empty field after a brief pause
-    if (closedSheet && !isMc) {
+    // Progressive disclosure only after a committed value, not a close-button dismiss.
+    if (reason === 'commit' && fieldSheets === 'pro' && closedSheet && !isMc) {
       if (nextSheetTimerRef.current) clearTimeout(nextSheetTimerRef.current);
       nextSheetTimerRef.current = setTimeout(() => {
         const next = getNextSheet(closedSheet, fieldsRef.current);
@@ -1308,7 +1762,15 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
   }, [warmth, overlay]);
 
   // Reset bundle when switching LOBs or package tabs
-  useEffect(() => { setBundleExpanded(false); }, [activeLob, packageTab]);
+  useEffect(() => { setBundleExpanded(false); setPkgMultiMode(false); }, [activeLob, packageTab]);
+
+  // Scroll so the pill row ("Flight + Stay") is visible when multi-mode expands
+  useEffect(() => {
+    if (!pkgMultiMode) return;
+    requestAnimationFrame(() => {
+      pillRowOuterRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [pkgMultiMode]);
 
   // Cancel any pending progressive disclosure when LOB changes
   useEffect(() => {
@@ -1318,6 +1780,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
   // Cleanup on unmount
   useEffect(() => () => {
     if (nextSheetTimerRef.current) clearTimeout(nextSheetTimerRef.current);
+    if (expandSheetTimerRef.current) clearTimeout(expandSheetTimerRef.current);
   }, []);
 
   // Notify global sticky bar of active LOB
@@ -1353,11 +1816,23 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
     return parts.join(', ');
   };
 
+  const captureHandoff = fieldSheets === 'pro'
+    ? (box: HandoffBox) => setHandoff(box)
+    : undefined;
+  const whereHandoff = {
+    onHandoff: captureHandoff,
+    valueHidden: fieldSheets === 'pro' && openSheet === 'where',
+  };
+  const originHandoff = {
+    onHandoff: captureHandoff,
+    valueHidden: fieldSheets === 'pro' && openSheet === 'origin',
+  };
+
   // ── Per-LOB form content ───────────────────────────────────────────────────
 
   const renderStaysForm = () => (
     <div className="bex-hero-pro__fieldscard">
-      <FieldRow si={0} icon={<IconLocation />} label="Where to?" value={fields.where} onClick={() => setOpenSheet('where')} />
+      <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Where to?" value={fields.where} onClick={() => setOpenSheet('where')} />
       <D si={1} />
       <FieldRow si={2} icon={<IconCalendar />} label="Select dates" value={fields.when} onClick={() => setOpenSheet('when')} />
       <D si={3} />
@@ -1463,10 +1938,10 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
     return (
     <div className="bex-hero-pro__fieldscard">
       <div className="bex-hero-pro__origin-wrap">
-        <FieldRow si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
+        <FieldRow {...originHandoff} si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
         <div className="bex-hero-pro__flight-connector" aria-hidden="true" />
         <D si={1} />
-        <FieldRow si={2} icon={<IconFlightLanding />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
+        <FieldRow {...whereHandoff} si={2} icon={<IconFlightLanding />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
         <button type="button" className="bex-hero-pro__swap-btn" aria-label="Swap"
           onClick={() => updateField({ origin: fields.where, where: fields.origin })}>
           <IconSwap />
@@ -1522,7 +1997,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
     return (
     <div className="bex-hero-pro__fieldscard">
       {/* Row 1: Location — label changes when separate drop-off is expanded */}
-      <FieldRow si={0} icon={<IconLocation />}
+      <FieldRow {...whereHandoff} si={0} icon={<IconLocation />}
         label={carDropoffExpanded ? 'Pick-up location' : 'Pick-up and drop-off location'}
         value={fields.where}
         onClick={() => setOpenSheet('where')} />
@@ -1605,70 +2080,146 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
 
   const renderPackagesForm = () => {
     // 0=Stay+Flight, 1=Flight+Car, 2=Stay+Car, 3=Stay+Flight+Car
-    const hasFlights     = packageTab !== 2; // all except Stay+Car
-    const hasStay        = packageTab !== 1; // all except Flight+Car
-    const hasChangeDates = packageTab === 0 || packageTab === 3; // Stay+Flight or Stay+Flight+Car
+    const hasFlights = packageTab !== 2;
 
+    // ── Multi-dates / multi-destinations expanded view ────────────────────────
+    if (pkgMultiMode) {
+      // Which sections to show based on current package tab:
+      // 0=Stay+Flight, 1=Flight+Car, 2=Stay+Car, 3=Stay+Flight+Car
+      const hasStay    = packageTab === 0 || packageTab === 2 || packageTab === 3;
+      const hasCar     = packageTab === 1 || packageTab === 2 || packageTab === 3;
+
+      return (
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key="pkg-multi"
+            className="bex-hero-pro__pkg-multi"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* ── Flight section ───────────────────────────────── */}
+            {hasFlights && (<>
+              <div className="bex-hero-pro__pkg-section-header">
+                <span className="bex-hero-pro__pkg-section-label">Flight</span>
+                <div className="bex-hero-pro__pkg-section-pills">
+                  <button type="button" className="bex-hero-pro__pill bex-hero-pro__pill--sm">
+                    <span className="bex-hero-pro__pill-label">Roundtrip</span>
+                    <IconChevronDown />
+                  </button>
+                  <button type="button" className="bex-hero-pro__pill bex-hero-pro__pill--sm">
+                    <span className="bex-hero-pro__pill-label">{fields.cabinClass || 'Economy'}</span>
+                    <IconChevronDown />
+                  </button>
+                </div>
+              </div>
+              <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+                <div className="bex-hero-pro__origin-wrap">
+                  <FieldRow {...originHandoff} si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
+                  <div className="bex-hero-pro__flight-connector" aria-hidden="true" />
+                  <D si={1} />
+                  <FieldRow {...whereHandoff} si={2} icon={<IconFlightLanding />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
+                  <button type="button" className="bex-hero-pro__swap-btn" aria-label="Swap"
+                    onClick={() => updateField({ origin: fields.where, where: fields.origin })}>
+                    <IconSwap />
+                  </button>
+                </div>
+                <D si={3} />
+                <FieldRow si={4} icon={<IconCalendar />} label="Select flight dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+              </div>
+            </>)}
+
+            {/* ── Stay section ─────────────────────────────────── */}
+            {hasStay && (<>
+              <div className="bex-hero-pro__pkg-section-header">
+                <span className="bex-hero-pro__pkg-section-label">Stay</span>
+              </div>
+              <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+                <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Destination" value={fields.where} onClick={() => setOpenSheet('where')} />
+                <D si={1} />
+                <FieldRow si={2} icon={<IconCalendar />} label="Select stay dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+              </div>
+            </>)}
+
+            {/* ── Car section ──────────────────────────────────── */}
+            {hasCar && (<>
+              <div className="bex-hero-pro__pkg-section-header bex-hero-pro__pkg-section-header--car">
+                <span className="bex-hero-pro__pkg-section-label">Car</span>
+              </div>
+              <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+                <FieldRow si={0} icon={<IconLocation />} label="Pick-up location" value={fields.where} onClick={() => setOpenSheet('where')} />
+                <D si={1} />
+                <FieldRow si={2} icon={<IconCalendar />} label="Select dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+              </div>
+            </>)}
+
+            {/* ── Travelers ────────────────────────────────────── */}
+            <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+              <FieldRow si={0} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
+            </div>
+
+            {/* ── Collapse button ──────────────────────────────── */}
+            <motion.button
+              type="button"
+              className="bex-hero-pro__pkg-single-btn"
+              onClick={() => setPkgMultiMode(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.2 }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+              Single dates or destinations
+            </motion.button>
+          </motion.div>
+        </AnimatePresence>
+      );
+    }
+
+    // ── Single / default packages view ───────────────────────────────────────
     return (
       <div className="bex-hero-pro__fieldscard">
         {hasFlights ? (
           <div className="bex-hero-pro__origin-wrap">
-            <FieldRow si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
+            <FieldRow {...originHandoff} si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
             <div className="bex-hero-pro__flight-connector" aria-hidden="true" />
             <D si={1} />
-            <FieldRow si={2} icon={<IconFlightLanding />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
+            <FieldRow {...whereHandoff} si={2} icon={<IconFlightLanding />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
             <button type="button" className="bex-hero-pro__swap-btn" aria-label="Swap"
               onClick={() => updateField({ origin: fields.where, where: fields.origin })}>
               <IconSwap />
             </button>
           </div>
         ) : (
-          <FieldRow si={0} icon={<IconLocation />} label="Where to?" value={fields.where} onClick={() => setOpenSheet('where')} />
+          <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Where to?" value={fields.where} onClick={() => setOpenSheet('where')} />
         )}
         <D si={3} />
-        <FieldRow si={4} icon={<IconCalendar />} label="Select dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+        <FieldRow si={4} icon={<IconCalendar />} label={hasFlights ? 'Select flight dates' : 'Select dates'} value={fields.when} onClick={() => setOpenSheet('when')} />
         <D si={5} />
         <FieldRow si={6} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
-        {hasChangeDates && (
-          <motion.div className="bex-hero-pro__bundle" data-expanded={bundleExpanded} variants={FIELD_ITEM_VARIANTS as any} custom={hasFlights ? 7 : 7}>
-            <button type="button" className="bex-hero-pro__bundle-btn" onClick={() => setBundleExpanded(e => !e)}>
-              <motion.span
-                animate={{ rotate: bundleExpanded ? 180 : 0 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 32 }}
-                style={{ display: 'flex', alignItems: 'center' }}
-              >
-                <IconChevronDown />
-              </motion.span>
-              <span className="bex-hero-pro__bundle-label">Change dates for stay</span>
-            </button>
-            <AnimatePresence initial={false}>
-              {bundleExpanded && (
-                <motion.div
-                  key="bundle-packages"
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ paddingBottom: '10px' }}
-                >
-                  <button type="button" className="bex-hero__bundle-input" onClick={() => setOpenSheet('when')}>
-                    <IconCalendar />
-                    <span className="bex-hero__bundle-input-label">
-                      {fields.when || 'Stay dates'}
-                    </span>
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        )}
+
+        {/* ── Add multiple dates / destinations footer ─── */}
+        <motion.button
+          type="button"
+          className="bex-hero-pro__pkg-add-multi-btn"
+          variants={FIELD_ITEM_VARIANTS as any}
+          custom={7}
+          onClick={() => setPkgMultiMode(true)}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+          Add multiple dates or destinations
+        </motion.button>
       </div>
     );
   };
 
   const renderActivitiesForm = () => (
     <div className="bex-hero-pro__fieldscard">
-      <FieldRow si={0} icon={<IconLocation />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
+      <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
       <D si={1} />
       <FieldRow si={2} icon={<IconCalendar />} label="Select dates" value={fields.when} onClick={() => setOpenSheet('when')} />
       <D si={3} />
@@ -1678,7 +2229,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
 
   const renderCruisesForm = () => (
     <div className="bex-hero-pro__fieldscard">
-      <FieldRow si={0} icon={<IconLocation />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
+      <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
       <D si={1} />
       <FieldRow si={2} icon={<IconCalendar />} label="Departing between" value={fields.when} onClick={() => setOpenSheet('when')} />
       <D si={3} />
@@ -1732,12 +2283,12 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
                 <div className="bex-hero-pro__hot-profile-text">
                   <span className="bex-hero-pro__okc">OneKeyCash: $10.00</span>
                   <span className="bex-hero-pro__tier">
-                    <img src="https://www.figma.com/api/mcp/asset/6aafc84c-1497-4f11-ac54-cf3e08e04fad.svg" width="14" height="14" alt="" aria-hidden="true" />
+                    <img src="/images/figma/6aafc84c-1497-4f11-ac54-cf3e08e04fad.svg" width="14" height="14" alt="" aria-hidden="true" />
                     Gold
                   </span>
                 </div>
                 <img
-                  src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face&auto=format"
+                  src="/images/mary-avatar.jpg"
                   alt="Mary's profile"
                   className="bex-hero-pro__avatar-photo"
                 />
@@ -1802,7 +2353,11 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
               key="pro-pill"
               type="button"
               className="bex-hero__pill-bar bex-hero__pill-bar--pro bex-hero__pill-bar--overlay"
-              onClick={() => setCollapsed(false)}
+              onClick={() => {
+                setCollapsed(false);
+                if (expandSheetTimerRef.current) clearTimeout(expandSheetTimerRef.current);
+                expandSheetTimerRef.current = setTimeout(() => setOpenSheet('where'), 520);
+              }}
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.94 }}
@@ -1822,7 +2377,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
 
         {/* Pill row — CSS grid expand/collapse avoids layout spring conflicts */}
         <div ref={pillMenuWrapperRef} className="bex-hero-pro__pill-menu-wrapper">
-        <div className="bex-hero-pro__pill-row-outer" data-visible={!collapsed && (activeLob === 'flights' || activeLob === 'packages')}
+        <div ref={pillRowOuterRef} className="bex-hero-pro__pill-row-outer" data-visible={!collapsed && (activeLob === 'flights' || activeLob === 'packages')}
           style={{ display: collapsed ? 'none' : undefined }}>
           <div className="bex-hero-pro__pill-row-inner">
             <AnimatePresence initial={false}>
@@ -1856,18 +2411,14 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
                   <span className="bex-hero-pro__pill-label">{PACKAGE_TABS[packageTab]}</span>
                   <IconChevronDown />
                 </button>
-                <button type="button" className="bex-hero-pro__pill"
-                  ref={el => { pillBtnRefs.current['pkgFlight'] = el; }}
-                  onClick={() => openPillMenu('pkgFlight')}>
-                  <span className="bex-hero-pro__pill-label">{FLIGHT_TABS[packageFlightTab]}</span>
-                  <IconChevronDown />
-                </button>
-                <button type="button" className="bex-hero-pro__pill"
-                  ref={el => { pillBtnRefs.current['pkgCabin'] = el; }}
-                  onClick={() => openPillMenu('pkgCabin')}>
-                  <span className="bex-hero-pro__pill-label">{packageCabinClass}</span>
-                  <IconChevronDown />
-                </button>
+                {!pkgMultiMode && (
+                  <button type="button" className="bex-hero-pro__pill"
+                    ref={el => { pillBtnRefs.current['pkgCabin'] = el; }}
+                    onClick={() => openPillMenu('pkgCabin')}>
+                    <span className="bex-hero-pro__pill-label">{packageCabinClass}</span>
+                    <IconChevronDown />
+                  </button>
+                )}
               </>)}
             </motion.div>
             )}
@@ -1879,8 +2430,8 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
         {activePillMenu && (() => {
           const TRIP_OPTIONS = [
             { label: 'Roundtrip',   icon: <IconRoundtrip /> },
-            { label: 'One-way',     icon: <IconOneWay /> },
-            { label: 'Multi-city',  icon: <IconMultiCity /> },
+            { label: 'One-way',     icon: <IconMultiCity /> },
+            { label: 'Multi-city',  icon: <IconOneWay /> },
           ];
           const CABIN_OPTIONS = [
             { label: 'Economy',          icon: <IconCabinEconomy /> },
@@ -1893,7 +2444,6 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
             flightType: { options: TRIP_OPTIONS,   value: FLIGHT_TABS[flightTab],         onSelect: v => setFlightTab(FLIGHT_TABS.indexOf(v)) },
             cabin:      { options: CABIN_OPTIONS,  value: fields.cabinClass || 'Economy', onSelect: v => updateField({ cabinClass: v }) }, // 'Business class' / 'First class' stored as-is
             pkgType:    { options: PKG_OPTIONS,    value: PACKAGE_TABS[packageTab],       onSelect: v => setPackageTab(PACKAGE_TABS.indexOf(v)) },
-            pkgFlight:  { options: TRIP_OPTIONS,   value: FLIGHT_TABS[packageFlightTab],  onSelect: v => setPackageFlightTab(FLIGHT_TABS.indexOf(v)) },
             pkgCabin:   { options: CABIN_OPTIONS,  value: packageCabinClass,              onSelect: v => setPackageCabinClass(v) },
           };
           const cfg = menuCfg[activePillMenu];
@@ -1937,7 +2487,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.34, ease: 'easeOut' }}
           >
           <div className="bex-hero-pro__bottom">
             {/* Form bloom: exit retreats/blurs, new blooms up from within */}
@@ -1986,17 +2536,30 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false }) => {
         </div>{/* end hot-zone */}
       </div>
 
-      {/* All field sheets — shared FieldSheet handles where/origin/when/who */}
+      {/* MSF uses Lite sheets while retaining the complete Pro shell and pills. */}
       <AnimatePresence>
         {openSheet && (
-          <FieldSheet
-            key={openSheet}
-            type={openSheet}
-            lob={activeLob}
-            fieldValues={fields}
-            onClose={handleSheetClose}
-            onChange={mcEditRef.current ? handleMcFieldChange : updateField}
-          />
+          fieldSheets === 'lite' ? (
+            <LiteFieldSheet
+              key={`lite-${openSheet}`}
+              type={openSheet}
+              lob={activeLob}
+              fieldValues={fields}
+              includeCabinClass={false}
+              onClose={handleSheetClose}
+              onChange={mcEditRef.current ? handleMcFieldChange : updateField}
+            />
+          ) : (
+            <FieldSheet
+              key={`pro-${openSheet}`}
+              type={openSheet}
+              lob={activeLob}
+              fieldValues={fields}
+              handoff={openSheet === 'where' || openSheet === 'origin' ? handoff : null}
+              onClose={handleSheetClose}
+              onChange={mcEditRef.current ? handleMcFieldChange : updateField}
+            />
+          )
         )}
       </AnimatePresence>
 

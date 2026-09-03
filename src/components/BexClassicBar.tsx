@@ -60,9 +60,10 @@ interface Props {
 export const BexClassicBar: React.FC<Props> = ({ version }) => {
   const [selected, setSelected] = useState('home');
   const isLite = version === 'lite';
+  const visualVersion = isLite ? 'lite' : 'pro';
 
   return (
-    <nav className={`bex-globalnav bex-globalnav--${version}`} aria-label="Main">
+    <nav className={`bex-globalnav bex-globalnav--${visualVersion}`} aria-label="Main">
 
       {isLite ? (
         /* ── LITE: EGDS anchored global nav ─────────────────────────────────── */
