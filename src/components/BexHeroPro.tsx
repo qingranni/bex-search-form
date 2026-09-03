@@ -2155,7 +2155,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
             </>)}
 
             {/* ── Travelers ────────────────────────────────────── */}
-            <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+            <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset bex-hero-pro__fieldscard--travelers">
               <FieldRow si={0} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
             </div>
 
