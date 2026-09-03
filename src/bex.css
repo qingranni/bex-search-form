@@ -5663,11 +5663,27 @@
   background: #ebe9e7;
 }
 
+/* ── Packages mode-switch layout shell ──────────────────────────────────────── */
+/* Outer spring-height wrapper — Framer layout animation drives height */
+.bex-hero-pro__pkg-layout-shell {
+  /* let width follow the parent */
+  width: 100%;
+  /* clip overflow so sections don't bleed outside during entry */
+  overflow: hidden;
+}
+
 /* ── Packages multi-leg expanded container ─────────────────────────────────── */
 .bex-hero-pro__pkg-multi {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* Each section block (label row + field card) lives in its own motion wrapper */
+.bex-hero-pro__pkg-section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* Section header row: "Flight" label + Roundtrip/Economy pills */

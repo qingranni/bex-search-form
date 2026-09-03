@@ -1509,6 +1509,24 @@ const FORM_WRAPPER_VARIANTS = {
   exit:   { opacity: 0, scale: 0.985, transition: { duration: 0.18, ease: 'easeIn' } },
 } as const;
 
+// ── Package mode-switch variants ──────────────────────────────────────────────
+
+// Stagger container for multi-mode — children use PKG_SECTION_ITEM_VARIANTS
+const PKG_MULTI_CONTAINER_VARIANTS = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+  exit:   { transition: { staggerChildren: 0.04, staggerDirection: -1 as const } },
+} as const;
+
+// Each section block (label + card) springs in / out
+const PKG_SECTION_ITEM_VARIANTS = {
+  hidden:   { opacity: 0, y: 22, scale: 0.95 },
+  visible:  { opacity: 1, y: 0,  scale: 1,
+              transition: { type: 'spring' as const, stiffness: 440, damping: 26, mass: 0.62 } },
+  exit:     { opacity: 0, y: -8, scale: 0.97,
+              transition: { duration: 0.12, ease: [0.32, 0, 0.67, 0] as any } },
+} as const;
+
 // Each field / divider item staggers in from slightly below
 const FIELD_ITEM_VARIANTS = {
   hidden: { opacity: 0, y: 8 },
@@ -2081,40 +2099,122 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
   const renderPackagesForm = () => {
     // 0=Stay+Flight, 1=Flight+Car, 2=Stay+Car, 3=Stay+Flight+Car
     const hasFlights = packageTab !== 2;
+    const hasStay    = packageTab === 0 || packageTab === 2 || packageTab === 3;
+    const hasCar     = packageTab === 1 || packageTab === 2 || packageTab === 3;
 
-    // ── Multi-dates / multi-destinations expanded view ────────────────────────
-    if (pkgMultiMode) {
-      // Which sections to show based on current package tab:
-      // 0=Stay+Flight, 1=Flight+Car, 2=Stay+Car, 3=Stay+Flight+Car
-      const hasStay    = packageTab === 0 || packageTab === 2 || packageTab === 3;
-      const hasCar     = packageTab === 1 || packageTab === 2 || packageTab === 3;
+    return (
+      /* Layout shell: springs height as content swaps between modes */
+      <motion.div
+        layout
+        className="bex-hero-pro__pkg-layout-shell"
+        transition={{ type: 'spring', stiffness: 360, damping: 34, mass: 0.85 }}
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
 
-      return (
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key="pkg-multi"
-            className="bex-hero-pro__pkg-multi"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {/* ── Flight section ───────────────────────────────── */}
-            {hasFlights && (<>
-              <div className="bex-hero-pro__pkg-section-header">
-                <span className="bex-hero-pro__pkg-section-label">Flight</span>
-                <div className="bex-hero-pro__pkg-section-pills">
-                  <button type="button" className="bex-hero-pro__pill bex-hero-pro__pill--sm">
-                    <span className="bex-hero-pro__pill-label">Roundtrip</span>
-                    <IconChevronDown />
-                  </button>
-                  <button type="button" className="bex-hero-pro__pill bex-hero-pro__pill--sm">
-                    <span className="bex-hero-pro__pill-label">{fields.cabinClass || 'Economy'}</span>
-                    <IconChevronDown />
-                  </button>
-                </div>
-              </div>
-              <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+          {/* ══ FLEX / MULTI-MODE ═══════════════════════════════════════════ */}
+          {pkgMultiMode ? (
+            <motion.div
+              key="pkg-multi"
+              className="bex-hero-pro__pkg-multi"
+              variants={PKG_MULTI_CONTAINER_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {/* ── Flight section ─────────────────────────────── */}
+              {hasFlights && (
+                <motion.div variants={PKG_SECTION_ITEM_VARIANTS} className="bex-hero-pro__pkg-section-block">
+                  <div className="bex-hero-pro__pkg-section-header">
+                    <span className="bex-hero-pro__pkg-section-label">Flight</span>
+                    <div className="bex-hero-pro__pkg-section-pills">
+                      <button type="button" className="bex-hero-pro__pill bex-hero-pro__pill--sm">
+                        <span className="bex-hero-pro__pill-label">Roundtrip</span>
+                        <IconChevronDown />
+                      </button>
+                      <button type="button" className="bex-hero-pro__pill bex-hero-pro__pill--sm">
+                        <span className="bex-hero-pro__pill-label">{fields.cabinClass || 'Economy'}</span>
+                        <IconChevronDown />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+                    <div className="bex-hero-pro__origin-wrap">
+                      <FieldRow {...originHandoff} si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
+                      <div className="bex-hero-pro__flight-connector" aria-hidden="true" />
+                      <D si={1} />
+                      <FieldRow {...whereHandoff} si={2} icon={<IconFlightLanding />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
+                      <button type="button" className="bex-hero-pro__swap-btn" aria-label="Swap"
+                        onClick={() => updateField({ origin: fields.where, where: fields.origin })}>
+                        <IconSwap />
+                      </button>
+                    </div>
+                    <D si={3} />
+                    <FieldRow si={4} icon={<IconCalendar />} label="Select flight dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ── Stay section ───────────────────────────────── */}
+              {hasStay && (
+                <motion.div variants={PKG_SECTION_ITEM_VARIANTS} className="bex-hero-pro__pkg-section-block">
+                  <div className="bex-hero-pro__pkg-section-header">
+                    <span className="bex-hero-pro__pkg-section-label">Stay</span>
+                  </div>
+                  <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+                    <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Destination" value={fields.where} onClick={() => setOpenSheet('where')} />
+                    <D si={1} />
+                    <FieldRow si={2} icon={<IconCalendar />} label="Select stay dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ── Car section ────────────────────────────────── */}
+              {hasCar && (
+                <motion.div variants={PKG_SECTION_ITEM_VARIANTS} className="bex-hero-pro__pkg-section-block">
+                  <div className="bex-hero-pro__pkg-section-header bex-hero-pro__pkg-section-header--car">
+                    <span className="bex-hero-pro__pkg-section-label">Car</span>
+                  </div>
+                  <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
+                    <FieldRow si={0} icon={<IconLocation />} label="Pick-up location" value={fields.where} onClick={() => setOpenSheet('where')} />
+                    <D si={1} />
+                    <FieldRow si={2} icon={<IconCalendar />} label="Select dates" value={fields.when} onClick={() => setOpenSheet('when')} />
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ── Travelers ──────────────────────────────────── */}
+              <motion.div variants={PKG_SECTION_ITEM_VARIANTS}
+                className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset bex-hero-pro__fieldscard--travelers">
+                <FieldRow si={0} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
+              </motion.div>
+
+              {/* ── Collapse button ────────────────────────────── */}
+              <motion.button
+                type="button"
+                className="bex-hero-pro__pkg-single-btn"
+                variants={PKG_SECTION_ITEM_VARIANTS}
+                onClick={() => setPkgMultiMode(false)}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                Single dates or destinations
+              </motion.button>
+            </motion.div>
+
+          ) : (
+
+            /* ══ STANDARD / SINGLE MODE ═══════════════════════════════════ */
+            <motion.div
+              key="pkg-single"
+              className="bex-hero-pro__fieldscard"
+              initial={{ opacity: 0, scale: 0.97, y: 10 }}
+              animate={{ opacity: 1, scale: 1,    y: 0,
+                         transition: { type: 'spring', stiffness: 500, damping: 32, mass: 0.6 } }}
+              exit={{    opacity: 0, scale: 0.97, y: -8,
+                         transition: { duration: 0.16, ease: [0.32, 0, 0.67, 0] as any } }}
+            >
+              {hasFlights ? (
                 <div className="bex-hero-pro__origin-wrap">
                   <FieldRow {...originHandoff} si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
                   <div className="bex-hero-pro__flight-connector" aria-hidden="true" />
@@ -2125,95 +2225,32 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
                     <IconSwap />
                   </button>
                 </div>
-                <D si={3} />
-                <FieldRow si={4} icon={<IconCalendar />} label="Select flight dates" value={fields.when} onClick={() => setOpenSheet('when')} />
-              </div>
-            </>)}
+              ) : (
+                <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Where to?" value={fields.where} onClick={() => setOpenSheet('where')} />
+              )}
+              <D si={3} />
+              <FieldRow si={4} icon={<IconCalendar />} label={hasFlights ? 'Select flight dates' : 'Select dates'} value={fields.when} onClick={() => setOpenSheet('when')} />
+              <D si={5} />
+              <FieldRow si={6} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
 
-            {/* ── Stay section ─────────────────────────────────── */}
-            {hasStay && (<>
-              <div className="bex-hero-pro__pkg-section-header">
-                <span className="bex-hero-pro__pkg-section-label">Stay</span>
-              </div>
-              <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
-                <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Destination" value={fields.where} onClick={() => setOpenSheet('where')} />
-                <D si={1} />
-                <FieldRow si={2} icon={<IconCalendar />} label="Select stay dates" value={fields.when} onClick={() => setOpenSheet('when')} />
-              </div>
-            </>)}
+              {/* ── Add multiple dates / destinations footer ─── */}
+              <motion.button
+                type="button"
+                className="bex-hero-pro__pkg-add-multi-btn"
+                variants={FIELD_ITEM_VARIANTS as any}
+                custom={7}
+                onClick={() => setPkgMultiMode(true)}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+                Add multiple dates or destinations
+              </motion.button>
+            </motion.div>
+          )}
 
-            {/* ── Car section ──────────────────────────────────── */}
-            {hasCar && (<>
-              <div className="bex-hero-pro__pkg-section-header bex-hero-pro__pkg-section-header--car">
-                <span className="bex-hero-pro__pkg-section-label">Car</span>
-              </div>
-              <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset">
-                <FieldRow si={0} icon={<IconLocation />} label="Pick-up location" value={fields.where} onClick={() => setOpenSheet('where')} />
-                <D si={1} />
-                <FieldRow si={2} icon={<IconCalendar />} label="Select dates" value={fields.when} onClick={() => setOpenSheet('when')} />
-              </div>
-            </>)}
-
-            {/* ── Travelers ────────────────────────────────────── */}
-            <div className="bex-hero-pro__fieldscard bex-hero-pro__fieldscard--inset bex-hero-pro__fieldscard--travelers">
-              <FieldRow si={0} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
-            </div>
-
-            {/* ── Collapse button ──────────────────────────────── */}
-            <motion.button
-              type="button"
-              className="bex-hero-pro__pkg-single-btn"
-              onClick={() => setPkgMultiMode(false)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.2 }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-              </svg>
-              Single dates or destinations
-            </motion.button>
-          </motion.div>
         </AnimatePresence>
-      );
-    }
-
-    // ── Single / default packages view ───────────────────────────────────────
-    return (
-      <div className="bex-hero-pro__fieldscard">
-        {hasFlights ? (
-          <div className="bex-hero-pro__origin-wrap">
-            <FieldRow {...originHandoff} si={0} icon={<IconFlightTakeoff />} label="Leaving from" value={fields.origin} onClick={() => setOpenSheet('origin')} />
-            <div className="bex-hero-pro__flight-connector" aria-hidden="true" />
-            <D si={1} />
-            <FieldRow {...whereHandoff} si={2} icon={<IconFlightLanding />} label="Going to" value={fields.where} onClick={() => setOpenSheet('where')} />
-            <button type="button" className="bex-hero-pro__swap-btn" aria-label="Swap"
-              onClick={() => updateField({ origin: fields.where, where: fields.origin })}>
-              <IconSwap />
-            </button>
-          </div>
-        ) : (
-          <FieldRow {...whereHandoff} si={0} icon={<IconLocation />} label="Where to?" value={fields.where} onClick={() => setOpenSheet('where')} />
-        )}
-        <D si={3} />
-        <FieldRow si={4} icon={<IconCalendar />} label={hasFlights ? 'Select flight dates' : 'Select dates'} value={fields.when} onClick={() => setOpenSheet('when')} />
-        <D si={5} />
-        <FieldRow si={6} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
-
-        {/* ── Add multiple dates / destinations footer ─── */}
-        <motion.button
-          type="button"
-          className="bex-hero-pro__pkg-add-multi-btn"
-          variants={FIELD_ITEM_VARIANTS as any}
-          custom={7}
-          onClick={() => setPkgMultiMode(true)}
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-          </svg>
-          Add multiple dates or destinations
-        </motion.button>
-      </div>
+      </motion.div>
     );
   };
 
