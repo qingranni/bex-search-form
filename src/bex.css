@@ -5723,31 +5723,23 @@
   overflow: hidden;
 }
 
-/* "← Single dates or destinations" collapse button */
-.bex-hero-pro__pkg-single-btn {
+/* Back button — icon-only, lives in the pill row to the left of "Stay + Flight" */
+.bex-hero-pro__pkg-back-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  width: 100%;
-  background: #f5f4f2;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f0;
   border: none;
   cursor: pointer;
-  padding: 16px 20px;
-  font-family: var(--bex-font);
-  font-size: 13px;
-  font-weight: 500;
   color: #191e3b;
-  letter-spacing: -0.16px;
-  line-height: 17px;
-  text-align: left;
+  flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
 }
-.bex-hero-pro__pkg-single-btn svg {
-  flex-shrink: 0;
-  color: #191e3b;
-}
-.bex-hero-pro__pkg-single-btn:active {
-  background: #ebe9e7;
+.bex-hero-pro__pkg-back-btn:active {
+  background: #e4e4e4;
 }
 
 /* Pill size variant used inside pkg-section-header */

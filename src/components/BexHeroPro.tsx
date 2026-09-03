@@ -1783,11 +1783,12 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
   // Reset bundle when switching LOBs or package tabs
   useEffect(() => { setBundleExpanded(false); setPkgMultiMode(false); }, [activeLob, packageTab]);
 
-  // Scroll so the pill row ("Flight + Stay") is visible when multi-mode expands
+  // Scroll so the pill row ("Stay + Flight") is visible when multi-mode expands.
+  // block:'nearest' scrolls only if the row is out of view, and never scrolls past it.
   useEffect(() => {
     if (!pkgMultiMode) return;
     requestAnimationFrame(() => {
-      pillRowOuterRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      pillRowOuterRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }, [pkgMultiMode]);
 
@@ -2185,18 +2186,7 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
                 <FieldRow si={0} icon={<IconPerson />} label="Travelers" value={travelerLabel()} onClick={() => setOpenSheet('who')} />
               </motion.div>
 
-              {/* ── Collapse button ────────────────────────────── */}
-              <motion.button
-                type="button"
-                className="bex-hero-pro__pkg-single-btn"
-                variants={PKG_SECTION_ITEM_VARIANTS}
-                onClick={() => setPkgMultiMode(false)}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-                </svg>
-                Single dates or destinations
-              </motion.button>
+              {/* Back button is now in the pill row — no bottom collapse button needed */}
             </motion.div>
 
           ) : (
@@ -2439,6 +2429,28 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
                 </button>
               </>)}
               {activeLob === 'packages' && (<>
+                {/* Back button — only in flex/multi mode, sits left of the type pill */}
+                <AnimatePresence initial={false}>
+                  {pkgMultiMode && (
+                    <motion.button
+                      key="pkg-back"
+                      type="button"
+                      className="bex-hero-pro__pkg-back-btn"
+                      aria-label="Back to single dates"
+                      onClick={() => setPkgMultiMode(false)}
+                      initial={{ opacity: 0, x: -10, scale: 0.85 }}
+                      animate={{ opacity: 1, x: 0,   scale: 1,
+                                 transition: { type: 'spring', stiffness: 500, damping: 28 } }}
+                      exit={{    opacity: 0, x: -10, scale: 0.85,
+                                 transition: { duration: 0.14, ease: 'easeIn' } }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                      </svg>
+                    </motion.button>
+                  )}
+                </AnimatePresence>
                 <button type="button" className="bex-hero-pro__pill"
                   ref={el => { pillBtnRefs.current['pkgType'] = el; }}
                   onClick={() => openPillMenu('pkgType')}>
