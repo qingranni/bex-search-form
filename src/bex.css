@@ -5712,7 +5712,7 @@
 /* Inset field cards used inside the multi-leg layout */
 .bex-hero-pro__fieldscard--inset.bex-hero-pro__fieldscard--travelers {
   margin-top: 12px;   /* 12px gap already applied by flex gap; total = 24px */
-  margin-bottom: 12px;
+  /* No margin-bottom — bex-hero-pro__bottom gap:20px gives the correct 20px below */
 }
 .bex-hero-pro__fieldscard--inset {
   box-shadow:
