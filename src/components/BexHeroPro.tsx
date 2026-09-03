@@ -1783,12 +1783,13 @@ export const BexHeroPro: React.FC<Props> = ({ warmth, overlay = false, fieldShee
   // Reset bundle when switching LOBs or package tabs
   useEffect(() => { setBundleExpanded(false); setPkgMultiMode(false); }, [activeLob, packageTab]);
 
-  // Scroll so the pill row ("Stay + Flight") is visible when multi-mode expands.
-  // block:'nearest' scrolls only if the row is out of view, and never scrolls past it.
+  // Scroll up so "Stay + Flight" pill row + expanded form are fully visible.
+  // scrollIntoView mis-fires under CSS zoom, so we target .bex-app directly.
   useEffect(() => {
     if (!pkgMultiMode) return;
     requestAnimationFrame(() => {
-      pillRowOuterRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      (document.querySelector('.bex-app') as HTMLElement | null)
+        ?.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }, [pkgMultiMode]);
 
