@@ -5681,7 +5681,7 @@
 .bex-hero-pro__pkg-section-block {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
 }
 
 /* Section header row: "Flight" label + Roundtrip/Economy pills */
